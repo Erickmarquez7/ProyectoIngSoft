@@ -3,10 +3,13 @@
  */
 package com.example.demo.models.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author DozalMagnaniDiego
@@ -18,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Serializable{
 
 	
 	@Id //Le agregamos la etiqueta de que sera la llave primaria 
@@ -42,6 +45,12 @@ public class Usuario {
 	private Integer rol;
 	@Column(name="activo")
 	private Boolean activo;
+	
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+	@JsonManagedReference 
+	private List<Rentar> rentados = new ArrayList(); 
+	
+	private static final long serialVersionUID = 1L;
 	
 	public String getNoCuenta() {
 		return noCuenta;
@@ -102,5 +111,12 @@ public class Usuario {
 	}
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+	
+	public List<Rentar> getRentados() {
+		return rentados;
+	}
+	public void setRentados(List<Rentar> rentados) {
+		this.rentados = rentados;
 	}
 }

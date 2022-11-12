@@ -4,11 +4,12 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author ATL
@@ -35,6 +36,11 @@ public class Producto implements Serializable{
 	@Column(name="categoria")
 	private String categoria;
 
+	/*
+	@OneToMany(mappedBy="productos", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+	@JsonManagedReference 
+	private List<Rentar> rentados = new ArrayList();
+	*/
 	
 	//getters y setters de los atributos
 
