@@ -1,5 +1,5 @@
 /**
- * 
+ * Clase que define la entidad producto
  */
 package com.example.demo.models.entity;
 
@@ -12,12 +12,13 @@ import javax.persistence.Table;
 
 /**
  * @author ATL
- *
+ * @author Erick Bernal Márquez
  */
 @Entity
 @Table(name="productos")
 public class Producto implements Serializable{
 
+	//Atributos de la entidad
 	@Id
 	@Column(name="serial",length = 12, nullable = false)
 	private String serial;
@@ -31,13 +32,12 @@ public class Producto implements Serializable{
 	private String descripcion;
 	@Column(name="dias",length = 1)
 	private int dias;
-	@Column(name="imagen")
-	private String imagen;
 	@Column(name="categoria")
 	private String categoria;
 
 	
-	
+	//getters y setters de los atributos
+
 	public String getSerial() {
 		return serial;
 	}
@@ -84,14 +84,6 @@ public class Producto implements Serializable{
 
 	public void setDias(int dias) {
 		this.dias = dias;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
 	}
 
 	public String getCategoria() {

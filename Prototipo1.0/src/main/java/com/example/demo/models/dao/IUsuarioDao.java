@@ -1,3 +1,6 @@
+/**
+ * Dao auxiliar para el CRUD del usuario
+ */
 package com.example.demo.models.dao;
 
 import org.springframework.data.repository.CrudRepository;

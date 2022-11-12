@@ -1,3 +1,8 @@
+/**
+ * Implementación de la interfaz de los servicios del producto
+ * Para su implementacion utilizamos DAO
+ */
+
 package com.example.demo.models.service;
 
 import java.util.List;
@@ -13,31 +18,43 @@ public class ProductoServiceImp implements IProductoService{
 	@Autowired
 	private IProductoDao productoDao;
 	
-	
+	/**
+	 * Encuentra todos los productos
+	 * @return Una lista de productos
+	 */	
 	@Override
 	@Transactional(readOnly=true)
 	public List<Producto> findAll() {
-		// TODO Auto-generated method stub
 		return (List<Producto>) productoDao.findAll();
 	}
 
-
+	/**
+	 * Regresa un solo por producto por id
+	 * @param id el id del producto
+	 * @return el producto
+	 */
 	@Override
 	@Transactional(readOnly=true)
 	public Producto findById(String id) {
-		// TODO Auto-generated method stub
 		return productoDao.findById(id).orElse(null);
 		
 	}
 
-
+	/**
+	 * Guarda un producto
+	 * @param producto el producto a guardar
+	 * @return el producto a guardar
+	 */
 	@Override
 	@Transactional()
 	public Producto save(Producto producto) {
 		return productoDao.save(producto);
 	}
 
-
+	/**
+	 * Elimina un producto de acuerdo al Id
+	 * @param id el id del producto a eliminar
+	 */
 	@Override
 	@Transactional()
 	public void delete(String id) {

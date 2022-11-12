@@ -9,11 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author DozalMagnaniDiego,
- * ValenciaCruzJonathanJosué,
- * RadillaMaldonadoDylanEmmanuel,
- * OrtegaGarciaAlejandra
- * ,ReyesFarfánAndreaFernanda 
+ * @author DozalMagnaniDiego
+ * @author ValenciaCruzJonathanJosué
+ * @author RadillaMaldonadoDylanEmmanuel
+ * @author OrtegaGarciaAlejandra
+ * @author ReyesFarfánAndreaFernanda 
  *
  */
 @Entity
