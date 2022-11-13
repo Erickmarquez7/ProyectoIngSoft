@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,30 +22,42 @@ public class Producto implements Serializable{
 
 	//Atributos de la entidad
 	@Id
-	@Column(name="serial",length = 12, nullable = false)
-	private String serial;
-	@Column(name="nombre")
-	private String nombre;
-	@Column(name="cantidad")
-	private int cantidad;
-	@Column(name="precio")
-	private Double precio;
-	@Column(name="descripcion")
-	private String descripcion;
-	@Column(name="dias",length = 1)
-	private int dias;
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //siguiendo la estrategia de autoincremento
+	private String Id;
+	
 	@Column(name="categoria")
 	private String categoria;
 
-	
-	//getters y setters de los atributos
+	@Column(name="nombre")
+	private String nombre;
 
-	public String getSerial() {
-		return serial;
+	@Column(name="descripcion")
+	private String descripcion;
+
+	@Column(name="cantidad")
+	private int cantidad;
+
+	@Column(name="precio")
+	private Double precio;
+	
+	@Column(name="dias",length = 1)
+	private int dias;
+	
+	//getters y setters de los atributos del productos
+	public String getId() {
+		return Id;
 	}
 
-	public void setSerial(String serial) {
-		this.serial = serial;
+	public void setId(String Id) {
+		this.Id = Id;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
 
 	public String getNombre() {
@@ -52,6 +66,14 @@ public class Producto implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public int getCantidad() {
@@ -70,14 +92,6 @@ public class Producto implements Serializable{
 		this.precio = precio;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 	public int getDias() {
 		return dias;
 	}
@@ -86,13 +100,8 @@ public class Producto implements Serializable{
 		this.dias = dias;
 	}
 
-	public String getCategoria() {
-		return categoria;
-	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+
 
 	/**
 	 * 

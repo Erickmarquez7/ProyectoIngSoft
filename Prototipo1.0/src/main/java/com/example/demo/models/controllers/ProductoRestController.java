@@ -68,18 +68,17 @@ public class ProductoRestController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Producto update(@RequestBody Producto producto, @PathVariable String id){
 		Producto currentproduct = productoService.findById(id);
-		currentproduct.setNombre(producto.getNombre());
-		currentproduct.setCantidad(producto.getCantidad());
-		currentproduct.setDescripcion(producto.getDescripcion());
-		currentproduct.setDias(producto.getDias());
-		currentproduct.setPrecio(producto.getPrecio());
 		currentproduct.setCategoria(producto.getCategoria());
+		currentproduct.setNombre(producto.getNombre());
+		currentproduct.setDescripcion(producto.getDescripcion());
+		currentproduct.setCantidad(producto.getCantidad());
+		currentproduct.setPrecio(producto.getPrecio());
+		currentproduct.setDias(producto.getDias());
 		this.productoService.save(currentproduct);
 		return currentproduct;
 		
 	}
 	
-
 	/**
 	 * Elimina un producto de acuerdo al Id
 	 * @param id el id del producto a eliminar

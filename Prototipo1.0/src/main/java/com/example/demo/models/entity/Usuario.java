@@ -22,7 +22,7 @@ public class Usuario {
 
 	
 	@Id //Le agregamos la etiqueta de que sera la llave primaria 
-	@Column(name="noCuenta", length=9, nullable=false,unique=true)
+	@Column(name="nocuenta", length=9, nullable=false,unique=true)
 	private String noCuenta;
 	@Column(name="contrasena")
 	private String contrasena;
