@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -22,7 +20,7 @@ public class Producto implements Serializable{
 
 	//Atributos de la entidad
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //siguiendo la estrategia de autoincremento
+	@Column(name="idproducto", length=5, nullable=false, unique=true) //siguiendo la estrategia de autoincremento
 	private String Id;
 	
 	@Column(name="categoria")

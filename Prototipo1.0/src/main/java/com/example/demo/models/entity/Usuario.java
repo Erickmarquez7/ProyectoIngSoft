@@ -24,22 +24,31 @@ public class Usuario {
 	@Id //Le agregamos la etiqueta de que sera la llave primaria 
 	@Column(name="nocuenta", length=9, nullable=false,unique=true)
 	private String noCuenta;
+	
 	@Column(name="contrasena")
 	private String contrasena;
+	
 	@Column(name="nombre")
 	private String nombre;
+	
 	@Column(name="paterno")
 	private String paterno;
+	
 	@Column(name="materno")
 	private String materno;
+	
 	@Column(name="carrera")
 	private String carrera;
+	
 	@Column(name="celular")
 	private String celular;
+	
 	@Column(name="correo")
 	private String correo;
+	
 	@Column(name="rol")
 	private Integer rol;
+	
 	@Column(name="activo")
 	private Boolean activo;
 	
