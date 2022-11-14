@@ -3,9 +3,14 @@
  */
 package com.example.demo.models.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -51,6 +56,11 @@ public class Usuario {
 	
 	@Column(name="activo")
 	private Boolean activo;
+
+	//mapped esta relacionado con el atributo tal de la clase de la lista
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	//@JsonManagedReference 
+	private List<Rentar> rentados;
 	
 	public String getNoCuenta() {
 		return noCuenta;

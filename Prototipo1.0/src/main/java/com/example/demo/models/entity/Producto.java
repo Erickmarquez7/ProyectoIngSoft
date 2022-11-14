@@ -4,10 +4,14 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -41,6 +45,12 @@ public class Producto implements Serializable{
 	@Column(name="dias",length = 1)
 	private int dias;
 	
+	//mapped esta relacionado con el atributo tal de la clase de la lista
+	@OneToMany(mappedBy="producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	//@JsonManagedReference 
+	private List<Rentar> rentados;
+	
+
 	//getters y setters de los atributos del productos
 	public String getId() {
 		return Id;

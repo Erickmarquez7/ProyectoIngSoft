@@ -36,15 +36,15 @@ public class Rentar implements Serializable {
 	private Date fechaFin; 
 	
 	@Id
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="nocuenta")
 	private Usuario usuario;
 	
 	@Id
-	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	//crea una columna llamada id producto y guarda el id del producto
 	@JoinColumn(name="idproducto")
 	private Producto producto;
-	
 	
 	
 	private static final long serialVersionUID = 1L;
