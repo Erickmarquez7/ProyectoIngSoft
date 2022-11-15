@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 //import javax.persistence.GeneratedValue;
@@ -18,14 +20,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.demo.models.entity.pk.RentarPK;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="rentar")
-@IdClass(Rentar.class)
+//@IdClass(Rentar.class)
 public class Rentar implements Serializable {
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private Long id; 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; 
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="fechainicio")
@@ -35,12 +43,12 @@ public class Rentar implements Serializable {
 	@Column(name="fechafin")
 	private Date fechaFin; 
 	
-	@Id
+	//@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="nocuenta")
 	private Usuario usuario;
 	
-	@Id
+	//@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	//crea una columna llamada id producto y guarda el id del producto
 	@JoinColumn(name="idproducto")
