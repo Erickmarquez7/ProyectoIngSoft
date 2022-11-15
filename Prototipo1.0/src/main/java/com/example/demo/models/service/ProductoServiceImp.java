@@ -35,7 +35,7 @@ public class ProductoServiceImp implements IProductoService{
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public Producto findById(String id) {
+	public Producto findById(Long id) {
 		return productoDao.findById(id).orElse(null);
 		
 	}
@@ -57,7 +57,7 @@ public class ProductoServiceImp implements IProductoService{
 	 */
 	@Override
 	@Transactional()
-	public void delete(String id) {
+	public void delete(Long id) {
 		productoDao.deleteById(id);
 		
 	}

@@ -43,7 +43,7 @@ public class Rentar implements Serializable {
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	//crea una columna llamada id producto y guarda el id del producto
-	@JoinColumn(name="idproducto")
+	@JoinColumn(name="id")
 	private Producto producto;
 	
 	
