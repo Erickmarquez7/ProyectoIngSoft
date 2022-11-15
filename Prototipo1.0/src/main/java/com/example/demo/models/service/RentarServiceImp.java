@@ -25,18 +25,21 @@ public class RentarServiceImp implements IRentarService {
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Rentar findById(Long key) {
 		// TODO Auto-generated method stub
 		return rentarDao.findById(key).orElse(null); 
 	}
 
 	@Override
+	@Transactional()
 	public Rentar save(Rentar renta) {
 		// TODO Auto-generated method stub
 		return rentarDao.save(renta); 
 	}
 
 	@Override
+	@Transactional()
 	public void delete(Long key) {
 		// TODO Auto-generated method stub
 		rentarDao.deleteById(key);

@@ -26,6 +26,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author DozalMagnaniDiego
+ * @author BernalMárquezErick
+ */
+
+
 @Entity
 @Table(name="rentar")
 //@IdClass(Rentar.class)

@@ -3,6 +3,7 @@
  */
 package com.example.demo.models.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author DozalMagnaniDiego
@@ -23,9 +27,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements Serializable{
 
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id //Le agregamos la etiqueta de que sera la llave primaria 
 	@Column(name="nocuenta", length=9, nullable=false,unique=true)
 	private String noCuenta;
@@ -61,6 +67,10 @@ public class Usuario {
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	//@JsonManagedReference 
 	private List<Rentar> rentados;
+	
+	@OneToOne(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	private PumaPuntos pumapuntos; 
+	
 	
 	public String getNoCuenta() {
 		return noCuenta;
@@ -122,4 +132,18 @@ public class Usuario {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
+	public List<Rentar> getRentados() {
+		return rentados;
+	}
+	public void setRentados(List<Rentar> rentados) {
+		this.rentados = rentados;
+	}
+	public PumaPuntos getPumapuntos() {
+		return pumapuntos;
+	}
+	public void setPumapuntos(PumaPuntos pumapuntos) {
+		this.pumapuntos = pumapuntos;
+	}
+	
+	
 }
