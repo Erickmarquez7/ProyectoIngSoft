@@ -1,125 +1,159 @@
-/**
- * 
- */
 package com.example.demo.models.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-/**
- * @author DozalMagnaniDiego
- * @author ValenciaCruzJonathanJosué
- * @author RadillaMaldonadoDylanEmmanuel
- * @author OrtegaGarciaAlejandra
- * @author ReyesFarfánAndreaFernanda 
- *
- */
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements Serializable {
 
-	
-	@Id //Le agregamos la etiqueta de que sera la llave primaria 
-	@Column(name="nocuenta", length=9, nullable=false,unique=true)
-	private String noCuenta;
-	
-	@Column(name="contrasena")
-	private String contrasena;
-	
-	@Column(name="nombre")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	//contrasena
+	@Column(length = 60)
+	private String password;
+
+	//no cuenta sera el username
+	@Column(unique = true, length = 20)
+	private String username;
+
+	//nombre
 	private String nombre;
-	
-	@Column(name="paterno")
-	private String paterno;
-	
-	@Column(name="materno")
-	private String materno;
-	
-	@Column(name="carrera")
-	private String carrera;
-	
-	@Column(name="celular")
-	private String celular;
-	
-	@Column(name="correo")
-	private String correo;
-	
-	@Column(name="rol")
-	private Integer rol;
-	
-	@Column(name="activo")
-	private Boolean activo;
 
-	//mapped esta relacionado con el atributo tal de la clase de la lista
-	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-	//@JsonManagedReference 
-	private List<Rentar> rentados;
+	//ap. paterno
+	private String paterno;
+
+	//ap. materno
+	private String materno;
+
+	//carrera
+	private String carrera;
+
+	//cel
+	private int celular;
+
+	@Column(unique = true)
+	private String email;
+
+	//si el ususario esta activo	
+	private Boolean enabled;
 	
-	public String getNoCuenta() {
-		return noCuenta;
+	
+	//el rol
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="usuarios_roles", joinColumns= @JoinColumn(name="usuario_id"),
+	inverseJoinColumns=@JoinColumn(name="role_id"),
+	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
+	private List<Role> roles;
+
+	public Long getId() {
+		return id;
 	}
-	public void setNoCuenta(String noCuenta) {
-		this.noCuenta = noCuenta;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getContrasena() {
-		return contrasena;
+
+	public String getUsername() {
+		return username;
 	}
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getPaterno() {
 		return paterno;
 	}
+
 	public void setPaterno(String paterno) {
 		this.paterno = paterno;
 	}
+
+
 	public String getMaterno() {
 		return materno;
 	}
+
 	public void setMaterno(String materno) {
 		this.materno = materno;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	public String getCarrera() {
 		return carrera;
 	}
+
 	public void setCarrera(String carrera) {
 		this.carrera = carrera;
 	}
-	public String getCelular() {
+
+
+	public int getCelular() {
 		return celular;
 	}
-	public void setCelular(String celular) {
+
+	public void setCelular(int celular) {
 		this.celular = celular;
 	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	public Integer getRol() {
-		return rol;
-	}
-	public void setRol(Integer rol) {
-		this.rol = rol;
-	}
-	public Boolean getActivo() {
-		return activo;
-	}
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
-	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 }

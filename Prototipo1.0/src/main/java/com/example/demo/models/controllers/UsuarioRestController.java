@@ -32,7 +32,7 @@ public class UsuarioRestController {
     }
 
     @GetMapping("/usuarios/{id}")
-    public Usuario show(@PathVariable String id) {
+    public Usuario show(@PathVariable Long id) {
         return usuarioService.findById(id);
     }
 
@@ -44,24 +44,24 @@ public class UsuarioRestController {
 
     @PutMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario update(@RequestBody Usuario usuario, @PathVariable String id) {
+    public Usuario update(@RequestBody Usuario usuario, @PathVariable Long id) {
         Usuario currentuser = usuarioService.findById(id);
-        currentuser.setContrasena(usuario.getContrasena());
+        currentuser.setPassword(usuario.getPassword());
         currentuser.setNombre(usuario.getNombre());
         currentuser.setPaterno(usuario.getPaterno());
         currentuser.setMaterno(usuario.getMaterno());
         currentuser.setCarrera(usuario.getCarrera());
         currentuser.setCelular(usuario.getCelular());
-        currentuser.setCorreo(usuario.getCorreo());
-        currentuser.setRol(usuario.getRol());
-        currentuser.setActivo(usuario.getActivo());
+        currentuser.setEmail(usuario.getEmail());
+        currentuser.setRoles(usuario.getRoles());
+        currentuser.setEnabled(usuario.getEnabled());
         this.usuarioService.save(currentuser);
         return currentuser;
     }
 
     @DeleteMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable String id) {
+    public void delete(@PathVariable Long id) {
         usuarioService.delete(id);
     }
 }
