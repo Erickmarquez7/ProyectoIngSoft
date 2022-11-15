@@ -1,3 +1,6 @@
+/**
+ * Clases para al autorizacion de los diferentes roles de cada usuario
+ */
 package com.example.demo.models.auth;
 
 import java.util.HashMap;
@@ -23,10 +26,11 @@ public class InfoAdicionalToken implements TokenEnhancer{
 
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-		
+		//Donde extraeremos los datos del usario, primero lo encontramos por nombre		
 		Usuario usuario = usuarioService.findByUsername(authentication.getName());
 		Map<String, Object> info = new HashMap<>();
 		info.put("info_adicional", "Hola que tal!: ".concat(authentication.getName()));
+		//luego extraemos cada uno de los atributos del usuario
 		info.put("id", usuario.getId());
 		info.put("nombre", usuario.getNombre());
 		info.put("apellido paterno", usuario.getPaterno());

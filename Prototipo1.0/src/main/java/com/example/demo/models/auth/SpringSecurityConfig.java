@@ -1,3 +1,6 @@
+/**
+ * Clases para al autorizacion de los diferentes roles de cada usuario
+ */
 package com.example.demo.models.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;

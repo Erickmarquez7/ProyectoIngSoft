@@ -1,3 +1,8 @@
+/**
+ * Clase que define la entidad usuario
+ * Usamos la clase roles para definir los roles de los usuario
+ * Estos roles se definen en el import.sql de la carpeta resources
+ */
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
@@ -29,7 +34,7 @@ public class Usuario implements Serializable {
 	private String password;
 
 	//no cuenta sera el username
-	@Column(unique = true, length = 20)
+	@Column(unique = true, length = 9)
 	private String username;
 
 	//nombre

@@ -1,3 +1,6 @@
+/**
+ * Clases para al autorizacion de los diferentes roles de cada usuario
+ */
 package com.example.demo.models.auth;
 
 
@@ -28,15 +31,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	@Qualifier("authenticationManager")
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private InfoAdicionalToken infoAdicionalToken;
 
+	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()")
 		.checkTokenAccess("isAuthenticated()");
 	}
+
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -48,6 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.refreshTokenValiditySeconds(3600);
 	}
 
+	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
@@ -59,11 +65,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.tokenEnhancer(tokenEnhancerChain);
 	}
 
+	
 	@Bean
 	public JwtTokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
 
+	
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
@@ -74,4 +82,3 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 
 }
-

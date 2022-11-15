@@ -41,6 +41,7 @@ public class Producto implements Serializable{
 	@Column(name="cantidad")
 	private int cantidad;
 
+	//precio pero en realidad son los puma puntos que cuestan
 	@Column(name="precio")
 	private Double precio;
 	

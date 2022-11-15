@@ -1,3 +1,8 @@
+/**
+ * Clase para definir los productos rentados por los usuarios
+ * Se hace a traves de del id del producto e id del usuario
+ * Para hacer el join debemos unir ambos id
+ */
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
@@ -22,10 +27,6 @@ import javax.persistence.TemporalType;
 @Table(name="rentar")
 @IdClass(Rentar.class)
 public class Rentar implements Serializable {
-
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private Long id; 
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="fechainicio")
@@ -37,12 +38,13 @@ public class Rentar implements Serializable {
 	
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	//crea una columna llamada nocuenta y guarda el id del usuario
 	@JoinColumn(name="nocuenta")
 	private Usuario usuario;
 	
 	@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	//crea una columna llamada id producto y guarda el id del producto
+	//crea una columna llamada id y guarda el id del producto
 	@JoinColumn(name="id")
 	private Producto producto;
 	

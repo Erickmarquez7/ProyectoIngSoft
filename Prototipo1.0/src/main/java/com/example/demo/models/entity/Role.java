@@ -1,3 +1,10 @@
+/**
+ * Clase para los roles de los usuarios
+ * Estos roles se definen en el import.sql de la carpeta resources
+ * Son usuario -> Admin
+ *             -> Provedor
+ * Los permisos se definen en el controlador
+ */
 package com.example.demo.models.entity;
 
 import java.io.Serializable;

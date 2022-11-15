@@ -48,6 +48,7 @@ public class ProductoRestController {
 	 * @param id el id del producto
 	 * @return el producto
 	 */
+	//Aqui se definen cuales roles tinene acceso al metodo
 	@Secured({"ROLE_ADMIN","ROL_USER"})
 	@GetMapping("/productos/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
@@ -78,6 +79,7 @@ public class ProductoRestController {
 	 * @param producto el producto a guardar
 	 * @return el producto a guardar
 	 */	
+	//se definen los roles que tienen el acceso al metodo
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/productos")
 	//@ResponseStatus(HttpStatus.CREATED)
@@ -132,7 +134,6 @@ public class ProductoRestController {
 		response.put("mensaje", "El producto ha sido actualizado con éxito :3");
 		response.put("producto", productoUpdate);
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
-		
 		
 	}
 	
