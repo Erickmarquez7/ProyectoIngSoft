@@ -37,7 +37,7 @@ public class RentarRestController {
 		return rentarService.findById(id);		
 	}
 	
-	@PostMapping("rentar")
+	@PostMapping("/rentar")
 	public Rentar create(@RequestBody Rentar renta) {
 		return rentarService.save(renta); 
 	}
