@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -25,8 +27,8 @@ import javax.persistence.TemporalType;
 public class PumaPuntos implements Serializable {
 	
 	@Id
-	@Column(name="id", length=5, nullable=false,unique=true)
-	private String id; 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@Column(name="saldo")
 	private Integer saldo; 
@@ -36,19 +38,19 @@ public class PumaPuntos implements Serializable {
 	private Date fechavalida; 
 	
 	@OneToOne
-	@JoinColumn(name="nocuenta")
+	@JoinColumn(name="id")
 	Usuario usuario; 
 	
 	
 	private static final long serialVersionUID = 1L;
 
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

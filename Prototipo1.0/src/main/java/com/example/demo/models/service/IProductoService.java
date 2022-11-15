@@ -22,7 +22,7 @@ public interface IProductoService {
 	 * @param id el id del producto
 	 * @return el producto
 	 */
-	public Producto findById(String id);
+	public Producto findById(Long id);
 	
 	/**
 	 * Guarda un producto
@@ -35,5 +35,5 @@ public interface IProductoService {
 	 * Elimina un producto de acuerdo al Id
 	 * @param id el id del producto a eliminar
 	 */
-	public void delete(String id);
+	public void delete(Long id);
 }

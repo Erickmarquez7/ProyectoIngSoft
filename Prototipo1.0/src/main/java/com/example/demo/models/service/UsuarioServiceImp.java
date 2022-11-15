@@ -23,7 +23,7 @@ public class UsuarioServiceImp implements IUsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public Usuario findById(String id) {
+    public Usuario findById(Long id) {
         return usuarioDao.findById(id).orElse(null);
     }
 
@@ -35,7 +35,7 @@ public class UsuarioServiceImp implements IUsuarioService {
 
     @Override
     @Transactional()
-    public void delete(String id) {
+    public void delete(Long id) {
         usuarioDao.deleteById(id);
     }
 }

@@ -37,7 +37,7 @@ public class UsuarioRestController {
     }
 
     @GetMapping("/usuarios/{id}")
-    public ResponseEntity<?> show(@PathVariable String id) {
+    public ResponseEntity<?> show(@PathVariable Long id) {
     	Usuario usuario = null; 
     	Map<String, Object> response = new HashMap<>(); 
     	//Error al servidor, bd, etc 
@@ -83,7 +83,7 @@ public class UsuarioRestController {
 
     @PutMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable String id) {
+    public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable Long id) {
     	Usuario currentuser = this.usuarioService.findById(id);
     	Usuario updateduser = null; 
     	Map<String,Object> response = new HashMap<>();
@@ -94,15 +94,15 @@ public class UsuarioRestController {
 
     	}
     	try {    		
-    		currentuser.setContrasena(usuario.getContrasena());
+    		currentuser.setPassword(usuario.getPassword());
     		currentuser.setNombre(usuario.getNombre());
     		currentuser.setPaterno(usuario.getPaterno());
     		currentuser.setMaterno(usuario.getMaterno());
     		currentuser.setCarrera(usuario.getCarrera());
     		currentuser.setCelular(usuario.getCelular());
-    		currentuser.setCorreo(usuario.getCorreo());
-    		currentuser.setRol(usuario.getRol());
-    		currentuser.setActivo(usuario.getActivo());
+    		currentuser.setEmail(usuario.getEmail());
+    		currentuser.setRoles(usuario.getRoles());
+    		currentuser.setEnabled(usuario.getEnabled());
     		//Esta linea por algun motivo da error mientras se iguala el update user 
     		// la que no da error es this.usuarioService.save(currentuser);
     		updateduser = this.usuarioService.save(currentuser);
@@ -119,7 +119,7 @@ public class UsuarioRestController {
 
     @DeleteMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
     	Map<String,Object> response = new HashMap<>();
     	try {
     		usuarioService.delete(id);	

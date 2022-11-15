@@ -50,20 +50,35 @@ public class Rentar implements Serializable {
 	private Date fechaFin; 
 	
 	//@Id
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="nocuenta")
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+	@JoinColumn(name="id", insertable = false, updatable = false)
+	//@ManyToOne()
+	//@JoinColumn(name="id")
 	private Usuario usuario;
 	
 	//@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	//crea una columna llamada id producto y guarda el id del producto
-	@JoinColumn(name="idproducto")
+	@JoinColumn(name="id", insertable = false, updatable = false)
+	//@ManyToOne()
+	//@JoinColumn(name="id")
 	private Producto producto;
 	
 	
 	private static final long serialVersionUID = 1L;
 
 	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}

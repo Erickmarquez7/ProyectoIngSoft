@@ -24,7 +24,7 @@ public class PumaPuntosServiceImp implements IPumaPuntosService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public PumaPuntos findById(String id) {
+	public PumaPuntos findById(Long id) {
 		// TODO Auto-generated method stub
 		return pumaPuntosDao.findById(id).orElse(null);
 	}
@@ -38,7 +38,7 @@ public class PumaPuntosServiceImp implements IPumaPuntosService {
 
 	@Override
 	@Transactional()
-	public void delete(String id) {
+	public void delete(Long id) {
 		pumaPuntosDao.deleteById(id);
 
 	}

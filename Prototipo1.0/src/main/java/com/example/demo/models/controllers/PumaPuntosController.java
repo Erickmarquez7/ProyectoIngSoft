@@ -37,7 +37,7 @@ public class PumaPuntosController {
 	}
 	
 	@GetMapping("/pumapuntos/{id}")
-	public PumaPuntos show(@PathVariable String id){
+	public PumaPuntos show(@PathVariable Long id){
 		return pumaPuntosService.findById(id);		
 	}
 	
@@ -48,7 +48,7 @@ public class PumaPuntosController {
 	
 	@PutMapping("/pumapuntos/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public PumaPuntos update(@RequestBody PumaPuntos pumaPuntos, @PathVariable String id) {
+	public PumaPuntos update(@RequestBody PumaPuntos pumaPuntos, @PathVariable Long id) {
 		
 		PumaPuntos currentPumaPuntos = pumaPuntosService.findById(id);
 		currentPumaPuntos.setSaldo(pumaPuntos.getSaldo());
@@ -59,7 +59,7 @@ public class PumaPuntosController {
 	
 	@DeleteMapping("/pumapuntos/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable String id) {
+	public void delete(@PathVariable Long id) {
 		pumaPuntosService.delete(id);
 	}
 	

@@ -17,7 +17,7 @@ public interface IPumaPuntosService {
 	 * @param id el id del PumaPuntos
 	 * @return el PumaPuntos
 	 */
-	public PumaPuntos findById(String id);
+	public PumaPuntos findById(Long id);
 	
 	/**
 	 * Guarda un PumaPuntos
@@ -30,6 +30,6 @@ public interface IPumaPuntosService {
 	 * Elimina un PumaPuntos de acuerdo al Id
 	 * @param id el id del PumaPuntos a eliminar
 	 */
-	public void delete(String id);
+	public void delete(Long id);
 
 }

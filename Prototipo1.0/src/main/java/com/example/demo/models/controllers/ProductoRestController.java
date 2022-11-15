@@ -43,7 +43,7 @@ public class ProductoRestController {
 	 * @return el producto
 	 */
 	@GetMapping("/productos/{id}")
-	public Producto show(@PathVariable String id) {
+	public Producto show(@PathVariable Long id) {
 		return productoService.findById(id);
 	}
 
@@ -66,7 +66,7 @@ public class ProductoRestController {
 	 */
 	@PutMapping("/productos/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Producto update(@RequestBody Producto producto, @PathVariable String id){
+	public Producto update(@RequestBody Producto producto, @PathVariable Long id){
 		Producto currentproduct = productoService.findById(id);
 		currentproduct.setCategoria(producto.getCategoria());
 		currentproduct.setNombre(producto.getNombre());
@@ -85,7 +85,7 @@ public class ProductoRestController {
 	 */
 	@DeleteMapping("/productos/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable String id) {
+	public void delete(@PathVariable Long id) {
 		productoService.delete(id);
 	}
 	}

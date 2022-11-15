@@ -10,6 +10,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,8 +26,8 @@ public class Producto implements Serializable{
 
 	//Atributos de la entidad
 	@Id
-	@Column(name="idproducto", length=5, nullable=false, unique=true) //siguiendo la estrategia de autoincremento
-	private String Id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //siguiendo la estrategia de autoincremento
+	private Long id;
 	
 	@Column(name="categoria")
 	private String categoria;
@@ -52,14 +54,7 @@ public class Producto implements Serializable{
 	
 
 	//getters y setters de los atributos del productos
-	public String getId() {
-		return Id;
-	}
-
-	public void setId(String Id) {
-		this.Id = Id;
-	}
-
+	
 	public String getCategoria() {
 		return categoria;
 	}
