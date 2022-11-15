@@ -6,6 +6,9 @@ import { Usuario } from './usuario';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * Clase para los servicios de la autorizacion de los diferentes roles
+ */
 export class AuthService {
 
   private _usuario: Usuario;
@@ -51,6 +54,10 @@ export class AuthService {
     return this.http.post<any>(urlEndPoint, params.toString(), {headers: httpHeaders});
   }
 
+  /**
+   * Obtención de los datos del usuario
+   * @param accessToken 
+   */
   guardarUsuario(accessToken: string):void{
     let payload = this.obtenerDatosToken(accessToken);
     this._usuario = new Usuario();
@@ -79,6 +86,7 @@ export class AuthService {
     return null
   }
 
+  
   isAuthenticated():boolean{
     let payload = this.obtenerDatosToken(this.token);
     if(payload !=null && payload.user_name && payload.user_name.length>0){

@@ -20,7 +20,9 @@ const routes: Routes = [
   {path: 'productos/form/:id', component: FormComponent},
   {path: 'login', component: LoginComponent}
 ];
-
+/**
+ * Para poner las rutas que vamos a utilizar
+ */
 @NgModule({
   declarations: [
     AppComponent,

@@ -13,6 +13,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(public authService:AuthService, private router: Router ) { }
 
+  //Como en la cabezera tendremos el boton de boton de cerrar sesión 
+  //y este tiene comportamiento lógico entonces lo implementamos
+  //Este boton aparece cuando ya haya iniciado sessión
+  /**
+   * 
+   */
   logout():void {
     let username = this.authService.usuario.username;
     this.authService.logout();

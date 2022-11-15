@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   //styleUrls: ['./login.component.css']
 })
+/**
+ * Clase para el comportamiento de login
+ */
 export class LoginComponent implements OnInit {
 
   titulo:string = 'Inicia Sesión!';

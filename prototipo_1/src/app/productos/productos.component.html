@@ -1,3 +1,4 @@
+<!-- La vista de los productos -->
 <section style="background-color: #eee">
   <div class="container py-5">
     <div class="my-2 text-left">
@@ -10,14 +11,19 @@
         <div class="card">
           <div class="d-flex justify-content-between p-3">
             <p class="lead mb-0">{{ producto.nombre }}</p>
+            <!-- Si tiene el rol de admin entonces aparece el boton de eliminar -->
               <div class="bg-danger d-flex align-items-center justify-content-center shadow-1-strong"
                 style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
                 <p class="text-white mb-0 small" (click)="delete(producto)" >Eliminar</p>
               </div>
-              <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong" style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
+              <!-- Igualmente si tiene el rol de admin entonces aparece el boton de editar -->
+              <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong" 
+              style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
                 <p class="text-white mb-0 small" [routerLink]="['/productos/form', producto.id]">Editar</p>
               </div>
-              <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong" style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_USER')">
+              <!-- Si tiene el rol de usuario aparece el boton de rentar -->
+              <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong" 
+              style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_USER')">
                 <p class="text-white mb-0 small" [routerLink]="['/productos/form', producto.id]">Rentar</p>
               </div>
           </div>
@@ -52,6 +58,7 @@
           </div>
         </div>
       </div>
+
       {{authService.usuario.id}}
       {{authService.usuario.nombre}}
       {{authService.usuario.paterno}}
@@ -59,6 +66,7 @@
       {{authService.usuario.carrera}}
       {{authService.usuario.celular}}
       {{authService.usuario.celular}}
+      <!-- prueba para la obtencion de datos -->
 
     </div>
   </div>

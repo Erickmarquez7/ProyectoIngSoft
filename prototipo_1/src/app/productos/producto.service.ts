@@ -13,16 +13,22 @@ import { AuthService } from '../usuarios/auth.service';
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * De manera similar al backend definimos los servicios de 
+ * los productos, el crud de los productos en angular
+ */
 export class ProductoService {
 
-
-
+  //de donde vamos a extraer los datos de nuestra bd local
   private urlEndPoint:string = 'http://localhost:8090/api/productos';
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
+  /**
+   * Si ya estamos autorizados
+   */
   private agregarAuthorizationHeader(){
     let token = this.authService.token;
     if(token != null){
@@ -31,6 +37,9 @@ export class ProductoService {
     return this.httpHeaders;
   }
 
+  /**
+   * Si es que no estamos autorizados
+   */
   private isNoAutorizado(e): boolean{
     if(e.status==401){
       if(this.authService.isAuthenticated()){
@@ -49,10 +58,19 @@ export class ProductoService {
   }
 
 
+  /**
+   * Obtencion de los productos
+   * @returns la lista de productos
+   */
   getProductos(): Observable<Producto[]>{
     return this.http.get<Producto[]>(this.urlEndPoint);
   }
 
+  /**
+   * Crea un producto
+   * @param producto el producto a crear
+   * @returns un observable para que sea asincrono
+   */
   create(producto: Producto): Observable<any>{
     return this.http.post<any>(this.urlEndPoint, producto, {headers: this.agregarAuthorizationHeader()} ).pipe(
       
@@ -69,6 +87,11 @@ export class ProductoService {
     )
   }
 
+  /**
+   * Obtiene un producto por id
+   * @param id el id del producto
+   * @returns Un observable para permitir asincronia
+   */
   getProducto(id): Observable<Producto>{
     return this.http.get<Producto>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
@@ -85,6 +108,11 @@ export class ProductoService {
     )
   }
 
+  /**
+   * Actualiza un producto
+   * @param producto el producto a actualizar
+   * @returns 
+   */
   update(producto: Producto): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${producto.idProducto}`, producto, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
@@ -98,6 +126,11 @@ export class ProductoService {
     )
   }
 
+  /**
+   * Elimina un producto
+   * @param id el id del producto a eliminar
+   * @returns 
+   */
   delete(id: number): Observable<Producto>{
     return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
