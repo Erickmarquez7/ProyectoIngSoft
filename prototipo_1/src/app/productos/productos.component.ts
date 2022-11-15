@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from './producto';
 import { ProductoService } from './producto.service';
+import Swal from 'sweetalert2';
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-productos',
@@ -9,9 +11,9 @@ import { ProductoService } from './producto.service';
 })
 export class ProductosComponent implements OnInit {
 
-  productos: Producto[]; 
+  productos: Producto[];
 
-  constructor(private productoService: ProductoService) { }
+  constructor(private productoService: ProductoService, public authService: AuthService ) { }
 
   ngOnInit(): void {
     this.productoService.getProductos().subscribe(
@@ -19,5 +21,39 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  
+  delete(producto: Producto): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Estas seguro?',
+      text: `¿Seguro que desea elimiar el producto ${producto.nombre}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'si, Eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.productoService.delete(producto.idProducto).subscribe(
+          Response => {
+            this.productos =  this.productos.filter(prod => prod !== producto)
+            swalWithBootstrapButtons.fire(
+              'Producto Elimindo!',
+              'Producto elminado con éxito.',
+              'success'
+            )
+          }
+        )
+
+      }
+    })
+    
+  }
+
 }
