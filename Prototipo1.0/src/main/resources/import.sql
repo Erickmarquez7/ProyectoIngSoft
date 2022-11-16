@@ -10,3 +10,21 @@ INSERT INTO roles (nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (1, 1);
 INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 2);
 INSERT INTO usuarios_roles (usuario_id, role_id) VALUES (2, 1);
+
+-- INSERT INTO rentar(fechainicio, fechafin, id, idproducto) VALUES('2020-11-12','2021-12-07', 1 ,1)
+
+INSERT INTO pumapuntos(saldo, fechavalida, id) VALUES(200,'2021-12-07',1)
+
+-- SELECT * FROM productos INNER JOIN rentar on productos.id = rentar.id;
+-- SELECT * FROM usuarios INNER JOIN rentar on usuarios.id = rentar.id;
+-- SELECT * FROM usuarios INNER JOIN pumapuntos on usuarios.id = pumapuntos.id;
+/*
+ SELECT usuarios.nombre, usuarios.paterno, usuarios.materno, usuarios.username,
+ 		rentar.fechafin, rentar.fechainicio, 
+ 		producto.nombre, producto.categoria, producto.id
+  FROM usuarios 
+  JOIN rentar 
+  ON usuarios.id = rentar.id
+  JOIN productos 
+  ON productos.id = rentar.id
+*/		

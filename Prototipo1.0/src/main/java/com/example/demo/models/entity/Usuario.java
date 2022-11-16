@@ -18,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -58,6 +60,14 @@ public class Usuario implements Serializable {
 	//si el ususario esta activo	
 	private Boolean enabled;
 	
+	
+	//mapped esta relacionado con el atributo tal de la clase de la lista
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	//@JsonManagedReference 
+	private List<Rentar> rentados;
+		
+	@OneToOne(mappedBy = "usuario",cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	private PumaPuntos pumapuntos;
 	
 	//el rol
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -102,6 +112,7 @@ public class Usuario implements Serializable {
 		return roles;
 	}
 
+	
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
@@ -162,3 +173,8 @@ public class Usuario implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 }
+
+
+
+
+
