@@ -40,7 +40,7 @@ export class ProductosComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        this.productoService.delete(producto.idProducto).subscribe(
+        this.productoService.delete(producto.id).subscribe(
           Response => {
             this.productos =  this.productos.filter(prod => prod !== producto)
             swalWithBootstrapButtons.fire(

@@ -114,7 +114,7 @@ export class ProductoService {
    * @returns 
    */
   update(producto: Producto): Observable<any>{
-    return this.http.put<any>(`${this.urlEndPoint}/${producto.idProducto}`, producto, {headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${producto.id}`, producto, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
 
         if(this.isNoAutorizado(e)){

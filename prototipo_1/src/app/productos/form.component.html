@@ -58,7 +58,7 @@
                     <!-- *ngIf="!producto.id else elseBlock" -->
                     <!-- Al momento de dar click en el boton agregar mandamos a llamar
                     el metodo create() de form.component.ts -->
-                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!producto.idProducto else elseBlock">Agregar</button>                   
+                    <button class="btn btn-primary" role="button" (click)="create()" *ngIf="!producto.id else elseBlock">Agregar</button>                   
                     <ng-template #elseBlock>
                         <button class="btn btn-secondary" role="button" (click)="update()">Actualizar</button>                   
                     </ng-template>
