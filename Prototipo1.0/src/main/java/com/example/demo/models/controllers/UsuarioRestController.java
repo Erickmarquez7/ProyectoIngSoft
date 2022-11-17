@@ -104,6 +104,7 @@ public class UsuarioRestController {
     		currentuser.setRoles(usuario.getRoles());
     		currentuser.setEnabled(usuario.getEnabled());
 			currentuser.setPumaPuntos(usuario.getPumaPuntos());
+			currentuser.setDate(usuario.getDate());
     		//Esta linea por algun motivo da error mientras se iguala el update user 
     		// la que no da error es this.usuarioService.save(currentuser);
     		updateduser = this.usuarioService.save(currentuser);

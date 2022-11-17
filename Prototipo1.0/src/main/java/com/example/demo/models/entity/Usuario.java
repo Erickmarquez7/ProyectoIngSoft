@@ -8,7 +8,6 @@ package com.example.demo.models.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import org.javatuples.Quartet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,7 +22,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
 
 
 @Entity
@@ -63,7 +65,14 @@ public class Usuario implements Serializable {
 	//si el ususario esta activo	
 	private Boolean enabled;
 
-	private Pair<Integer, Date> pumaPuntos;
+	private int pumaPuntos;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+
+	private Date actual = new Date();
+
+	final int maxPuntos = 500;
 	
 	
 	//mapped esta relacionado con el atributo tal de la clase de la lista
@@ -170,12 +179,20 @@ public class Usuario implements Serializable {
 		this.celular = celular;
 	}
 
-	public Pair<Integer, Date> getPumaPuntos() {
+	public int getPumaPuntos() {
 		return pumaPuntos;
 	}
 
-	public void setPumaPuntos(Pair<Integer, Date> pumaPuntos) {
+	public void setPumaPuntos(int pumaPuntos) {
 		this.pumaPuntos = pumaPuntos;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	/**
