@@ -11,10 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './productos/form.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
+  {path: 'usuarios', component: UsuariosComponent },
   {path: 'productos', component: ProductosComponent},
   {path: 'productos/form', component: FormComponent},
   {path: 'productos/form/:id', component: FormComponent},
@@ -30,6 +32,7 @@ const routes: Routes = [
     FooterComponent,
     ProductosComponent,
     FormComponent,
+    UsuariosComponent,
     LoginComponent
   ],
   imports: [
