@@ -1,17 +1,17 @@
 export class Producto {
 
-    id: number;
-
-    categoria: string;
+    serial: string;
 
     nombre: string;
-
-    descripcion: string;
 
     cantidad: number;
 
     precio: number;
 
+    descripcion: string;
+
     dias: number;
+
+    imagen: string;
 
 }
