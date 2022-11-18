@@ -1,5 +1,5 @@
-INSERT INTO productos (categoria, nombre, descripcion, cantidad, precio, dias) VALUES ('Disco', 'CD José Madero', 'Disco psalmos el mejor perro disco', 100, 250.00, 5 );
-INSERT INTO productos (categoria, nombre, descripcion, cantidad, precio, dias) VALUES ('Disco', 'CD José Madero', 'Disco giallo el mejor perro disco', 100, 250.00, 3 );
+INSERT INTO productos (categoria, nombre, descripcion, cantidad, precio, dias) VALUES ('Disco', 'CD José Madero', 'Disco psalmos el mejor perro disco', 100, 60.00, 5 );
+INSERT INTO productos (categoria, nombre, descripcion, cantidad, precio, dias) VALUES ('Disco', 'CD José Madero', 'Disco giallo el mejor perro disco', 100, 60.00, 3 );
 
 INSERT INTO actividades (id, categoria, nombre, descripcion, recompensa) VALUES (12345,'Entretenimiento', 'Ciclo Cine Star Wars', 'Trilogía original en auditorio ABC', 15);
 INSERT INTO actividades (id, categoria, nombre, descripcion, recompensa) VALUES (67890,'Conferencia', 'Gravedad Repulsiva', 'Conferencia auditorio ABC', 15);
