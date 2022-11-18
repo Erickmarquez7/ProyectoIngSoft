@@ -1,10 +1,11 @@
 <!-- La vista de los productos -->
 <section style="background-color: #1d2b50">
   <div class="container py-5">
-    <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/productos/form']" *ngIf="authService.hasRole('ROLE_ADMIN')" >Añadir Producto</button>
-    </div>
+    <h1><FONT COLOR ="white">Lista de Productos</FONT></h1>
     <div class="row">
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/productos/form']" *ngIf="authService.hasRole('ROLE_ADMIN')" >Añadir Producto</button>
+      </div>
       <div
         class="col-md-6 col-lg-4 mb-4 mb-md-0"
         *ngFor="let producto of productos">
@@ -34,8 +35,8 @@
           />
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <p class="small"><a href="#!" class="text-muted">Codigo:</a></p>
-              <p class="text-dark mb-0">{{ producto.codigo }}</p>
+              <p class="small"><a href="#!" class="text-muted">Categoria:</a></p>
+              <p class="text-dark mb-0">{{ producto.categoria }}</p>
             </div>
 
             <div class="d-flex justify-content-between mb-3">
@@ -45,7 +46,7 @@
 
             <div class="d-flex justify-content-between mb-2">
               <p class="text-muted mb-0">
-                Stock: <span class="fw-bold">{{ producto.stock }}</span>
+                Disponible: <span class="fw-bold">{{ producto.cantidad }}</span>
               </p>
               <div class="ms-auto text-warning">
                 <i class="fas fa-star"></i>
@@ -58,9 +59,6 @@
           </div>
         </div>
       </div>
-
-      
-      <!-- prueba para la obtencion de datos -->
 
     </div>
   </div>
