@@ -18,6 +18,20 @@ export class FormComponent implements OnInit {
   constructor(private productoService: ProductoService, private router: Router, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.cargarProducto();
+  }
+
+
+  /**
+   * Editar un producto ya existente
+   */
+  cargarProducto(): void{
+    this.activateRoute.params.subscribe(params => {
+      let id = params['id']
+      if(id){
+        this.productoService.getProducto(id).subscribe((producto)=>this.producto=producto)
+      }
+    })
   }
 
   /**
@@ -32,6 +46,14 @@ export class FormComponent implements OnInit {
         swal.fire('Nuevo Producto', `Producto ${producto.nombre} creado con éxito`, 'success')
       }
     )
+  }
+
+  public update(): void{
+    this.productoService.update(this.producto).subscribe(producto => {
+      this.router.navigate(['/productos'])
+      swal.fire('Producto Actualizado', `${this.producto.nombre} actualizado con éxito`, 'success')
+    })
+
   }
   
 }
