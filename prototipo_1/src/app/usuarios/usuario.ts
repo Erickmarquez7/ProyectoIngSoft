@@ -11,5 +11,7 @@ export class Usuario {
     celular: number;
     email:string;
     roles:string[]=[]
+    pumapuntos: number;
+    fecha: number;
 
 }

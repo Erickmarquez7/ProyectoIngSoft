@@ -1,5 +1,5 @@
 <!-- La vista de los productos -->
-<section style="background-color: #eee">
+<section style="background-color: #1d2b50">
   <div class="container py-5">
     <div class="my-2 text-left">
       <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/productos/form']" *ngIf="authService.hasRole('ROLE_ADMIN')" >Añadir Producto</button>
@@ -35,7 +35,7 @@
           <div class="card-body">
             <div class="d-flex justify-content-between">
               <p class="small"><a href="#!" class="text-muted">Codigo:</a></p>
-              <p class="small text-danger">{{ producto.codigo }}</p>
+              <p class="text-dark mb-0">{{ producto.codigo }}</p>
             </div>
 
             <div class="d-flex justify-content-between mb-3">
@@ -59,13 +59,7 @@
         </div>
       </div>
 
-      {{authService.usuario.id}}
-      {{authService.usuario.nombre}}
-      {{authService.usuario.paterno}}
-      {{authService.usuario.materno}}
-      {{authService.usuario.carrera}}
-      {{authService.usuario.celular}}
-      {{authService.usuario.celular}}
+      
       <!-- prueba para la obtencion de datos -->
 
     </div>

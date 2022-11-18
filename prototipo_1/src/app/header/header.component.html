@@ -1,10 +1,12 @@
+<body>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Hidden brand</a>
+      <img src="https://i0.wp.com/www.atmosfera.unam.mx/wp-content/uploads/2019/06/unam-escudo-azul.png?fit=1484%2C1662&ssl=1" alt="UNAM-logo" style="right:200px;left:200px;width:50px;height:50px;">
+      <a class="navbar-brand" href="#">Ciencias Top</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
@@ -12,7 +14,7 @@
         </li>
         <li class="nav-item">
           <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
-          <a class="nav-link " routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
+          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">
@@ -30,6 +32,7 @@
         del metodo logout que se definió en header.component.ts -->
           <ul class="dropdown-menu">
               <button (click)="logout()" class="dropdown-item">Cerrar Sesión</button>
+              <button (click)="logout()" class="dropdown-item">Registrar puntos</button>
           </ul>
         </li>
 
@@ -37,3 +40,4 @@
     </div>
   </div>
 </nav>
+</body>

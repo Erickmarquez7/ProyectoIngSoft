@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-//import { PRODUCTOS } from './productos.json';
 import { Producto } from './producto';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
