@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -48,10 +49,9 @@ public class Producto implements Serializable{
 	@Column(name="dias",length = 1)
 	private int dias;
 	
-	//mapped esta relacionado con el atributo tal de la clase de la lista
-	@OneToMany(mappedBy="producto", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-	//@JsonManagedReference 
-	private List<Rentar> rentados;
+	@OneToMany
+	@JoinColumn(name = "id")
+	private List<Rentar> rentados; 
 	
 
 	//getters y setters de los atributos del productos

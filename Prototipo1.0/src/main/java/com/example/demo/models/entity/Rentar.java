@@ -6,7 +6,7 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,10 +20,13 @@ import javax.persistence.IdClass;
 //import javax.persistence.GenerationType;
 //import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,101 +40,90 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="rentar")
-//@IdClass(Rentar.class)
 public class Rentar implements Serializable {
 
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//private Long id; 
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="fechainicio")
-	private Date fechaInicio; 
-	
-	@Temporal(TemporalType.DATE)
-	@Column(name="fechafin")
-	private Date fechaFin; 
-	
 	@Id
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	//crea una columna llamada nocuenta y guarda el id del usuario
-	@JoinColumn(name="nocuenta")
-
-	//@Id
-	//@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
-	//@JoinColumn(name="id", insertable = false, updatable = false)
-	//@ManyToOne()
-	//@JoinColumn(name="id")
-	private Usuario usuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; 
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate fechaInicio; 
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate fechafin; 
+	
+	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
+	@JoinColumn(name="id",insertable = false, updatable = false)
+	private Usuario usuario; 
+	
+	@Column(name = "usuario_id")
+	private Long usuario_id;
 	
 	
-	//@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	//crea una columna llamada id y guarda el id del producto
-	@JoinColumn(name="id")
-	//crea una columna llamada id producto y guarda el id del producto
-	//@JoinColumn(name="id", insertable = false, updatable = false)
-	//@ManyToOne()
-	//@JoinColumn(name="id")
+	@JoinColumn(name="id",insertable = false, updatable = false)
 	private Producto producto;
+	
+	@Column(name = "producto_id")
+	private Long producto_id;
 	
 	
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	//public Long getId() {
-	//	return id;
-	//}
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-	//public void setId(Long id) {
-	//	this.id = id;
-	//}
-
-
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	
-	public Date getFechaFin() {
-		return fechaFin;
+	public LocalDate getFechafin() {
+		return fechafin;
 	}
 
-	
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
+	public void setFechafin(LocalDate fechafin) {
+		this.fechafin = fechafin;
 	}
-
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 
 	public Producto getProducto() {
 		return producto;
 	}
 
-
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public Long getUsuario_id() {
+		return usuario_id;
+	}
+
+	public void setUsuario_id(Long usuario_id) {
+		this.usuario_id = usuario_id;
+	}
+
+	public Long getProducto_id() {
+		return producto_id;
+	}
+
+	public void setProducto_id(Long producto_id) {
+		this.producto_id = producto_id;
 	}
 	
 	

@@ -68,16 +68,12 @@ public class Usuario implements Serializable {
 
 	private int pumapuntos;
 
-	//@Temporal(TemporalType.TIMESTAMP)
-	//private java.sql.Date fecha;
 	@Column(columnDefinition = "DATE")
 	private LocalDate fecha; 
 	
-	
-	//mapped esta relacionado con el atributo tal de la clase de la lista
-	//@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-	//@JsonManagedReference 
-	//private List<Rentar> rentados;
+	@OneToMany
+	@JoinColumn(name = "id")
+	private List<Rentar> rentados; 
 	
 	//el rol
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
