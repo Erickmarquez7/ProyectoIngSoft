@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.example.demo.models.entity.Actividad;
 import com.example.demo.models.entity.Usuario;
+import com.example.demo.models.service.IActividadService;
 import com.example.demo.models.service.IUsuarioService;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +32,14 @@ import java.util.Map;
 @RequestMapping("/api")
 public class UsuarioRestController {
 
+	private Date actual = new Date();
+
+	final int maxPuntos = 500;
+
     @Autowired
     private IUsuarioService usuarioService;
+
+	private IActividadService actividadService;
 
     @GetMapping("/usuarios")
     public List<Usuario> index() {
@@ -104,7 +114,7 @@ public class UsuarioRestController {
     		currentuser.setRoles(usuario.getRoles());
     		currentuser.setEnabled(usuario.getEnabled());
 			currentuser.setPumaPuntos(usuario.getPumaPuntos());
-			currentuser.setDate(usuario.getDate());
+			//currentuser.setDate(usuario.getDate());
     		//Esta linea por algun motivo da error mientras se iguala el update user 
     		// la que no da error es this.usuarioService.save(currentuser);
     		updateduser = this.usuarioService.save(currentuser);
@@ -132,5 +142,33 @@ public class UsuarioRestController {
     	}
     	response.put("mensaje", "El usuario ha sido editado con exito");
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
+
+	@RequestMapping(value="/cuenta", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
+    	Usuario currentuser = this.usuarioService.findById(id);
+		Actividad actividad = this.actividadService.findById(codigo);
+    	Usuario updateduser = null; 
+    	Map<String,Object> response = new HashMap<>();
+    	//Error con el id ingresado
+    	if(currentuser == null) {
+    		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+
+    	}
+    	try {    		
+			int suma = actividad.getRecompensa();
+			currentuser.setPumaPuntos(usuario.getPumaPuntos() + suma);
+			updateduser = this.usuarioService.save(currentuser);
+    	} catch (DataAccessException e) {
+    		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
+        	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    	}
+    	
+    	response.put("mensaje", "Los puntos se han registrado con éxito");
+    	response.put("usuario", updateduser );
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 }

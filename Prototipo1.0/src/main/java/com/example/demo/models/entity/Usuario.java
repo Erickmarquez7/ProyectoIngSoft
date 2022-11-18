@@ -65,15 +65,10 @@ public class Usuario implements Serializable {
 	//si el ususario esta activo	
 	private Boolean enabled;
 
-	private int pumaPuntos;
+	private int pumapuntos;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date date;
-
-	private Date actual = new Date();
-
-	final int maxPuntos = 500;
-	
+	//@Temporal(TemporalType.TIMESTAMP)
+	//private Date date;
 	
 	//mapped esta relacionado con el atributo tal de la clase de la lista
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
@@ -180,20 +175,20 @@ public class Usuario implements Serializable {
 	}
 
 	public int getPumaPuntos() {
-		return pumaPuntos;
+		return pumapuntos;
 	}
 
-	public void setPumaPuntos(int pumaPuntos) {
-		this.pumaPuntos = pumaPuntos;
+	public void setPumaPuntos(int pumapuntos) {
+		this.pumapuntos = pumapuntos;
 	}
 
-	public Date getDate() {
-		return date;
-	}
+	//public Date getDate() {
+	//	return date;
+	//}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	//public void setDate(Date date) {
+	//	this.date = date;
+	//}
 
 	/**
 	 * 

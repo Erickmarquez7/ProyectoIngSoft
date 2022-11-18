@@ -119,6 +119,7 @@ public class ActividadRestController {
 		}
 		
 		try {
+			currentActividad.setId(actividad.getId());
 			currentActividad.setCategoria(actividad.getCategoria());
 			currentActividad.setNombre(actividad.getNombre());
 			currentActividad.setDescripcion(actividad.getDescripcion());

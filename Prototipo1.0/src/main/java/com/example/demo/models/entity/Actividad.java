@@ -26,7 +26,6 @@ public class Actividad implements Serializable{
 
 	//Atributos de la entidad
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //siguiendo la estrategia de autoincremento
 	private Long id;
 	
 	@Column(name="categoria")
@@ -39,7 +38,7 @@ public class Actividad implements Serializable{
 	private String descripcion;
 
 	@Column(name="recompensa")
-	private Double recompensa;
+	private int recompensa;
 
 	//getters y setters de los atributos del productos
 	public Long getId() {
@@ -75,11 +74,11 @@ public class Actividad implements Serializable{
 	}
 
 
-	public Double getRecompensa() {
+	public int getRecompensa() {
 		return recompensa;
 	}
 
-	public void setRecompensa(Double recompensa) {
+	public void setRecompensa(int recompensa) {
 		this.recompensa = recompensa;
 	}
 
