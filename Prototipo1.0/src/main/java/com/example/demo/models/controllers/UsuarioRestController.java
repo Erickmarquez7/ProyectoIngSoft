@@ -119,8 +119,8 @@ public class UsuarioRestController {
     		currentuser.setEmail(usuario.getEmail());
     		currentuser.setRoles(usuario.getRoles());
     		currentuser.setEnabled(usuario.getEnabled());
-			currentuser.setPumaPuntos(usuario.getPumaPuntos());
-			//currentuser.setDate(usuario.getDate());
+			currentuser.setPumapuntos(usuario.getPumapuntos());
+			currentuser.setFecha(usuario.getFecha());
     		//Esta linea por algun motivo da error mientras se iguala el update user 
     		// la que no da error es this.usuarioService.save(currentuser);
     		updateduser = this.usuarioService.save(currentuser);
@@ -166,11 +166,11 @@ public class UsuarioRestController {
     	}
     	try {    		
 			int suma = actividad.getRecompensa();
-			int totalPumaPuntos = usuario.getPumaPuntos() + suma; 
+			int totalPumaPuntos = usuario.getPumapuntos() + suma; 
 			if(totalPumaPuntos > 500) {
 				throw new IllegalArgumentException();
 			}
-			currentuser.setPumaPuntos(usuario.getPumaPuntos() + suma);
+			currentuser.setPumapuntos(usuario.getPumapuntos() + suma);
 			updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
@@ -202,17 +202,17 @@ public class UsuarioRestController {
     	}
     	try {
     		if(operador==1) {
-    			suma = usuario.getPumaPuntos() + monto;
+    			suma = usuario.getPumapuntos() + monto;
     			if(suma > 500) {
     				throw new IllegalArgumentException();
     			}
-    			currentuser.setPumaPuntos(suma);
+    			currentuser.setPumapuntos(suma);
     		}else {
-    			suma = usuario.getPumaPuntos() - monto;
+    			suma = usuario.getPumapuntos() - monto;
     			if(suma < 0) {
     				throw new IllegalArgumentException();
     			}
-    			currentuser.setPumaPuntos(suma);
+    			currentuser.setPumapuntos(suma);
     		}
 			updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {

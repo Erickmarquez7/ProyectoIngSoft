@@ -174,21 +174,21 @@ public class Usuario implements Serializable {
 		this.celular = celular;
 	}
 
-	public int getPumaPuntos() {
+	public int getPumapuntos() {
 		return pumapuntos;
 	}
 
-	public void setPumaPuntos(int pumapuntos) {
+	public void setPumapuntos(int pumapuntos) {
 		this.pumapuntos = pumapuntos;
 	}
 
-	//public Date getDate() {
-	//	return date;
-	//}
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-	//public void setDate(Date date) {
-	//	this.date = date;
-	//}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
 
 	/**
 	 * 
