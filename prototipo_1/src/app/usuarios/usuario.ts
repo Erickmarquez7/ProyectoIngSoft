@@ -10,6 +10,8 @@ export class Usuario {
     carrera:string;
     celular: number;
     email:string;
+    enabled:boolean;
+    pumapuntos:number;
     roles:string[]=[]
 
 }
