@@ -8,20 +8,20 @@ import { FooterComponent } from './footer/footer.component';
 import { ProductosComponent } from './productos/productos.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-//import { FormComponent } from './productos/form.component';
+import { FormComponent as ProductoFormComponent} from './productos/form.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
-import { FormComponent } from './usuarios/form.component';
+import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/productos', pathMatch: 'full' },
   { path: 'productos', component: ProductosComponent },
-  { path: 'productos/form', component: FormComponent },
-  { path: 'productos/form/:id', component: FormComponent },
+  { path: 'productos/form', component: ProductoFormComponent },
+  { path: 'productos/form/:id', component: ProductoFormComponent },
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
-  { path: 'usuarios/form', component: FormComponent },
+  { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: FooterComponent }
 ];
 /**
@@ -33,7 +33,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ProductosComponent,
-    FormComponent,
+    UsuarioFormComponent,
+    ProductoFormComponent,
     LoginComponent,
     UsuariosComponent
   ],
