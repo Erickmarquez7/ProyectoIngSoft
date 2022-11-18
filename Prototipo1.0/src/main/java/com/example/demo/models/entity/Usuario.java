@@ -6,6 +6,7 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -68,12 +69,15 @@ public class Usuario implements Serializable {
 	private int pumapuntos;
 
 	//@Temporal(TemporalType.TIMESTAMP)
-	//private Date date;
+	//private java.sql.Date fecha;
+	@Column(columnDefinition = "DATE")
+	private LocalDate fecha; 
+	
 	
 	//mapped esta relacionado con el atributo tal de la clase de la lista
-	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+	//@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
 	//@JsonManagedReference 
-	private List<Rentar> rentados;
+	//private List<Rentar> rentados;
 	
 	//el rol
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

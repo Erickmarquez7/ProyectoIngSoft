@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 
 import com.example.demo.models.entity.Actividad;
 import com.example.demo.models.entity.Usuario;
@@ -39,13 +40,16 @@ public class UsuarioRestController {
     @Autowired
     private IUsuarioService usuarioService;
 
+    @Autowired
 	private IActividadService actividadService;
-
+	
+	@Secured("ROLE_ADMIN")
     @GetMapping("/usuarios")
     public List<Usuario> index() {
         return usuarioService.findAll();
     }
-
+	
+	@Secured("ROLE_ADMIN")
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
     	Usuario usuario = null; 
@@ -71,7 +75,8 @@ public class UsuarioRestController {
     	
         //return usuarioService.findById(id);
     }
-
+	
+	@Secured("ROLE_ADMIN")
     @PostMapping("/usuarios")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@RequestBody Usuario usuario) {
@@ -90,7 +95,8 @@ public class UsuarioRestController {
     	response.put("usuario", usuarioNuevo);
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
     }
-
+	
+	@Secured("ROLE_ADMIN")
     @PutMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable Long id) {
@@ -128,7 +134,8 @@ public class UsuarioRestController {
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
-
+	
+	@Secured("ROLE_ADMIN")
     @DeleteMapping("/usuarios/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<?> delete(@PathVariable Long id) {
@@ -143,8 +150,9 @@ public class UsuarioRestController {
     	response.put("mensaje", "El usuario ha sido editado con exito");
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
-
-	@RequestMapping(value="/cuenta", method = RequestMethod.PUT)
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/cuenta/{id}/{codigo}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
     	Usuario currentuser = this.usuarioService.findById(id);
@@ -155,15 +163,22 @@ public class UsuarioRestController {
     	if(currentuser == null) {
     		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
-
     	}
     	try {    		
 			int suma = actividad.getRecompensa();
+			int totalPumaPuntos = usuario.getPumaPuntos() + suma; 
+			if(totalPumaPuntos > 500) {
+				throw new IllegalArgumentException();
+			}
 			currentuser.setPumaPuntos(usuario.getPumaPuntos() + suma);
 			updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Error al actualizar el saldo del usuario en la base de datos, El total excede el saldo maximo permitido ");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
     	}
     	
@@ -171,4 +186,51 @@ public class UsuarioRestController {
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
+	
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/cuenta/{id}/{monto}/{operador}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> SumarYRestar(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Integer monto, @PathVariable Integer operador) {
+    	Usuario currentuser = this.usuarioService.findById(id);
+    	Usuario updateduser = null; 
+    	Map<String,Object> response = new HashMap<>();
+    	int suma;
+    	//Error con el id ingresado
+    	if(currentuser == null) {
+    		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+    	}
+    	try {
+    		if(operador==1) {
+    			suma = usuario.getPumaPuntos() + monto;
+    			if(suma > 500) {
+    				throw new IllegalArgumentException();
+    			}
+    			currentuser.setPumaPuntos(suma);
+    		}else {
+    			suma = usuario.getPumaPuntos() - monto;
+    			if(suma < 0) {
+    				throw new IllegalArgumentException();
+    			}
+    			currentuser.setPumaPuntos(suma);
+    		}
+			updateduser = this.usuarioService.save(currentuser);
+    	} catch (DataAccessException e) {
+    		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
+        	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Error al actualizar el saldo del usuario en la base de datos, El total sale del rango permitido");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    	}
+    	
+    	response.put("mensaje", "Los puntos se han registrado con éxito");
+    	response.put("usuario", updateduser );
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+	
+	
+	
+	
 }
