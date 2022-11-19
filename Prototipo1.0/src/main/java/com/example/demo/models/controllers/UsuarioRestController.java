@@ -102,6 +102,7 @@ public class UsuarioRestController {
     		currentuser.setCelular(usuario.getCelular());
     		currentuser.setEmail(usuario.getEmail());
     		currentuser.setRoles(usuario.getRoles());
+			currentuser.setFoto(usuario.getFoto());
     		currentuser.setEnabled(usuario.getEnabled());
     		//Esta linea por algun motivo da error mientras se iguala el update user 
     		// la que no da error es this.usuarioService.save(currentuser);

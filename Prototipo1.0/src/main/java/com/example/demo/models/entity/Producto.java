@@ -44,6 +44,9 @@ public class Producto implements Serializable{
 	//precio pero en realidad son los puma puntos que cuestan
 	@Column(name="precio")
 	private Double precio;
+
+	@Column(name="imagen")
+	private String imagen;
 	
 	@Column(name="dias",length = 1)
 	private int dias;
@@ -101,6 +104,14 @@ public class Producto implements Serializable{
 
 	public void setPrecio(Double precio) {
 		this.precio = precio;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public int getDias() {

@@ -54,6 +54,9 @@ public class Usuario implements Serializable {
 	//cel
 	private int celular;
 
+	//foto de perfil
+	private String foto;
+
 	@Column(unique = true)
 	private String email;
 
@@ -168,6 +171,14 @@ public class Usuario implements Serializable {
 		this.celular = celular;
 	}
 
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	/**
 	 * 
 	 */
