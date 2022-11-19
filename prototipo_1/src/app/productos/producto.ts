@@ -14,4 +14,6 @@ export class Producto {
 
     dias: number;
 
+    imagen: string;
+
 }
