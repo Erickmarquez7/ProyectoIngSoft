@@ -19,10 +19,11 @@ const routes: Routes = [
   { path: 'productos', component: ProductosComponent },
   { path: 'productos/form', component: ProductoFormComponent },
   { path: 'productos/form/:id', component: ProductoFormComponent },
+  
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
-  { path: 'usuarios/form/:id', component: FooterComponent }
+  { path: 'usuarios/form/:id', component: UsuarioFormComponent }
 ];
 /**
  * Para poner las rutas que vamos a utilizar
