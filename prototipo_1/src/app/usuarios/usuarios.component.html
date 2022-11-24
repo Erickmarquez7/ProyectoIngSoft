@@ -2,11 +2,11 @@
 <section style="background-color: #1d2b50">
   <div class="container py-5">
     <div class="row">
-      <h1>Lista de Usuarios</h1>
+      <h1><FONT COLOR ="white">Lista de Usuarios</FONT></h1>
       <div class="col-md-6 col-lg-4 mb-4 mb-md-0" *ngFor="let usuario of usuarios">
         <div class="card">
           <div class="d-flex justify-content-between p-3">
-            <p class="lead mb-0">{{ usuario.nombre }}</p>
+            <p class="lead mb-0">{{ usuario.username }}</p>
             <!-- Si tiene el rol de admin entonces aparece el boton de eliminar -->
             <div class="bg-danger d-flex align-items-center justify-content-center shadow-1-strong"
               style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
@@ -18,7 +18,7 @@
               <p class="text-white mb-0 small" [routerLink]="['/usuarios/form', usuario.id]">Editar</p>
             </div>
           </div>
-          <img src="https://cdn-icons-png.flaticon.com/512/5987/5987462.png" class="card-img-top" alt="Usuario" />
+          <img src={{usuario.foto}} class="card-img-top" alt="Foto de usuario" />
           <div class="card-body">
             <div class="d-flex justify-content-between">
               <p class="small"><a href="#!" class="text-muted">Nombre:</a></p>
@@ -27,13 +27,13 @@
 
             <div class="card-body">
               <div class="d-flex justify-content-between">
-                <p class="small"><a href="#!" class="text-muted">APaterno:</a></p>
+                <p class="small"><a href="#!" class="text-muted">Apellido Paterno:</a></p>
                 <p class="text-dark mb-0">{{ usuario.paterno }}</p>
               </div>
 
 
               <div class="d-flex justify-content-between">
-                <p class="small"><a href="#!" class="text-muted">AMaterno:</a></p>
+                <p class="small"><a href="#!" class="text-muted">Apellido Materno:</a></p>
                 <p class="text-dark mb-0">{{ usuario.materno }}</p>
               </div>
 

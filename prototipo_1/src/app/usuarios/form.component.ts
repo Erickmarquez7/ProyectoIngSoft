@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { ActividadesService } from '../actividad/actividades.service';
 import { Actividades } from '../actividad/actividades';
 
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',

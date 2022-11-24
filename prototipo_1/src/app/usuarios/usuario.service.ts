@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 })
 export class UsuarioService {
 
-  private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
+  private urlEndPoint:string = 'http://localhost:8090/api/usuarios';
 
   private httpHeaders = new HttpHeaders({'content-Type': 'application/json'})
 
