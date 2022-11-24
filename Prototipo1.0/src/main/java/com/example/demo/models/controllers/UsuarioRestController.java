@@ -43,13 +43,13 @@ public class UsuarioRestController {
     @Autowired
 	private IActividadService actividadService;
 	
-	@Secured("ROLE_ADMIN")
+	
     @GetMapping("/usuarios")
     public List<Usuario> index() {
         return usuarioService.findAll();
     }
 	
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/usuarios/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
     	Usuario usuario = null; 

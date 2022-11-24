@@ -15,7 +15,7 @@ import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/#', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'productos', component: ProductosComponent },
   { path: 'productos/form', component: ProductoFormComponent },
   { path: 'productos/form/:id', component: ProductoFormComponent },
