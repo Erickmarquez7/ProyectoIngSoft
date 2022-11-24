@@ -21,10 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 
@@ -59,6 +56,9 @@ public class Usuario implements Serializable {
 
 	//cel
 	private int celular;
+
+	//foto de perfil
+	private String foto;
 
 	@Column(unique = true)
 	private String email;
@@ -174,6 +174,7 @@ public class Usuario implements Serializable {
 		this.celular = celular;
 	}
 
+
 	public int getPumapuntos() {
 		return pumapuntos;
 	}
@@ -188,6 +189,15 @@ public class Usuario implements Serializable {
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	/**

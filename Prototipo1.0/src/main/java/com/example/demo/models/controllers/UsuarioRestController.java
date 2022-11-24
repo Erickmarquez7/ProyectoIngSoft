@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api")
 public class UsuarioRestController {
@@ -118,6 +118,7 @@ public class UsuarioRestController {
     		currentuser.setCelular(usuario.getCelular());
     		currentuser.setEmail(usuario.getEmail());
     		currentuser.setRoles(usuario.getRoles());
+			currentuser.setFoto(usuario.getFoto());
     		currentuser.setEnabled(usuario.getEnabled());
 			currentuser.setPumapuntos(usuario.getPumapuntos());
 			currentuser.setFecha(usuario.getFecha());
