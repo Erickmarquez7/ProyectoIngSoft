@@ -18,9 +18,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 
-import com.example.demo.models.entity.Actividad;
+//import com.example.demo.models.entity.Actividad;
 import com.example.demo.models.entity.Usuario;
-import com.example.demo.models.service.IActividadService;
+//import com.example.demo.models.service.IActividadService;
 import com.example.demo.models.service.IUsuarioService;
 
 import java.util.Date;
@@ -40,8 +40,8 @@ public class UsuarioRestController {
     @Autowired
     private IUsuarioService usuarioService;
 
-    @Autowired
-	private IActividadService actividadService;
+   /** @Autowired
+	private IActividadService actividadService;*/
 	
 	
     @GetMapping("/usuarios")
@@ -142,7 +142,7 @@ public class UsuarioRestController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
     	Map<String,Object> response = new HashMap<>();
     	try {
-    		usuarioService.delete(id);	
+    		usuarioService.deleteById(id);	
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al eliminar el usuario en la base de datos");
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
@@ -152,7 +152,7 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 	
-	@Secured("ROLE_ADMIN")
+	/**@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/cuenta/{id}/{codigo}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
@@ -186,7 +186,7 @@ public class UsuarioRestController {
     	response.put("mensaje", "Los puntos se han registrado con éxito");
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-    }
+    }*/
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/cuenta/{id}/{monto}/{operador}", method = RequestMethod.PUT)

@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.models.dao.IUsuarioDao;
 import com.example.demo.models.entity.Usuario;
+import com.example.demo.models.repository.usuarioRepository;
 
 @Service
 public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
@@ -25,6 +26,7 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
     @Autowired
     private IUsuarioDao usuarioDao;
+    private usuarioRepository usuariorepository;
 
     /**
 	 * Encuentra todos los usuarios
@@ -106,6 +108,12 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	@Transactional(readOnly=true)
 	public Usuario findByUsername(String username) {
 		return usuarioDao.findByUsername(username);
+	}
+
+
+	@Override
+	public void deleteById(Long id) {
+		usuarioDao.deleteById(id);
 	}
  
 }
