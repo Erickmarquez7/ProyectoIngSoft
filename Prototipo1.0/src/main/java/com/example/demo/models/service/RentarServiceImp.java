@@ -41,5 +41,9 @@ public class RentarServiceImp implements IRentarService {
 		rentarDao.deleteById(id);
 
 	}
+	
+	public IRentarDao getRentarDao() {
+		return rentarDao; 
+	}
 
 }

@@ -9,22 +9,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
+import javax.persistence.*; 
 
 
 @Entity
@@ -34,9 +20,6 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Rentar> rentas;
 
 	//contrasena
 	@Column(length = 60)
@@ -74,10 +57,19 @@ public class Usuario implements Serializable {
 
 	@Column(columnDefinition = "DATE")
 	private LocalDate fecha; 
-	
+
+	/**
 	@OneToMany
 	@JoinColumn(name = "id")
 	private List<Rentar> rentados; 
+	**/
+	
+	//Prueba 
+	/*
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(name = "rentas",joinColumns = { @JoinColumn(name = "usuario_id") },inverseJoinColumns = { @JoinColumn(name = "producto_id") })
+	private List<Producto> rentados;
+	*/
 	
 	//el rol
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -203,6 +195,32 @@ public class Usuario implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	
+	
+	//Metodos de la relacion muchos a muchos con Productos para generar el ticket de rentados 
+	
+	/**
+	 * Este metodo se encarga de agregar a la lista de productos rentados de entity.Usuario un nuevo producto 
+	 * y a la lista de entity.Producto se agrega un usuario mas que lo ha rentado 
+	 * @param producto
+	 */
+	 /*
+	public void addProducto(Producto producto) {
+		this.rentados.add(producto);
+		producto.getUsuarios().add(this);
+	}
+	
+	public void removeProducto(Long productoId) {
+		Producto producto = this.rentados.stream().filter(p-> p.getId() == productoId).findFirst().orElse(null); 
+		if(producto != null) {
+			this.rentados.remove(producto); 
+			producto.getRentadores().remove(this); 
+		}
+	}
+	*/
+	
+	
+	
 
 	/**
 	 * 

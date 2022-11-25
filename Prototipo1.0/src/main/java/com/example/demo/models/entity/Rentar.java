@@ -20,6 +20,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author DozalMagnaniDiego
  * @author BernalMárquezErick
@@ -40,20 +45,17 @@ public class Rentar implements Serializable {
 	@Column(columnDefinition = "DATE")
 	private LocalDate fechafin; 
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
-	@JoinColumn(name="id",insertable = false, updatable = false)
-	private Usuario usuario; 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Usuario usuario;
 	
-	@Column(name = "usuario_id")
-	private Long usuario_id;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id",insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "producto_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
 	private Producto producto;
-	
-	@Column(name = "producto_id")
-	private Long producto_id;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -98,21 +100,8 @@ public class Rentar implements Serializable {
 		this.producto = producto;
 	}
 
-	public Long getUsuario_id() {
-		return usuario_id;
-	}
-
-	public void setUsuario_id(Long usuario_id) {
-		this.usuario_id = usuario_id;
-	}
-
-	public Long getProducto_id() {
-		return producto_id;
-	}
-
-	public void setProducto_id(Long producto_id) {
-		this.producto_id = producto_id;
-	}
+		
+	
 	
 	
 

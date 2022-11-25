@@ -14,8 +14,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author ATL
@@ -52,11 +55,19 @@ public class Producto implements Serializable{
 	@Column(name="dias",length = 1)
 	private int dias;
 	
-	@OneToMany
+	/*@OneToMany
 	@JoinColumn(name = "id")
 	private List<Rentar> rentados; 
+	*/
+	/*
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "productos")
+	@JsonIgnore
+	private List<Usuario> rentadores; 
+	*/
 	
-
+	
+	
+	
 	//getters y setters de los atributos del productos
 	public Long getId() {
 		return id;

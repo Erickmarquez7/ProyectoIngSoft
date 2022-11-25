@@ -18,9 +18,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 
-//import com.example.demo.models.entity.Actividad;
+import com.example.demo.models.entity.Actividad;
+import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
-//import com.example.demo.models.service.IActividadService;
+import com.example.demo.models.service.IActividadService;
+import com.example.demo.models.service.IProductoService;
+import com.example.demo.models.service.IRentarService;
 import com.example.demo.models.service.IUsuarioService;
 
 import java.util.Date;
@@ -40,9 +43,8 @@ public class UsuarioRestController {
     @Autowired
     private IUsuarioService usuarioService;
 
-   /** @Autowired
-	private IActividadService actividadService;*/
-	
+    @Autowired
+	private IActividadService actividadService;
 	
     @GetMapping("/usuarios")
     public List<Usuario> index() {
@@ -142,7 +144,7 @@ public class UsuarioRestController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
     	Map<String,Object> response = new HashMap<>();
     	try {
-    		usuarioService.deleteById(id);	
+    		usuarioService.delete(id);	
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al eliminar el usuario en la base de datos");
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
@@ -152,7 +154,7 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 	
-	/**@Secured("ROLE_ADMIN")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/cuenta/{id}/{codigo}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
@@ -186,7 +188,7 @@ public class UsuarioRestController {
     	response.put("mensaje", "Los puntos se han registrado con éxito");
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
-    }*/
+    }
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value="/cuenta/{id}/{monto}/{operador}", method = RequestMethod.PUT)
@@ -204,6 +206,9 @@ public class UsuarioRestController {
     	try {
     		if(operador==1) {
     			suma = usuario.getPumapuntos() + monto;
+    			
+    			int monto_validado = monto; 
+    				
     			if(suma > 500) {
     				throw new IllegalArgumentException();
     			}
@@ -214,6 +219,8 @@ public class UsuarioRestController {
     				throw new IllegalArgumentException();
     			}
     			currentuser.setPumapuntos(suma);
+    			
+    			
     		}
 			updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {
@@ -230,8 +237,5 @@ public class UsuarioRestController {
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
-	
-	
-	
 	
 }

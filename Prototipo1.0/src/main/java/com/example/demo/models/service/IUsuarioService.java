@@ -39,11 +39,6 @@ public interface IUsuarioService {
 	 * @param id el id del usuario a eliminar
 	 */
     public void delete(Long id);
-    
-    /**
-     * Elimina un usuario de acuerdo al ID quitando las llaves foráneas
-     */
 
-    public void deleteById(Long id);
 
 }
