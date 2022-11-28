@@ -84,7 +84,7 @@ public class UsuarioRestController {
     	Usuario usuarioNuevo = null; 
     	Map<String,Object> response = new HashMap<>(); 
     	try {
-    		usuarioNuevo = usuarioService.save(usuarioNuevo);  
+    		usuarioNuevo = usuarioService.save(usuario);  
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar el insert en la base de datos.");
     		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));

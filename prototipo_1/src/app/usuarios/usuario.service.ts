@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Usuario} from './usuario';
+import { Usuario } from './usuario';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import Swal from 'sweetalert2';
-import { catchError , throwError} from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
@@ -14,18 +14,18 @@ import { AuthService } from '../usuarios/auth.service';
 })
 export class UsuarioService {
 
-  private urlEndPoint:string = 'http://localhost:8090/api/usuarios';
+  private urlEndPoint: string = 'http://localhost:8090/api/usuarios';
 
-  private httpHeaders = new HttpHeaders({'content-Type': 'application/json'})
+  private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' })
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   /**
    * Si ya estamos autorizados
    */
-  private agregarAuthorizationHeader(){
+  private agregarAuthorizationHeader() {
     let token = this.authService.token;
-    if(token != null){
+    if (token != null) {
       return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
     return this.httpHeaders;
@@ -34,16 +34,16 @@ export class UsuarioService {
   /**
    * Si es que no estamos autorizados
    */
-  private isNoAutorizado(e): boolean{
-    if(e.status==401){
-      if(this.authService.isAuthenticated()){
+  private isNoAutorizado(e): boolean {
+    if (e.status == 401) {
+      if (this.authService.isAuthenticated()) {
         this.authService.logout();
       }
       this.router.navigate(['/login'])
       return true;
     }
 
-    if(e.status==403){
+    if (e.status == 403) {
       Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
       this.router.navigate(['/productos'])
       return true;
@@ -62,8 +62,20 @@ export class UsuarioService {
   /**
    * Creacion de los usuarios
    */
-  create(usuario: Usuario):Observable<Usuario> {
-    return this.http.post<Usuario>(this.urlEndPoint, usuario, {headers: this.httpHeaders})
+  create(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<any>(this.urlEndPoint, usuario, { headers: this.agregarAuthorizationHeader() }).pipe(
+
+      catchError(e => {
+
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
+        }
+
+
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    )
   }
 
   /**
@@ -76,21 +88,21 @@ export class UsuarioService {
   /**
    * Actualizar un usuario 
    */
-  update(usuario: Usuario):Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, {headers: this.httpHeaders})
+  update(usuario: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, { headers: this.httpHeaders })
   }
 
-  delete(id: number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
+  delete(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
         }
 
-        
+
         Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError( () => e );
+        return throwError(() => e);
       })
     )
   }
