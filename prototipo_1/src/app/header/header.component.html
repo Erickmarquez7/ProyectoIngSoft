@@ -25,17 +25,33 @@
         <!-- cuando inice sessión pondremos su nombre -->
         <li *ngIf="authService.isAuthenticated()" class="dropdown">
           <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{authService.usuario.username}}
+            <img src= {{authService.usuario.foto}} class="img-user" alt={{authService.usuario.username}} onclick="toggleMenu();"/>
           </a>
-        <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
-        del metodo logout que se definió en header.component.ts -->
-          <ul class="dropdown-menu">
-              <button (click)="logout()" class="dropdown-item">Cerrar Sesión</button>
-              <button (click)="logout()" class="dropdown-item">Registrar puntos</button>
-          </ul>
+        <!--cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
+        del metodo logout que se definió en header.component.ts-->
+          <div class="dropdown-menu">
+            <div class = "menu">
+              <div class = "user-info">
+                <img src="{{authService.usuario.foto}}">
+                <h3> {{authService.usuario.nombre}} </h3>
+                <h3> {{authService.usuario.pumapuntos}} </h3>
+              </div>
+              <hr>
+              <button type="button" (click)="logout()" class="button1"> Ver Historial </button>
+              <button type="button" (click)="logout()" class="button2"> Registrar puntos </button>
+              <button type="button" (click)="logout()" class="button3"> Cerrar Sesión </button>
+            </div>
+          </div>
         </li>
 
       </ul>
     </div>
   </div>
 </nav>
+<script>
+  function toggleMenu(){
+    const toggleMenu = document.querySelector('.menu-wrap');
+    toggleMenu.classList.toggle('active')
+  }
+</script>
+

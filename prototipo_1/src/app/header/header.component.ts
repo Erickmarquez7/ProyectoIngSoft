@@ -26,6 +26,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  registroAct():void {
+    let username = this.authService.usuario.username;
+    this.authService.logout();
+    Swal.fire('Logout', `Hola ${username}, ha cerrado sesión con éxito!`, 'success');
+    this.router.navigate(['/login']);
+  }
+
   ngOnInit(): void {
   }
 
