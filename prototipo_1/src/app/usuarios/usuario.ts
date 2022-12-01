@@ -11,6 +11,7 @@ export class Usuario {
     carrera:string;
     celular: number;
     email:string;
+    enabled: boolean;
 
     //roles del usario
     roles:string[]=[]
