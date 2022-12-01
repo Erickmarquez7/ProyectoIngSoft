@@ -81,15 +81,38 @@ export class UsuarioService {
   /**
    * Obtencion de un Usuario por su id.
    */
-  getUsuario(id): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`)
+   getUsuario(id): Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+
+        if(this.isNoAutorizado(e)){
+          return throwError( () => e );
+        }
+
+
+        this.router.navigate(['/usuarios']);
+        Swal.fire('Error al editar', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
   }
 
   /**
-   * Actualizar un usuario 
+   * Actualiza un Usuario
+   * @param usuario el producto a actualizar
+   * @returns 
    */
-  update(usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, { headers: this.httpHeaders })
+   update(usuario: Usuario): Observable<any>{
+    return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+      catchError(e => {
+
+        if(this.isNoAutorizado(e)){
+          return throwError( () => e );
+        }
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError( () => e );
+      })
+    )
   }
 
   delete(id: number): Observable<Usuario> {
