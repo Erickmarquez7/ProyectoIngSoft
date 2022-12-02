@@ -84,12 +84,19 @@ public class UsuarioRestController {
     	Usuario usuarioNuevo = null; 
     	Map<String,Object> response = new HashMap<>(); 
     	try {
+    		if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == null ) {
+    			throw new IllegalArgumentException();
+    		}
     		usuarioNuevo = usuarioService.save(usuario);  
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar el insert en la base de datos.");
     		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
 
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Error, los campos no fueron llenados correctamente");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
     	}
     	response.put("mensaje", "El usuario ha sido agregado con exito.");
     	response.put("usuario", usuarioNuevo);
@@ -110,6 +117,9 @@ public class UsuarioRestController {
 
     	}
     	try {    		
+    		if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == null ) {
+    			throw new IllegalArgumentException();
+    		}
     		currentuser.setPassword(usuario.getPassword());
     		currentuser.setNombre(usuario.getNombre());
     		currentuser.setPaterno(usuario.getPaterno());
@@ -126,9 +136,13 @@ public class UsuarioRestController {
     		// la que no da error es this.usuarioService.save(currentuser);
     		updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {
-    		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
-        	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
-    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    		response.put("mensaje", "Error al actualizar asuario en la base de datos");
+        	response.put("eror", e.getMessage().concat(": l u" ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Error, los campos no fueron llenados correctamente");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
     	}
     	
     	response.put("mensaje", "El usuario ha sido editado con exito");
@@ -146,7 +160,7 @@ public class UsuarioRestController {
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al eliminar el usuario en la base de datos");
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
-    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST);
     	}
     	response.put("mensaje", "El usuario ha sido editado con exito");
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
