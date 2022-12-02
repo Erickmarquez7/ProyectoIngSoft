@@ -15,6 +15,8 @@ import { AuthService } from '../usuarios/auth.service';
 export class UsuarioService {
 
   private urlEndPoint: string = 'http://localhost:8090/api/usuarios';
+  private urlEndPointCuenta: string = 'http://localhost:8090/api/cuenta';
+
 
   private httpHeaders = new HttpHeaders({ 'content-Type': 'application/json' })
 
@@ -129,4 +131,43 @@ export class UsuarioService {
       })
     )
   }
+
+
+     /**
+     * Metodo que incrementa la cantidad de puma puntos 
+     * @param id 
+     * @returns 
+     */
+      sumar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/1`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
+  
+      /**
+       * Metodo que incrementa la cantidad de puma puntos 
+       * @param id 
+       * @returns 
+       */
+       restar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/0`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
+  
+
+
+
 }

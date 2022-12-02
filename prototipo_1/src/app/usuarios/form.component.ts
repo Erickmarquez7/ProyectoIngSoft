@@ -19,6 +19,11 @@ export class FormComponent implements OnInit {
   actividad: Actividades = new Actividades()
   actividadService: ActividadesService;
 
+  //Esto es para sumar PumaPuntos 
+  montoS : number = 0; 
+  montoR : number = 0; 
+
+
   constructor(private usuarioService: UsuarioService, actividadService: ActividadesService, private router:Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -50,4 +55,21 @@ export class FormComponent implements OnInit {
     })
 
   }
+
+  public sumar(): void{
+    this.usuarioService.sumar(this.usuario, this.montoS).subscribe(usuario => {
+      this.router.navigate(['/usuarios'])
+      //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
+    })
+
+  }
+
+  public restar(): void{
+    this.usuarioService.restar(this.usuario, this.montoR).subscribe(usuario => {
+      this.router.navigate(['/usuarios'])
+      //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
+    })
+
+  }
+
 }

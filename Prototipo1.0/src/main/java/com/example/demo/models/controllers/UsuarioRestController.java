@@ -204,13 +204,16 @@ public class UsuarioRestController {
     	try {
     		if(operador==1) {
     			suma = usuario.getPumapuntos() + monto;
-    			if(suma > 500) {
+    			if(suma > 500 || suma < 0) {
     				throw new IllegalArgumentException();
     			}
     			currentuser.setPumapuntos(suma);
     		}else {
+    			if(monto < 0) {
+    				monto = -1*(monto); 
+    			}
     			suma = usuario.getPumapuntos() - monto;
-    			if(suma < 0) {
+    			if(suma > 500 || suma < 0) {
     				throw new IllegalArgumentException();
     			}
     			currentuser.setPumapuntos(suma);
@@ -219,11 +222,11 @@ public class UsuarioRestController {
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
-    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
     	} catch (IllegalArgumentException e) {
     		response.put("mensaje", "Error al actualizar el saldo del usuario en la base de datos, El total sale del rango permitido");
         	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
-    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
     	}
     	
     	response.put("mensaje", "Los puntos se han registrado con éxito");
