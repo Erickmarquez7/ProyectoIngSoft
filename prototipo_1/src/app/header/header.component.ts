@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../usuarios/auth.service';
+import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+import { faCoins } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-header',
@@ -7,7 +12,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  faP = faCoins;
+
+  constructor(public authService:AuthService, private router: Router ) { }
+
+  //Como en la cabezera tendremos el boton de boton de cerrar sesión 
+  //y este tiene comportamiento lógico entonces lo implementamos
+  //Este boton aparece cuando ya haya iniciado sessión
+  /**
+   * 
+   */
+  logout():void {
+    let username = this.authService.usuario.username;
+    this.authService.logout();
+    Swal.fire('Logout', `Hola ${username}, ha cerrado sesión con éxito!`, 'success');
+    this.router.navigate(['/login']);
+  }
+
+  verHistorial():void {
+    let username = this.authService.usuario.username;
+    this.authService.logout();
+    Swal.fire('Logout', `Hola ${username}, ha cerrado sesión con éxito!`, 'success');
+    this.router.navigate(['/login']);
+  }
 
   ngOnInit(): void {
   }

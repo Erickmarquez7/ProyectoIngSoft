@@ -1,0 +1,155 @@
+/* body {
+    background-color: #1d2b50;
+    font-family: sans-serif;
+    padding: 20px;
+  } */
+  
+a {
+  color: black;
+}
+
+#dropdownMenuLink{
+  color: rgb(214, 159, 7);
+  border: 2px solid rgb(214, 159, 7);
+}
+#dropdownMenuLink:hover{
+  color: #fff;
+  background-color: rgb(214, 159, 7);
+}
+
+.btn.btn-outline-primary.dropdown-toggle.show{
+  background-color: #fff;
+}
+
+.dropdown-menu{
+  background: #fff;
+  padding: 5px;
+}
+
+.dropdown-menu hr{
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: rgb(214, 159, 7);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.dropdown-menu button{
+  background-color: #fff; /* Green */
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.dropdown-menu span{
+  background-color: #fff; /* Green */
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.dropdown-menu span:hover {
+  background-color: rgb(214, 159, 7);
+  color: white;
+}
+
+.dropdown-menu button:hover {
+  background-color: rgb(214, 159, 7);
+  color: white;
+}
+
+.dropdown-menu button.button2:hover {
+  background-color: rgb(7, 214, 69);
+  color: white;
+}
+
+.dropdown-menu button.button3:hover {
+  background-color: rgb(214, 7, 7);
+  color: white;
+}
+
+.user-info{
+  display: block;
+  align-items: center;
+}
+
+.user-info h3{
+  font-weight: 500;
+}
+
+.user-info h4{
+  font-weight: 200;
+  color: rgb(214, 159, 7);
+}
+
+.user-info h4 fa-icon{
+  font-size: 20px;
+  color: rgb(214, 159, 7);
+}
+
+.user-info img{
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
