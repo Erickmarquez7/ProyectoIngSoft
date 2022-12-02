@@ -106,7 +106,7 @@
                     <button class="btn btn-primary" role="button" (click)="create()"
                         *ngIf="!usuario.id else elseBlock">Añadir usuario</button>
                     <ng-template #elseBlock>
-                        <label for="" class="col-form-label col-sm-2">Ingresa la cantidad de pumapuntos que se añadirán:</label>
+                        <label for="" class="col-form-label col-sm-2">Ingresa la cantidad de pumapuntos que se añadirán a esta cuenta:</label>
                         <div class="col-sm-6">
                             <input type="number" class="form-control" [(ngModel)]="usuario.pumapuntos" name="pumapuntos">
                         </div>
