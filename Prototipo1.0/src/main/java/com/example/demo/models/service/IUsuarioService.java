@@ -45,5 +45,12 @@ public interface IUsuarioService {
      */
 
     public void deleteById(Long id);
+    
+    
+    /**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Usuario> getUsuariosActivos();
 
 }

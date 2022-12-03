@@ -76,6 +76,13 @@ public class UsuarioRestController {
         //return usuarioService.findById(id);
     }
 	
+	//Metodo perteneciente a Ver Reporte 
+	@GetMapping("/usuarios/activos")
+	public List<Usuario>  showActives(){
+		return usuarioService.getUsuariosActivos(); 
+	}
+	
+	
 	@Secured("ROLE_ADMIN")
     @PostMapping("/usuarios")
     @ResponseStatus(HttpStatus.CREATED)

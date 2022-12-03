@@ -115,5 +115,13 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	public void deleteById(Long id) {
 		usuarioDao.deleteById(id);
 	}
- 
+
+
+	@Override
+	public List<Usuario> getUsuariosActivos() {
+		// TODO Auto-generated method stub
+		return usuarioDao.getUsuariosActivos();
+	}
+	
+
 }
