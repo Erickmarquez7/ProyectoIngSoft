@@ -38,16 +38,15 @@ export class FormComponent implements OnInit {
     this.usuarioService.create(this.usuario).subscribe(usuario => 
       {
         this.router.navigate(['/usuarios'])
-        Swal.fire('Nuevo Usuario', ` ${usuario.username} creado con éxito`, 'success')
+        Swal.fire('Nuevo Usuario', ` ${usuario.nombre} creado con éxito`, 'success')
       }
     )
   }
 
   public update():void {
-    this.usuarioService.update(this.usuario).subscribe(usuario =>
-    {
+    this.usuarioService.update(this.usuario).subscribe(usuario =>{
       this.router.navigate(['/usuarios'])
-      Swal.fire('Usuario ', ` ${usuario.username} Actualizado con éxito`, 'success')
+      Swal.fire('Usuario ', ` ${usuario.username} actualizado con éxito`, 'success')
     })
   }
 }

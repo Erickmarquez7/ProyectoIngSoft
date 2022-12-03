@@ -69,17 +69,46 @@
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Link de foto de perfil</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="usuario.foto" name="pumapuntos">
+                    <input type="text" class="form-control" [(ngModel)]="usuario.foto" name="foto">
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Rol</label>
+                <div class="col-sm-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1" [(ngModel)]="usuario.roles[0]">
+                        <label class="form-check-label" for="inlineCheckbox1">Usuario Normal</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" [(ngModel)]="usuario.roles[1]">
+                        <label class="form-check-label" for="inlineCheckbox2">Administrador</label>
+                      </div>
+                </div>
+            </div>
 
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked value="true" [(ngModel)]="usuario.enabled">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Activo
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="false" [(ngModel)]="usuario.enabled">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Inactivo
+                </label>
+              </div>
 
             <div class="form-group row">
                 <div class="col-sm-6">
                     <button class="btn btn-primary" role="button" (click)="create()"
                         *ngIf="!usuario.id else elseBlock">Añadir usuario</button>
                     <ng-template #elseBlock>
+                        <label for="" class="col-form-label col-sm-2">Ingresa la cantidad de pumapuntos que se añadirán:</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" [(ngModel)]="usuario.pumapuntos" name="pumapuntos">
+                        </div>
                         <button class="btn btn-secondary" role="button" (click)="update()">Actualizar usuario</button>
                     </ng-template>
                 </div>

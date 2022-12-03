@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { Usuario } from '../usuarios/usuario';
+import { UsuarioService } from '../usuarios/usuario.service';
 import { Actividades } from './actividades';
 import { ActividadesService } from './actividades.service';
 
@@ -9,6 +12,8 @@ import { ActividadesService } from './actividades.service';
 })
 export class ActividadComponent implements OnInit {
   actividad: Actividades[];
+  usuarios: Usuario[];
+  usuarioService: UsuarioService;
 
   constructor(private actividadService: ActividadesService) { }
 
@@ -16,6 +21,40 @@ export class ActividadComponent implements OnInit {
     this.actividadService.getActividades().subscribe(
       actividad => this.actividad = actividad
     );
+  }
+
+  registra(usuario:Usuario):void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: '¿Estás seguro?',
+      text: "¡No se podrá restaurar!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '¡Sí, borrálo!',
+      cancelButtonText: '¡No, cancelalo!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.delete(usuario.id).subscribe(
+          Response => {
+            this.usuarios = this.usuarios.filter(usr => usr !== usuario)
+            swalWithBootstrapButtons.fire(
+              '¡Eliminado!',
+              'Usuario eliminado.',
+              'success'
+            )
+          }
+        )
+        
+      }
+    })
   }
 
 }
