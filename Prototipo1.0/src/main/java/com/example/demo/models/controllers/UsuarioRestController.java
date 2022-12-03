@@ -86,7 +86,7 @@ public class UsuarioRestController {
     	Usuario usuarioNuevo = null; 
     	Map<String,Object> response = new HashMap<>(); 
     	try {
-    		usuarioNuevo = usuarioService.save(usuarioNuevo);  
+    		usuarioNuevo = usuarioService.save(usuario);  
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar el insert en la base de datos.");
     		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -99,7 +99,7 @@ public class UsuarioRestController {
     }
 	
 	@Secured("ROLE_ADMIN")
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/usuarios/form/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable Long id) {
     	Usuario currentuser = this.usuarioService.findById(id);
@@ -155,7 +155,7 @@ public class UsuarioRestController {
     }
 	
 	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/cuenta/{id}/{codigo}", method = RequestMethod.PUT)
+	@RequestMapping(value="/usuarios/{id}/{codigo}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
     	Usuario currentuser = this.usuarioService.findById(id);
