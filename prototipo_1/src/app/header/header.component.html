@@ -24,8 +24,6 @@
         </li>
         <div class="container">
           <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
             <div class="col">
               <li *ngIf="authService.isAuthenticated()" class="dropdown">
                 <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,24 +31,39 @@
                 </a>
               <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
               del metodo logout que se definió en header.component.ts -->
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-end">
                   <div class = "user-info">
                     <h3> {{authService.usuario.nombre}} </h3>
-                    <h4> <fa-icon [icon]="faP"></fa-icon>{{authService.usuario.username}} </h4>
+                    <h4> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')"></fa-icon> 100 </h4>
                   </div>
                   <hr>
-                  <button type="button" (click)="logout()" class="button1"> Ver Historial </button>
-                  <span  onclick="openNav()">Registrar actividad</span>
-                  <button type="button" (click)="open(content)" class="button2"> Registrar actividad </button>
-                  <button type="button" (click)="verHistorial()" class="button3"> Cerrar Sesión </button>
+                  <button type="button" (click)="verHistorial()" class="button1"> Ver Historial </button>
+                  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Actividades</button>
+                  <button type="button" class="button4" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/reportes', usuario.id]">Ver Reportes</button>
+                  <button type="button" (click)="logout()" class="button3"> Cerrar Sesión </button>
                 </ul>
               </li>
             </div>
-            <div class="col"></div>
           </div>
-          </div>
+        </div>
       </ul>
     </div>
   </div>
 </nav>
-
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Registrar Actividades</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form>
+      <div class="form-group">
+        <label for="recipient-name" class="col-form-label">Codigo:</label>
+        <input type="text" class="form-control" id="codigo">
+      </div>
+    </form>
+    <hr>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary">Send message</button>
+  </div>
+</div>

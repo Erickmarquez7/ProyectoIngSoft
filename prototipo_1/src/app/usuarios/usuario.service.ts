@@ -115,6 +115,24 @@ export class UsuarioService {
     )
   }
 
+  /**
+   * Actualiza un Usuario
+   * @param usuario el producto a actualizar
+   * @returns 
+   */
+  registraPuntos(usuario: Usuario, code:number):Observable<Usuario> {
+    return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+      catchError(e => {
+
+        if(this.isNoAutorizado(e)){
+          return throwError( () => e );
+        }
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
+
   delete(id: number): Observable<Usuario>{
     return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
