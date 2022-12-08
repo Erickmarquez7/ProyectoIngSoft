@@ -154,7 +154,7 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
 	
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@RequestMapping(value="/usuarios/{id}/{codigo}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
