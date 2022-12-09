@@ -155,9 +155,9 @@ public class UsuarioRestController {
     }
 	
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
-	@RequestMapping(value="/usuarios/{id}/{codigo}", method = RequestMethod.PUT)
+    @PutMapping("/usuarios/{id}/{codigo}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> acumulaPuntos(@RequestBody Usuario usuario, @PathVariable Long id, @PathVariable Long codigo) {
+    public ResponseEntity<?> acumulaPuntos(@PathVariable Long id, @PathVariable String codigo) {
     	Usuario currentuser = this.usuarioService.findById(id);
 		Actividad actividad = this.actividadService.findById(codigo);
     	Usuario updateduser = null; 
@@ -167,13 +167,17 @@ public class UsuarioRestController {
     		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
     	}
+    	if(actividad == null) {
+    		response.put("mensaje", "Error : no existe la actividad".concat(id.toString().concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+    	}
     	try {    		
 			int suma = actividad.getRecompensa();
-			int totalPumaPuntos = usuario.getPumapuntos() + suma; 
+			int totalPumaPuntos = currentuser.getPumapuntos() + suma; 
 			if(totalPumaPuntos > 500) {
 				throw new IllegalArgumentException();
 			}
-			currentuser.setPumapuntos(usuario.getPumapuntos() + suma);
+			currentuser.setPumapuntos(currentuser.getPumapuntos() + suma);
 			updateduser = this.usuarioService.save(currentuser);
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al actualizar al usuario en la base de datos");

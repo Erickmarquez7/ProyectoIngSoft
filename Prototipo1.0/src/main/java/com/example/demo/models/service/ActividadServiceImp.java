@@ -34,7 +34,7 @@ public class ActividadServiceImp implements IActividadService{
 	 */
 	@Override
 	@Transactional(readOnly=true)
-	public Actividad findById(Long id) {
+	public Actividad findById(String id) {
 		return actividadDao.findById(id).orElse(null);
 		
 	}
@@ -56,7 +56,7 @@ public class ActividadServiceImp implements IActividadService{
 	 */
 	@Override
 	@Transactional()
-	public void delete(Long id) {
+	public void delete(String id) {
 		actividadDao.deleteById(id);
 		
 	}

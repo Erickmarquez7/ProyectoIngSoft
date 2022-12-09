@@ -22,7 +22,7 @@ public interface IActividadService {
 	 * @param id el id de la actividad
 	 * @return la actividad
 	 */
-	public Actividad findById(Long id);
+	public Actividad findById(String id);
 	
 	/**
 	 * Guarda un producto
@@ -35,5 +35,5 @@ public interface IActividadService {
 	 * Elimina un producto de acuerdo al Id
 	 * @param id el id del producto a eliminar
 	 */
-	public void delete(Long id);
+	public void delete(String id);
 }
