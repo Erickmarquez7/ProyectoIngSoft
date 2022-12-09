@@ -5,9 +5,7 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import { Usuario } from '../usuarios/usuario';
-import { ActividadComponent } from '../actividad/actividad.component';
-import { Actividades } from '../actividad/actividades';
-import { ActividadesService } from '../actividad/actividades.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,9 +17,9 @@ export class HeaderComponent implements OnInit {
 
   faP = faCoins;
   usuarios: Usuario[];
-  actividad: Actividades;
+  usr: Usuario = new Usuario()
 
-  constructor(public authService:AuthService, private usuarioService:UsuarioService, private actividadService:ActividadesService, private router: Router ) { }
+  constructor(public authService:AuthService, private usuarioService:UsuarioService, private router: Router ) { }
 
   //Como en la cabezera tendremos el boton de boton de cerrar sesión 
   //y este tiene comportamiento lógico entonces lo implementamos
@@ -48,16 +46,16 @@ export class HeaderComponent implements OnInit {
     Swal.fire('Registrado', `Se registró actividad ${code}, con éxito!`, 'success');
   }
 
-  verPuntos():string {
-    let usuario = this.authService.usuario;
-    let ptos = usuario.pumapuntos;
-    return ptos.toString();
+  public getUsuario(): void {
+    const id = Number(this.authService.usuario.id);
+    this.usuarioService.getUsuario(id).subscribe(usr => this.usr = usr);
   }
 
   ngOnInit(): void {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
     );
+    this.getUsuario();
   }
 
 }

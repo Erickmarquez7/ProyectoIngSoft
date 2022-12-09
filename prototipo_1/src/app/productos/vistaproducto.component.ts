@@ -25,7 +25,7 @@ export class VistaproductoComponent implements OnInit {
   }
 
 
-  public getProducto(): void {//Observable <Usuario>{
+  public getProducto(): void {
     const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.productoService.getProducto(id).subscribe(producto => this.producto = producto);
   }

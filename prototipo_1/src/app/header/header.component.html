@@ -33,8 +33,10 @@
               del metodo logout que se definió en header.component.ts -->
                 <ul class="dropdown-menu dropdown-menu-end">
                   <div class = "user-info">
+                    <img src={{usr.foto}}>
                     <h3> {{authService.usuario.nombre}} </h3>
-                    <h4> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')"></fa-icon> {{authService.usuario.pumapuntos}} </h4>
+                    <div class="col"></div>
+                    <h4> <p>{{ usr.pumapuntos }}</p> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')" ></fa-icon> </h4>
                   </div>
                   <hr>
                   <button type="button" (click)="verHistorial()" class="button1"> Ver Historial </button>
