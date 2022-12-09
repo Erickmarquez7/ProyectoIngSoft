@@ -34,12 +34,12 @@
                 <ul class="dropdown-menu dropdown-menu-end">
                   <div class = "user-info">
                     <h3> {{authService.usuario.nombre}} </h3>
-                    <h4> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')"></fa-icon> 100 </h4>
+                    <h4> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')"></fa-icon> {{authService.usuario.pumapuntos}} </h4>
                   </div>
                   <hr>
                   <button type="button" (click)="verHistorial()" class="button1"> Ver Historial </button>
                   <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Actividades</button>
-                  <button type="button" class="button4" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/reportes', usuario.id]">Ver Reportes</button>
+                  <button type="button" class="button4" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/reportes', authService.usuario.id]">Ver Reportes</button>
                   <button type="button" (click)="logout()" class="button3"> Cerrar Sesión </button>
                 </ul>
               </li>
@@ -57,13 +57,12 @@
   </div>
   <div class="offcanvas-body">
     <form>
-      <div class="form-group">
-        <label for="recipient-name" class="col-form-label">Codigo:</label>
-        <input type="text" class="form-control" id="codigo">
+      <div class="form-floating">
+        <input type="number" class="form-control" id="floatingCode" placeholder="Código" name="codigo" #codigo>
+        <label for="floatingPassword">Código</label>
       </div>
     </form>
     <hr>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Send message</button>
+    <button type="button" class="btn btn-primary" (click)="registraPuntos(authService.usuario, codigo.value)">Validar</button>
   </div>
 </div>

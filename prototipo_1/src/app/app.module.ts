@@ -15,12 +15,14 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
 import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { VistaproductoComponent } from './productos/vistaproducto.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'productos', component: ProductosComponent },
   { path: 'productos/form', component: ProductoFormComponent },
   { path: 'productos/form/:id', component: ProductoFormComponent },
+  { path: 'productos/:id', component: VistaproductoComponent},
   
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
@@ -37,6 +39,8 @@ const routes: Routes = [
     FooterComponent,
     ProductosComponent,
     UsuarioFormComponent,
+    UsuariosComponent,
+    VistaproductoComponent,
     ProductoFormComponent,
     LoginComponent,
     UsuariosComponent

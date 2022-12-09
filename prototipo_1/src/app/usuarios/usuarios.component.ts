@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from "./usuario.service";
 import { Usuario } from "./usuario";
+import { Actividades } from '../actividad/actividades';
+import { ActividadesService } from '../actividad/actividades.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../usuarios/auth.service';
 
@@ -13,12 +15,16 @@ import { AuthService } from '../usuarios/auth.service';
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
+  actividades: Actividades[];
 
-  constructor(private usuarioService: UsuarioService, public authService: AuthService) { }
+  constructor(private usuarioService: UsuarioService, public authService: AuthService, private actividadService:ActividadesService) { }
 
   ngOnInit(): void {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
+    );
+    this.actividadService.getActividades().subscribe(
+      actividades => this.actividades = actividades
     );
   }
 
@@ -54,6 +60,10 @@ export class UsuariosComponent implements OnInit {
         
       }
     })
+  }
+
+  registraPuntos(usuario:Usuario, code:number):void {
+    this.usuarioService.registraPuntos(usuario, code).subscribe()
   }
 
 }

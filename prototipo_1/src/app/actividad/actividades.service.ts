@@ -19,7 +19,7 @@ export class ActividadesService {
 
   constructor(private http: HttpClient) { }
 
-  private urlEndPoint: string = 'http://localhost:8090/api/actividades'
+  private urlEndPoint: string = 'http://localhost:8080/api/actividades'
 
   getActividades() : Observable<Actividades[]>{
     return this.http.get<Actividades[]>(this.urlEndPoint);

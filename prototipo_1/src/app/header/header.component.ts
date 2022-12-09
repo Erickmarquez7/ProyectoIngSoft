@@ -4,6 +4,7 @@ import { UsuarioService } from '../usuarios/usuario.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
+import { Usuario } from '../usuarios/usuario';
 
 
 @Component({
@@ -14,6 +15,7 @@ import { faCoins } from '@fortawesome/free-solid-svg-icons';
 export class HeaderComponent implements OnInit {
 
   faP = faCoins;
+  usuarios: Usuario[];
 
   constructor(public authService:AuthService, private usuarioService:UsuarioService, private router: Router ) { }
 
@@ -37,11 +39,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  agregaPuntos(id:number):void {
-    let usuario = this.authService.usuario;
-    this.usuarioService.registraPuntos(usuario, id);
-    Swal.fire('Logout', `Hola ${usuario.username}, ha cerrado sesión con éxito!`, 'success');
-    this.router.navigate(['/login']);
+  registraPuntos(usuario:Usuario, code:number):void {
+    this.usuarioService.registraPuntos(usuario, code).subscribe();
   }
 
   verPuntos():string {
@@ -51,6 +50,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usuarioService.getUsuarios().subscribe(
+      usuarios => this.usuarios = usuarios
+    );
   }
 
 }

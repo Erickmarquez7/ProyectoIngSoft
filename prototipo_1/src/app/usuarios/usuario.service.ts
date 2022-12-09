@@ -14,7 +14,7 @@ import { AuthService } from '../usuarios/auth.service';
 })
 export class UsuarioService {
 
-  private urlEndPoint:string = 'http://localhost:8090/api/usuarios';
+  private urlEndPoint:string = 'http://localhost:8080/api/usuarios';
 
   private httpHeaders = new HttpHeaders({'content-Type': 'application/json'})
 
@@ -123,7 +123,6 @@ export class UsuarioService {
   registraPuntos(usuario: Usuario, code:number):Observable<Usuario> {
     return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
-
         if(this.isNoAutorizado(e)){
           return throwError( () => e );
         }
@@ -140,8 +139,6 @@ export class UsuarioService {
         if(this.isNoAutorizado(e)){
           return throwError( () => e );
         }
-
-        
         Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError( () => e );
       })

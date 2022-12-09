@@ -19,7 +19,7 @@ import { AuthService } from '../usuarios/auth.service';
 export class ProductoService {
 
   //de donde vamos a extraer los datos de nuestra bd local
-  private urlEndPoint:string = 'http://localhost:8090/api/productos';
+  private urlEndPoint:string = 'http://localhost:8080/api/productos';
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
