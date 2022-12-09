@@ -16,6 +16,7 @@ import { LoginComponent } from './usuarios/login.component';
 import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VistaproductoComponent } from './productos/vistaproducto.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -43,7 +44,8 @@ const routes: Routes = [
     VistaproductoComponent,
     ProductoFormComponent,
     LoginComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

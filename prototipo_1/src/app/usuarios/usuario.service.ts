@@ -116,11 +116,12 @@ export class UsuarioService {
   }
 
   /**
-   * Actualiza un Usuario
+   * Acumula Puntos de actividad
    * @param usuario el producto a actualizar
+   * @param code el codigo de actividad
    * @returns 
    */
-  registraPuntos(usuario: Usuario, code:number):Observable<Usuario> {
+  registraPuntos(usuario: Usuario, code:string):Observable<Usuario> {
     return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
         if(this.isNoAutorizado(e)){

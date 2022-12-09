@@ -3,8 +3,6 @@ import {Usuario} from './usuario';
 import {UsuarioService} from './usuario.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
-import { ActividadesService } from '../actividad/actividades.service';
-import { Actividades } from '../actividad/actividades';
 
 
 @Component({
@@ -14,12 +12,10 @@ import { Actividades } from '../actividad/actividades';
 })
 export class FormComponent implements OnInit {
 
-  titulo: string = "Añadir usuario"
-  usuario: Usuario = new Usuario()
-  actividad: Actividades = new Actividades()
-  actividadService: ActividadesService;
+  titulo: string = "Añadir usuario";
+  usuario: Usuario = new Usuario();
 
-  constructor(private usuarioService: UsuarioService, actividadService: ActividadesService, private router:Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private usuarioService: UsuarioService, private router:Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.cargarUsuario()

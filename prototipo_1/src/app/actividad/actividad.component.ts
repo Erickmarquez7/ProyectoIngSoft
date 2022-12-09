@@ -23,38 +23,4 @@ export class ActividadComponent implements OnInit {
     );
   }
 
-  registra(usuario:Usuario):void {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: '¿Estás seguro?',
-      text: "¡No se podrá restaurar!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: '¡Sí, borrálo!',
-      cancelButtonText: '¡No, cancelalo!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.usuarioService.delete(usuario.id).subscribe(
-          Response => {
-            this.usuarios = this.usuarios.filter(usr => usr !== usuario)
-            swalWithBootstrapButtons.fire(
-              '¡Eliminado!',
-              'Usuario eliminado.',
-              'success'
-            )
-          }
-        )
-        
-      }
-    })
-  }
-
 }
