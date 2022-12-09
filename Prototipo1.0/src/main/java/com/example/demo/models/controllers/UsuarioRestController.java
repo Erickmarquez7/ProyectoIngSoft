@@ -168,13 +168,15 @@ public class UsuarioRestController {
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
     	}
     	if(actividad == null) {
-    		response.put("mensaje", "Error : no existe la actividad".concat(id.toString().concat(" no existe en la base de datos")));
+    		response.put("mensaje", "Error : la actividad".concat(codigo.concat(" no existe en la base de datos")));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
     	}
     	try {    		
 			int suma = actividad.getRecompensa();
 			int totalPumaPuntos = currentuser.getPumapuntos() + suma; 
-			if(totalPumaPuntos > 500) {
+			if(totalPumaPuntos >= 500) {
+				currentuser.setPumapuntos(500);
+				updateduser = this.usuarioService.save(currentuser);
 				throw new IllegalArgumentException();
 			}
 			currentuser.setPumapuntos(currentuser.getPumapuntos() + suma);
@@ -184,13 +186,11 @@ public class UsuarioRestController {
         	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
     	} catch (IllegalArgumentException e) {
-    		response.put("mensaje", "Error al actualizar el saldo del usuario en la base de datos, El total excede el saldo maximo permitido ");
-        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
-    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    		response.put("mensaje", "Haz llegado al saldo máximo permitido ");
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
     	}
     	
     	response.put("mensaje", "Los puntos se han registrado con éxito");
-    	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 	
