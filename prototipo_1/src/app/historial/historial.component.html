@@ -1,0 +1,43 @@
+<section style="background-color: #1d2b50">
+    <div class="container-fluid py-5">
+      <h1>
+        <FONT COLOR="white">Tu historial de rentas {{authService.usuario.username}}</FONT>
+      </h1> 
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4 mb-md-0" *ngFor="let renta of historial">
+            <div class="card">
+              <img src={{renta.producto.imagen}} class="card-img-top"
+                alt="Laptop" />
+              <div class="card-body">
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">Categoria:</h5>
+                  <h5 class="text-dark mb-0">{{renta.producto.categoria }}</h5>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">Precio:</h5>
+                  <h5 class="text-dark mb-0">{{renta.producto.precio }} puma puntos</h5>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">Fecha de renta:</h5>
+                  <h5 class="text-dark mb-0">{{renta.fechaInicio}}</h5>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <h5 class="mb-0">Fecha de entrega:</h5>
+                  <h5 class="text-dark mb-0">{{renta.fechafin}}</h5>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                  <div class="ms-auto text-warning">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                  </div>
+                </div>
+              </div> 
+          </div>
+        </div>  
+      </div>     
+    </div>
+</section>
