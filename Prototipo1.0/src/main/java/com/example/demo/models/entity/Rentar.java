@@ -8,7 +8,6 @@ package com.example.demo.models.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,11 +50,29 @@ public class Rentar implements Serializable {
 	@JsonIgnore
 	private Usuario usuario;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "producto_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
 	private Producto producto;
+	
+	@Column(columnDefinition = "varchar(255)")
+	private String nombreProducto;
+	
+	public Rentar() {
+		super();
+	}
+	
+	public Rentar(Long id, LocalDate fechaInicio, LocalDate fechafin, Usuario usuario, Producto producto) {
+		super();
+		this.id = id;
+		this.fechaInicio = fechaInicio;
+		this.fechafin = fechafin;
+		this.usuario = usuario;
+		this.producto = producto;
+		this.nombreProducto = producto.getNombre();
+		
+	}
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -99,10 +116,13 @@ public class Rentar implements Serializable {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-
-		
 	
+	public String getNombreProducto(){
+		return nombreProducto;
+	}
 	
-	
+	public void setNombreProducto() {
+		this.nombreProducto = this.producto.getNombre();
+	}
 
 }

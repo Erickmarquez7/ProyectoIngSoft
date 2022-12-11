@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.models.dao.IUsuarioDao;
+import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
 
 @Service
@@ -106,6 +107,47 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	@Transactional(readOnly=true)
 	public Usuario findByUsername(String username) {
 		return usuarioDao.findByUsername(username);
+	}
+
+	@Override
+	public List<Usuario> getUsuariosActivos() {
+		// TODO Auto-generated method stub
+		return usuarioDao.getUsuariosActivos();
+	}
+
+
+	@Override
+	public List<Producto> masBarato() {
+		// TODO Auto-generated method stub
+		return usuarioDao.masBaratos();
+	}
+
+
+	@Override
+	public List<Object[]> masRentas() {
+		// TODO Auto-generated method stub
+		return usuarioDao.masRentas();
+	}
+
+
+	@Override
+	public List<Object[]> masRentados() {
+		// TODO Auto-generated method stub
+		return usuarioDao.masRentados();
+	}
+
+
+	@Override
+	public List<Object[]> porCarrera() {
+		// TODO Auto-generated method stub
+		return usuarioDao.porCarrera();
+	}
+
+
+	@Override
+	public List<Object[]> status() {
+		// TODO Auto-generated method stub
+		return usuarioDao.status();
 	}
  
 }

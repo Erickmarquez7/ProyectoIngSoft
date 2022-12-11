@@ -22,11 +22,8 @@ import com.example.demo.models.entity.Actividad;
 import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
 import com.example.demo.models.service.IActividadService;
-import com.example.demo.models.service.IProductoService;
-import com.example.demo.models.service.IRentarService;
 import com.example.demo.models.service.IUsuarioService;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +33,6 @@ import java.util.Map;
 @RequestMapping("/api")
 public class UsuarioRestController {
 
-	private Date actual = new Date();
 
 	final int maxPuntos = 500;
 
@@ -77,6 +73,12 @@ public class UsuarioRestController {
     	
         //return usuarioService.findById(id);
     }
+
+	//Metodo perteneciente a Ver Reporte 
+	@GetMapping("/usuarios/activos")
+	public List<Usuario>  showActives(){
+		return usuarioService.getUsuariosActivos(); 
+	}
 	
 	@Secured("ROLE_ADMIN")
     @PostMapping("/usuarios")
@@ -86,7 +88,7 @@ public class UsuarioRestController {
     	Usuario usuarioNuevo = null; 
     	Map<String,Object> response = new HashMap<>(); 
     	try {
-    		usuarioNuevo = usuarioService.save(usuario);  
+    		usuarioNuevo = usuarioService.save(usuarioNuevo);  
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar el insert en la base de datos.");
     		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -210,8 +212,6 @@ public class UsuarioRestController {
     	try {
     		if(operador==1) {
     			suma = usuario.getPumapuntos() + monto;
-    			
-    			int monto_validado = monto; 
     				
     			if(suma > 500) {
     				throw new IllegalArgumentException();
@@ -241,5 +241,11 @@ public class UsuarioRestController {
     	response.put("usuario", updateduser );
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
-	
+
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes")
+	public List<Producto> verReportes2(){
+		return usuarioService.masBarato();
+	}
 }
