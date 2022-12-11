@@ -17,6 +17,7 @@ import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VistaproductoComponent } from './productos/vistaproducto.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { HistorialComponent } from './historial/historial.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
-  { path: 'usuarios/form/:id', component: UsuarioFormComponent }
+  { path: 'usuarios/form/:id', component: UsuarioFormComponent },
+  { path: 'historial', component: HistorialComponent}
 ];
 /**
  * Para poner las rutas que vamos a utilizar
@@ -45,7 +47,8 @@ const routes: Routes = [
     ProductoFormComponent,
     LoginComponent,
     UsuariosComponent,
-    ReportesComponent
+    ReportesComponent,
+    HistorialComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from '../usuarios/auth.service';
 import { UsuarioService } from '../usuarios/usuario.service';
 import {Router} from '@angular/router';
@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit{
 
-  faP = faCoins;
+  faP = faCoins; 
   usuarios: Usuario[];
   usr: Usuario = new Usuario()
 
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public getUsuario(): void {
-    const id = Number(this.authService.usuario.id);
+    let id = Number(this.authService.usuario.id);
     this.usuarioService.getUsuario(id).subscribe(usr => this.usr = usr);
   }
 
@@ -55,7 +55,5 @@ export class HeaderComponent implements OnInit {
     this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
     );
-    this.getUsuario();
   }
-
 }
