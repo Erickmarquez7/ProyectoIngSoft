@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
 import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { VistausuariosComponent } from './usuarios/vistausuarios.component';
 import { VistaproductoComponent } from './productos/vistaproducto.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { HistorialComponent } from './historial/historial.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: UsuarioFormComponent },
+  { path: 'usuarios/:id', component: VistausuariosComponent},
   { path: 'historial', component: HistorialComponent}
 ];
 /**
@@ -43,10 +45,11 @@ const routes: Routes = [
     ProductosComponent,
     UsuarioFormComponent,
     UsuariosComponent,
-    VistaproductoComponent,
+    VistausuariosComponent,
     ProductoFormComponent,
     LoginComponent,
     UsuariosComponent,
+    VistaproductoComponent,
     ReportesComponent,
     HistorialComponent
   ],

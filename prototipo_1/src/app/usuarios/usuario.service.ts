@@ -14,7 +14,8 @@ import { AuthService } from '../usuarios/auth.service';
 })
 export class UsuarioService {
 
-  private urlEndPoint:string = 'http://localhost:8090/api/usuarios';
+  private urlEndPoint: string = 'http://localhost:8090/api/usuarios';
+  private urlEndPointCuenta: string = 'http://localhost:8090/api/cuenta';
 
   private httpHeaders = new HttpHeaders({'content-Type': 'application/json'})
 
@@ -62,7 +63,7 @@ export class UsuarioService {
   /**
    * Creacion de los usuarios
    */
-   create(usuario: Usuario): Observable<Usuario> {
+  create(usuario: Usuario): Observable<Usuario> {
     return this.http.post<any>(this.urlEndPoint, usuario, { headers: this.agregarAuthorizationHeader() }).pipe(
 
       catchError(e => {
@@ -78,20 +79,39 @@ export class UsuarioService {
     )
   }
 
-  /**
-   * Obtencion de un Usuario por su id.
-   */
-  getUsuario(id): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
-      catchError(e => {
+  // <<<<<<< HEAD
+//   getUsuario(id): Observable<Usuario> {
+//     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`).pipe(
+//       catchError(e =>{
+//         this.router.navigate(['/usuarios']);
+//         Swal.fire('Error al editar', e.error.mensaje, 'error');
+//         return throwError( () => e);
+//       })
+//     )
+//   }
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
-        }
+//   /**
+//    * Actualizar un usuario 
+//    */
+//   update(usuario: Usuario):Observable<Usuario> {
+//     return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, {headers: this.httpHeaders})
+//   }
+
+//   delete(id: number): Observable<Usuario>{
+//     return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
+// =======
+getUsuario(id): Observable<Usuario>{
+  return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
+//>>>>>>> verUsuario
+    catchError(e => {
+
+      if(this.isNoAutorizado(e)){
+        return throwError( () => e );
+      }
 
 
-        this.router.navigate(['/usuarios']);
-        Swal.fire('Error al editar', e.error.mensaje, 'error');
+      this.router.navigate(['/usuarios']);
+      Swal.fire('Error al editar', e.error.mensaje, 'error');
         return throwError( () => e );
       })
     )
@@ -115,6 +135,56 @@ export class UsuarioService {
     )
   }
 
+  delete(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
+        }
+
+
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    )
+  }
+
+
+     /**
+     * Metodo que incrementa la cantidad de puma puntos 
+     * @param id 
+     * @returns 
+     */
+      sumar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/1`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
+
+      /**
+       * Metodo que incrementa la cantidad de puma puntos 
+       * @param id 
+       * @returns 
+       */
+       restar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/0`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
+
   /**
    * Acumula Puntos de actividad
    * @param usuario el producto a actualizar
@@ -124,19 +194,6 @@ export class UsuarioService {
   registraPuntos(usuario: Usuario, code:string):Observable<Usuario> {
     return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
-        }
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError( () => e );
-      })
-    )
-  }
-
-  delete(id: number): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
-      catchError(e => {
-
         if(this.isNoAutorizado(e)){
           return throwError( () => e );
         }
