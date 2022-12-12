@@ -10,8 +10,25 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 
-import javax.persistence.*; 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.springframework.util.Assert;
+
 
 
 @Entity
@@ -45,11 +62,14 @@ public class Usuario implements Serializable {
 	//cel
 	private BigInteger celular;
 
+
 	//foto de perfil
 	private String foto;
 
 	@Column(unique = true)
 	private String email;
+
+	String regexPattern;
 
 	//si el ususario esta activo	
 	private Boolean enabled;
@@ -223,6 +243,20 @@ public class Usuario implements Serializable {
 	
 	
 	
+
+	
+	public void testUsingSimpleRegex() {
+    	email = "username@domain.com";
+    	regexPattern = "^(.+)@(\\S+)$";
+	}
+
+
+	public static boolean patternMatches(String email, String regexPattern) {
+		return Pattern.compile(regexPattern)
+		  .matcher(email)
+		  .matches();
+	}
+
 
 	/**
 	 * 
