@@ -45,10 +45,10 @@ export class FormComponent implements OnInit {
     )
   }
 
-  public update():void {
-    this.usuarioService.update(this.usuario).subscribe(usuario =>{
+  public update(): void{
+    this.usuarioService.update(this.usuario).subscribe(usuario => {
       this.router.navigate(['/usuarios'])
-      Swal.fire('Usuario ', ` ${usuario.username} actualizado con éxito`, 'success')
+      Swal.fire('Producto Actualizado', `${this.usuario.nombre} actualizado con éxito`, 'success')
     })
 
   }
@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
   public sumar(): void{
     this.usuarioService.sumar(this.usuario, this.montoS).subscribe(usuario => {
       this.router.navigate(['/usuarios'])
-      //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
+       //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
     })
 
   }
@@ -68,5 +68,4 @@ export class FormComponent implements OnInit {
     })
 
   }
-
 }

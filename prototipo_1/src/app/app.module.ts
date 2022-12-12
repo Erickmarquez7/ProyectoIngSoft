@@ -46,7 +46,7 @@ const routes: Routes = [
     ProductosComponent,
     UsuarioFormComponent,
     UsuariosComponent,
-    VistaproductoComponent,
+    VistausuariosComponent,
     ProductoFormComponent,
     LoginComponent,
     UsuariosComponent,
