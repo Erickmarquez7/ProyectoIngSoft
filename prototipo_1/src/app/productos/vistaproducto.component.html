@@ -1,0 +1,40 @@
+<section style="background-color: #1d2b50">
+<div class="container-fluid py-5">
+<h1>
+    <FONT COLOR="white">Detalles del producto</FONT>
+</h1>
+    
+<div *ngIf="producto">
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-3 py-4">
+                <div class="text-center mt-5">
+                    <h1><img src={{producto.imagen}} class="card-img-top"
+                        alt="Laptop" /></h1>
+                </div>
+
+                <div class="text-center mt-2">
+                    <h1>{{producto.categoria}} {{producto.nombre}}</h1>
+                </div>
+
+                <div class="text-center mt-2">
+                    <div class="px-4 mt-1">
+                        {{producto.descripcion}}
+                    </div>
+
+                    <div class="px-4 mt-1">
+                        <span class="fw-bold">Cantidad:</span> {{producto.cantidad}}
+                    </div>
+
+                    <div class="px-4 mt-1">
+                        <span class="fw-bold">Precio:</span> {{producto.cantidad}} puma puntos
+                    </div>
+
+                    <div class="px-4 mb-2">
+                        <span class="fw-bold">Días a prestar:</span> {{producto.dias}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

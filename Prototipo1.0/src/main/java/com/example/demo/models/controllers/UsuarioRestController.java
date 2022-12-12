@@ -19,12 +19,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 
-//import com.example.demo.models.entity.Actividad;
+import com.example.demo.models.entity.Actividad;
+import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
-//import com.example.demo.models.service.IActividadService;
+import com.example.demo.models.service.IActividadService;
 import com.example.demo.models.service.IUsuarioService;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +34,6 @@ import java.util.Map;
 @RequestMapping("/api")
 public class UsuarioRestController {
 
-	private Date actual = new Date();
 
 	final int maxPuntos = 500;
 
