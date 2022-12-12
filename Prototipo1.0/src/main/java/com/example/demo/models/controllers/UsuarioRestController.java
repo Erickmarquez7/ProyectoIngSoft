@@ -25,8 +25,18 @@ import com.example.demo.models.service.IUsuarioService;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingFormatArgumentException;
+//Para validaciones de cadenas 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+
+
+
 
 @CrossOrigin(origins= {"http://localhost:4200"})
 @RestController
@@ -88,11 +98,21 @@ public class UsuarioRestController {
     	//Error al servidor, bd, etc 
     	try {
     		usuario = this.usuarioService.findByUsername(username);
+    		
+    		if (! this.usernameValidation(username) ) {
+    			throw new IllegalArgumentException();
+    		}
+        		
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Error al buscar al usuario, el username solo puede contener numeros y debe contener 9 digitos");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_ACCEPTABLE); 
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar la consulta en la base de datos.");
     		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
-    	} catch (Exception e ) {
+    	} 
+    	catch (Exception e ) {
     		response.put("mensaje", "Error al realizar la consulta");
     		response.put("error", e.getMessage().concat(": "));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
@@ -107,6 +127,34 @@ public class UsuarioRestController {
         //return usuarioService.findById(id);
     }
 	
+	/**
+	 * Metodo para validar el formato del username (numero de cuenta)
+	 * @param username
+	 * @return
+	 */
+	private boolean usernameValidation(String username) {
+		//Esta expresion va a reconocer todo lo que no sea un numero 
+		Pattern pattern = Pattern.compile("[0-9]"); 
+		Matcher matcher = pattern.matcher(username); 
+		boolean matchFound	= matcher.find();  
+		
+		//Si la cadena de username contiene algo distinto a un digito y tiene menos de 9 digitos 
+		if (!matchFound || username.length() != 9) {
+			return false; 
+		}
+		return true; 
+	}
+	
+	/**
+	 * Metodo para validar el formato del email 
+	 * @param email
+	 * @return
+	 */
+	private boolean emailValidation(String email) {
+		return Pattern.compile("^(.+)@(.+)$").matcher(email).matches();
+	}
+	
+	
 	@Secured("ROLE_ADMIN")
     @PostMapping("/usuarios")
     @ResponseStatus(HttpStatus.CREATED)
@@ -118,6 +166,15 @@ public class UsuarioRestController {
     		if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == null ) {
     			throw new IllegalArgumentException();
     		}
+    		
+    		if (! this.usernameValidation(usuario.getUsername()) ) {
+    			throw new IllegalArgumentException(); 
+    		}
+    		
+    		if (this.emailValidation(usuario.getEmail())==false) {
+    			throw new IllegalStateException();
+    		}
+    		
     		usuarioNuevo = usuarioService.save(usuario);  
     	} catch (DataAccessException e) {
     		response.put("mensaje", "Error al realizar el insert en la base de datos.");
@@ -128,7 +185,11 @@ public class UsuarioRestController {
     		response.put("mensaje", "Error, los campos no fueron llenados correctamente");
         	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
-    	}
+    	} catch (IllegalStateException e) {
+    		response.put("mensaje", "Error, el formato del correo no es correcto");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
+    	} 
     	response.put("mensaje", "El usuario ha sido agregado con exito.");
     	response.put("usuario", usuarioNuevo);
 		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
@@ -148,8 +209,12 @@ public class UsuarioRestController {
 
     	}
     	try {    		
-    		if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == null ) {
+    		if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == "" ) {
     			throw new IllegalArgumentException();
+    		}
+    		//Validacion del email 
+    		if (this.emailValidation(usuario.getEmail())==false) {
+    			throw new IllegalStateException();
     		}
     		currentuser.setPassword(usuario.getPassword());
     		currentuser.setNombre(usuario.getNombre());
@@ -172,6 +237,10 @@ public class UsuarioRestController {
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
     	} catch (IllegalArgumentException e) {
     		response.put("mensaje", "Error, los campos no fueron llenados correctamente");
+        	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
+    	} catch (IllegalStateException e) {
+    		response.put("mensaje", "Error, el formato del correo no es correcto");
         	//response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
     		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.BAD_REQUEST); 
     	}
