@@ -149,5 +149,8 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 		// TODO Auto-generated method stub
 		return usuarioDao.status();
 	}
- 
+
+
+	
+
 }

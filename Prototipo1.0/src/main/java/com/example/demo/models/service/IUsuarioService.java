@@ -79,5 +79,7 @@ public interface IUsuarioService {
     public List<Object[]> status();
 
 
+    public void deleteById(Long id);
+    
 
 }

@@ -80,6 +80,37 @@ public class UsuarioRestController {
 		return usuarioService.getUsuariosActivos(); 
 	}
 	
+	/**
+	 * Metodo para encontrar un usuario por medio de su username (numero de cuenta )
+	 * 
+	 */
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @GetMapping("/usuarios/nocuenta/{username}")
+    public ResponseEntity<?> showByUsername(@PathVariable String username) {
+    	Usuario usuario = null; 
+    	Map<String, Object> response = new HashMap<>(); 
+    	//Error al servidor, bd, etc 
+    	try {
+    		usuario = this.usuarioService.findByUsername(username);
+    	} catch (DataAccessException e) {
+    		response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+    		response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+    	} catch (Exception e ) {
+    		response.put("mensaje", "Error al realizar la consulta");
+    		response.put("error", e.getMessage().concat(": "));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+    	}
+    	//Error con el id ingresado 
+    	if(usuario == null) {
+    		response.put("mensaje", "El usuario con numero de cuenta :".concat(username.concat("no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+    	}
+    	return new ResponseEntity<Usuario>(usuario,HttpStatus.OK); 
+    	
+        //return usuarioService.findById(id);
+    }
+	
 	@Secured("ROLE_ADMIN")
     @PostMapping("/usuarios")
     @ResponseStatus(HttpStatus.CREATED)

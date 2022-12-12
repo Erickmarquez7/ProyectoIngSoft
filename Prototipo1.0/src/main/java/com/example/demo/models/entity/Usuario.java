@@ -78,6 +78,7 @@ public class Usuario implements Serializable {
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
+ 
 
 	public Long getId() {
 		return id;

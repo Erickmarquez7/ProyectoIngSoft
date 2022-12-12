@@ -15,7 +15,7 @@ import com.example.demo.models.entity.Rentar;
 public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     
     public Usuario findByUsername(String username);
-
+    
     @Query(value = "SELECT * FROM usuarios WHERE usuarios.enabled = true", nativeQuery = true)
     public List<Usuario> getUsuariosActivos();
 
