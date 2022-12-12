@@ -150,7 +150,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 		return usuarioDao.status();
 	}
 
-
 	
 
 }
