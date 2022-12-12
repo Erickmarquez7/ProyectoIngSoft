@@ -6,6 +6,7 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class Usuario implements Serializable {
 	private String carrera;
 
 	//cel
-	private int celular;
+	private BigInteger celular;
 
 	//foto de perfil
 	private String foto;
@@ -170,11 +171,11 @@ public class Usuario implements Serializable {
 	}
 
 
-	public int getCelular() {
+	public BigInteger getCelular() {
 		return celular;
 	}
 
-	public void setCelular(int celular) {
+	public void setCelular(BigInteger celular) {
 		this.celular = celular;
 	}
 
