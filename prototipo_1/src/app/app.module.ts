@@ -20,7 +20,6 @@ import { VistaproductoComponent } from './productos/vistaproducto.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { HistorialComponent } from './historial/historial.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'productos', component: ProductosComponent },

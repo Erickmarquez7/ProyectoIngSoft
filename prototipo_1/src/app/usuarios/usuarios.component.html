@@ -6,9 +6,8 @@
         <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/usuarios/form']"
           *ngIf="authService.hasRole('ROLE_ADMIN')">Añadir Usuario</button>
       </div>
-
       <h1>
-        <FONT COLOR="white">Lista de Usuarios</FONT>
+        <FONT COLOR ="white">Lista de Usuarios</FONT>
       </h1>
       <div class="col-md-6 col-lg-4 mb-4 mb-md-0" *ngFor="let usuario of usuarios">
         <div class="card">

@@ -20,8 +20,7 @@ export class FormComponent implements OnInit {
   montoS : number = 0; 
   montoR : number = 0; 
 
-
-  constructor(private usuarioService: UsuarioService, actividadService: ActividadesService, private router:Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private usuarioService: UsuarioService, private router:Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.cargarUsuario()
@@ -60,6 +59,7 @@ export class FormComponent implements OnInit {
     })
 
   }
+
 
   public restar(): void{
     this.usuarioService.restar(this.usuario, this.montoR).subscribe(usuario => {

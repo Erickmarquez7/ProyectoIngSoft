@@ -53,6 +53,9 @@ public class UsuarioRestController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	@Autowired
+	private IActividadService actividadService;
+
 	/**
 	 * @Autowired
 	 *            private IActividadService actividadService;
@@ -141,6 +144,7 @@ public class UsuarioRestController {
 		}
 		return true; 
 	}
+    
 	
 	/**
 	 * Metodo para validar el formato del email 
@@ -235,22 +239,7 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	@Secured("ROLE_ADMIN")
-	@DeleteMapping("/usuarios/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?> delete(@PathVariable Long id) {
-		Map<String, Object> response = new HashMap<>();
-		try {
-			usuarioService.deleteById(id);
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error al eliminar el usuario en la base de datos");
-			response.put("eror", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
-		response.put("mensaje", "El usuario ha sido editado con exito");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-	}
-
+	
 	/**
 	 * @Secured("ROLE_ADMIN")
 	 * 
@@ -369,4 +358,73 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	//Metodo perteneciente a Ver Reporte 
+	@GetMapping("/usuarios/activos")
+	public List<Usuario>  showActives(){
+		return usuarioService.getUsuariosActivos(); 
+	}
+	
+	@Secured("ROLE_ADMIN")
+    @DeleteMapping("/usuarios/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+    	Map<String,Object> response = new HashMap<>();
+    	try {
+    		usuarioService.delete(id);	
+    	} catch (DataAccessException e) {
+    		response.put("mensaje", "Error al eliminar el usuario en la base de datos");
+        	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
+    	}
+    	response.put("mensaje", "El usuario ha sido editado con exito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
+	
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @PutMapping("/usuarios/{id}/{codigo}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> acumulaPuntos(@PathVariable Long id, @PathVariable String codigo) {
+    	Usuario currentuser = this.usuarioService.findById(id);
+		Actividad actividad = this.actividadService.findById(codigo);
+    	Usuario updateduser = null; 
+    	Map<String,Object> response = new HashMap<>();
+    	//Error con el id ingresado
+    	if(currentuser == null) {
+    		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+    	}
+    	if(actividad == null) {
+    		response.put("mensaje", "Error : la actividad".concat(codigo.concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
+    	}
+    	try {    		
+			int suma = actividad.getRecompensa();
+			int totalPumaPuntos = currentuser.getPumapuntos() + suma; 
+			if(totalPumaPuntos >= 500) {
+				currentuser.setPumapuntos(500);
+				updateduser = this.usuarioService.save(currentuser);
+				throw new IllegalArgumentException();
+			}
+			currentuser.setPumapuntos(currentuser.getPumapuntos() + suma);
+			updateduser = this.usuarioService.save(currentuser);
+    	} catch (DataAccessException e) {
+    		response.put("mensaje", "Error al actualizar al usuario en la base de datos");
+        	response.put("eror", e.getMessage().concat(": " ).concat(e.getMostSpecificCause().getMessage()));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED); 
+    	} catch (IllegalArgumentException e) {
+    		response.put("mensaje", "Haz llegado al saldo máximo permitido ");
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR); 
+    	}
+    	
+    	response.put("mensaje", "Los puntos se han registrado con éxito");
+        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+	
+
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes")
+	public List<Producto> verReportes2(){
+		return usuarioService.masBarato();
+	}
 }

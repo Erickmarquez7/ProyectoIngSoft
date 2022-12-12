@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.models.dao.IUsuarioDao;
 import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
-import com.example.demo.models.repository.usuarioRepository;
 
 @Service
 public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
@@ -27,7 +26,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
     @Autowired
     private IUsuarioDao usuarioDao;
-    private usuarioRepository usuariorepository;
 
 
 
@@ -120,6 +118,13 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	}
 
 
+
+	@Override
+	public void deleteById(Long id) {
+		usuarioDao.deleteById(id);
+		// TODO Auto-generated method stub
+	}
+
 	@Override
 	public List<Producto> masBarato() {
 		// TODO Auto-generated method stub
@@ -152,13 +157,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	public List<Object[]> status() {
 		// TODO Auto-generated method stub
 		return usuarioDao.status();
-	}
-
-
-	@Override
-	public void deleteById(Long id) {
-		usuarioDao.deleteById(id);
-		// TODO Auto-generated method stub
 	}
 
 }

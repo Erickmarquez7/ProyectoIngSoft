@@ -135,18 +135,39 @@ getUsuario(id): Observable<Usuario>{
     )
   }
 
-  delete(id: number): Observable<Usuario> {
-    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
-      catchError(e => {
-        if (this.isNoAutorizado(e)) {
-          return throwError(() => e);
-        }
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError(() => e);
-      })
-    )
-  }
+     /**
+     * Metodo que incrementa la cantidad de puma puntos 
+     * @param id 
+     * @returns 
+     */
+      sumar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/1`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
 
+      /**
+       * Metodo que incrementa la cantidad de puma puntos 
+       * @param id 
+       * @returns 
+       */
+       restar(usuario: Usuario, monto: number): Observable<any>{
+        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/0`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+          catchError(e => {
+            if(this.isNoAutorizado(e)){
+              return throwError( () => e );
+            }
+            Swal.fire(e.error.mensaje, e.error.error, 'error');
+            return throwError( () => e );
+          })
+        )
+      }
 
   /**
    * Acumula Puntos de actividad
@@ -166,38 +187,17 @@ getUsuario(id): Observable<Usuario>{
     )
   }
 
+  delete(id: number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
+        }
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(() => e);
+      })
+    )
+  }
 
-     /**
-     * Metodo que incrementa la cantidad de puma puntos 
-     * @param id 
-     * @returns 
-     */
-      sumar(usuario: Usuario, monto: number): Observable<any>{
-        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/1`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
-          catchError(e => {
-            if(this.isNoAutorizado(e)){
-              return throwError( () => e );
-            }
-            Swal.fire(e.error.mensaje, e.error.error, 'error');
-            return throwError( () => e );
-          })
-        )
-      }
-  
-      /**
-       * Metodo que incrementa la cantidad de puma puntos 
-       * @param id 
-       * @returns 
-       */
-       restar(usuario: Usuario, monto: number): Observable<any>{
-        return this.http.put<any>(`${this.urlEndPointCuenta}/${usuario.id}/${monto}/0`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
-          catchError(e => {
-            if(this.isNoAutorizado(e)){
-              return throwError( () => e );
-            }
-            Swal.fire(e.error.mensaje, e.error.error, 'error');
-            return throwError( () => e );
-          })
-        )
-      }
+
 }
