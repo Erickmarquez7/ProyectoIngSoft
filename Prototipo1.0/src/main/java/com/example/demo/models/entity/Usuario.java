@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,6 +26,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.springframework.util.Assert;
 
 
 
@@ -62,11 +65,14 @@ public class Usuario implements Serializable {
 	//cel
 	private BigInteger celular;
 
+
 	//foto de perfil
 	private String foto;
 
 	@Column(unique = true)
 	private String email;
+
+	String regexPattern;
 
 	//si el ususario esta activo	
 	private Boolean enabled;
@@ -204,6 +210,20 @@ public class Usuario implements Serializable {
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+	
+	public void testUsingSimpleRegex() {
+    	email = "username@domain.com";
+    	regexPattern = "^(.+)@(\\S+)$";
+	}
+
+
+	public static boolean patternMatches(String email, String regexPattern) {
+		return Pattern.compile(regexPattern)
+		  .matcher(email)
+		  .matches();
+	}
+
 
 	/**
 	 * 
