@@ -3,8 +3,7 @@ import { Usuario } from './usuario';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import Swal from 'sweetalert2';
-import { catchError, throwError } from 'rxjs';
-
+import { catchError , throwError} from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 
@@ -83,7 +82,7 @@ export class UsuarioService {
   /**
    * Obtencion de un Usuario por su id.
    */
-   getUsuario(id): Observable<Usuario>{
+  getUsuario(id): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
 
@@ -94,6 +93,24 @@ export class UsuarioService {
 
         this.router.navigate(['/usuarios']);
         Swal.fire('Error al editar', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
+
+  /**
+   * Acumula Puntos de actividad
+   * @param usuario el producto a actualizar
+   * @param code el codigo de actividad
+   * @returns 
+   */
+  registraPuntos(usuario: Usuario, code:string):Observable<Usuario> {
+    return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+      catchError(e => {
+        if(this.isNoAutorizado(e)){
+          return throwError( () => e );
+        }
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError( () => e );
       })
     )
@@ -166,8 +183,5 @@ export class UsuarioService {
           })
         )
       }
-  
-
-
 
 }

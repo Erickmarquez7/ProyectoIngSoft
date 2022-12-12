@@ -1,6 +1,6 @@
 export class Actividades {
 
-    id: number;
+    id: string;
     categoria: string;
     nombre: string;
     descripcion: string;
