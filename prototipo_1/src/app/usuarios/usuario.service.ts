@@ -82,30 +82,8 @@ export class UsuarioService {
   /**
    * Obtencion de un Usuario por su id.
    */
-// <<<<<<< HEAD
-//   getUsuario(id): Observable<Usuario> {
-//     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`).pipe(
-//       catchError(e =>{
-//         this.router.navigate(['/usuarios']);
-//         Swal.fire('Error al editar', e.error.mensaje, 'error');
-//         return throwError( () => e);
-//       })
-//     )
-//   }
-
-//   /**
-//    * Actualizar un usuario 
-//    */
-//   update(usuario: Usuario):Observable<Usuario> {
-//     return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id}`, usuario, {headers: this.httpHeaders})
-//   }
-
-//   delete(id: number): Observable<Usuario>{
-//     return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
-// =======
-   getUsuario(id): Observable<Usuario>{
+  getUsuario(id): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
-//>>>>>>> verUsuario
       catchError(e => {
 
         if(this.isNoAutorizado(e)){
@@ -115,6 +93,24 @@ export class UsuarioService {
 
         this.router.navigate(['/usuarios']);
         Swal.fire('Error al editar', e.error.mensaje, 'error');
+        return throwError( () => e );
+      })
+    )
+  }
+
+  /**
+   * Acumula Puntos de actividad
+   * @param usuario el producto a actualizar
+   * @param code el codigo de actividad
+   * @returns 
+   */
+  registraPuntos(usuario: Usuario, code:string):Observable<Usuario> {
+    return this.http.put<any>(`${this.urlEndPoint}/${usuario.id}/${code}`, usuario, {headers: this.agregarAuthorizationHeader()}).pipe(
+      catchError(e => {
+        if(this.isNoAutorizado(e)){
+          return throwError( () => e );
+        }
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError( () => e );
       })
     )
@@ -187,8 +183,5 @@ export class UsuarioService {
           })
         )
       }
-  
-
-
 
 }

@@ -8,7 +8,6 @@ package com.example.demo.models.entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +18,11 @@ import javax.persistence.JoinColumn;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author DozalMagnaniDiego
@@ -40,20 +44,35 @@ public class Rentar implements Serializable {
 	@Column(columnDefinition = "DATE")
 	private LocalDate fechafin; 
 	
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
-	@JoinColumn(name="id",insertable = false, updatable = false)
-	private Usuario usuario; 
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private Usuario usuario;
 	
-	@Column(name = "usuario_id")
-	private Long usuario_id;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id",insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
+	@JoinColumn(name = "producto_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Producto producto;
 	
-	@Column(name = "producto_id")
-	private Long producto_id;
+	@Column(columnDefinition = "varchar(255)")
+	private String nombreProducto;
+	
+	public Rentar() {
+		super();
+	}
+	
+	public Rentar(Long id, LocalDate fechaInicio, LocalDate fechafin, Usuario usuario, Producto producto) {
+		super();
+		this.id = id;
+		this.fechaInicio = fechaInicio;
+		this.fechafin = fechafin;
+		this.usuario = usuario;
+		this.producto = producto;
+		this.nombreProducto = producto.getNombre();
+		
+	}
+	
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -97,23 +116,13 @@ public class Rentar implements Serializable {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-
-	public Long getUsuario_id() {
-		return usuario_id;
-	}
-
-	public void setUsuario_id(Long usuario_id) {
-		this.usuario_id = usuario_id;
-	}
-
-	public Long getProducto_id() {
-		return producto_id;
-	}
-
-	public void setProducto_id(Long producto_id) {
-		this.producto_id = producto_id;
+	
+	public String getNombreProducto(){
+		return nombreProducto;
 	}
 	
-	
+	public void setNombreProducto() {
+		this.nombreProducto = this.producto.getNombre();
+	}
 
 }
