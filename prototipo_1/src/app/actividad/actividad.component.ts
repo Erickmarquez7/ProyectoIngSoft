@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { Usuario } from '../usuarios/usuario';
+import { UsuarioService } from '../usuarios/usuario.service';
 import { Actividades } from './actividades';
 import { ActividadesService } from './actividades.service';
 
@@ -9,6 +12,8 @@ import { ActividadesService } from './actividades.service';
 })
 export class ActividadComponent implements OnInit {
   actividad: Actividades[];
+  usuarios: Usuario[];
+  usuarioService: UsuarioService;
 
   constructor(private actividadService: ActividadesService) { }
 

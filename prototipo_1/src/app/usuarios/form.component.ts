@@ -4,7 +4,6 @@ import {UsuarioService} from './usuario.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import Swal from 'sweetalert2';
 import { ActividadesService } from '../actividad/actividades.service';
-import { Actividades } from '../actividad/actividades';
 
 
 @Component({
@@ -14,17 +13,14 @@ import { Actividades } from '../actividad/actividades';
 })
 export class FormComponent implements OnInit {
 
-  titulo: string = "Añadir usuario"
-  usuario: Usuario = new Usuario()
-  actividad: Actividades = new Actividades()
-  actividadService: ActividadesService;
+  titulo: string = "Añadir usuario";
+  usuario: Usuario = new Usuario();
 
   //Esto es para sumar PumaPuntos 
   montoS : number = 0; 
   montoR : number = 0; 
 
-
-  constructor(private usuarioService: UsuarioService, actividadService: ActividadesService, private router:Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private usuarioService: UsuarioService, private router:Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.cargarUsuario()
@@ -59,10 +55,11 @@ export class FormComponent implements OnInit {
   public sumar(): void{
     this.usuarioService.sumar(this.usuario, this.montoS).subscribe(usuario => {
       this.router.navigate(['/usuarios'])
-      //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
+       //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
     })
 
   }
+
 
   public restar(): void{
     this.usuarioService.restar(this.usuario, this.montoR).subscribe(usuario => {
@@ -71,5 +68,4 @@ export class FormComponent implements OnInit {
     })
 
   }
-
 }

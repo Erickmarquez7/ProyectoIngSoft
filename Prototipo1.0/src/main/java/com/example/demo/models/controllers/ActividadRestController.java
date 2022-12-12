@@ -50,7 +50,7 @@ public class ActividadRestController {
 	//Aqui se definen cuales roles tinene acceso al metodo
 	@Secured({"ROLE_ADMIN","ROL_USER"})
 	@GetMapping("/actividades/{id}")
-	public ResponseEntity<?> show(@PathVariable Long id) {
+	public ResponseEntity<?> show(@PathVariable String id) {
 		Actividad actividad = null;
 		Map<String, Object> response = new HashMap<>();
 		
@@ -107,7 +107,7 @@ public class ActividadRestController {
 	@Secured("ROLE_ADMIN")
 	@PutMapping("/actividades/{id}")
 	//@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> update(@RequestBody Actividad actividad, @PathVariable Long id){
+	public ResponseEntity<?> update(@RequestBody Actividad actividad, @PathVariable String id){
 		Actividad currentActividad = this.actividadService.findById(id);
 		Actividad productoUpdate = null;
 		Map<String,Object> response = new HashMap<>();
@@ -142,7 +142,7 @@ public class ActividadRestController {
 	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/actividades/{id}")
 	//@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<?> delete(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable String id) {
 		Map<String,Object> response = new HashMap<>();
 		try {
 			actividadService.delete(id);

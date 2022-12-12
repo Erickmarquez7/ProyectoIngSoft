@@ -2,6 +2,7 @@ package com.example.demo.models.service;
 
 import java.util.List;
 
+import com.example.demo.models.dao.IRentarDao;
 import com.example.demo.models.entity.Rentar;
 
 
@@ -32,4 +33,7 @@ public interface IRentarService {
 	 * @param id el id del Rentar a eliminar
 	 */
 	public void delete(Long id);
+	
+	
+	public IRentarDao getRentarDao(); 
 }

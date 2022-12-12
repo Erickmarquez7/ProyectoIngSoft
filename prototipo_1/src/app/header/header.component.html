@@ -9,33 +9,63 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
-          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/usuarios">Usuarios</a>
+          <a *ngIf="authService.isAuthenticated() && authService.hasRole('ROLE_ADMIN')" class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/usuarios">Usuarios</a>
         </li>
         <li class="nav-item">
           <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
-          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
+          <a *ngIf="authService.isAuthenticated()" class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
         </li>
       </ul>
       <ul class="navbar-nav navbar-right">
+        
         <li>
           <!-- En la barra de la cabezaera estara esta palabra, y si la pulsas te llevará al link de routerLink
           Notemos que hay un if, si no inició sessión entonces el boton de inicar sessión aparecerá -->
-          <a *ngIf="!authService.isAuthenticated()"  routerLink="/login" class="btn btn-outline-primary">Login</a>
+          <a *ngIf="!authService.isAuthenticated()" routerLink="/login" class="btn btn-outline-primary">Login</a>
         </li>
-        <!-- cuando inice sessión pondremos su nombre -->
-        <li *ngIf="authService.isAuthenticated()" class="dropdown">
-          <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{authService.usuario.username}}
-          </a>
-        <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
-        del metodo logout que se definió en header.component.ts -->
-          <ul class="dropdown-menu">
-              <button (click)="logout()" class="dropdown-item">Cerrar Sesión</button>
-              <button (click)="logout()" class="dropdown-item">Registrar puntos</button>
-          </ul>
-        </li>
-
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <li *ngIf="authService.isAuthenticated()" class="dropdown">
+                <a class="btn btn-outline-primary dropdown-toggle" href="#" (click)="getUsuario()" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  {{authService.usuario.username}}
+                </a>
+              <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
+              del metodo logout que se definió en header.component.ts -->
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <div class = "user-info">
+                    <img src={{usr.foto}}>
+                    <h3> {{authService.usuario.nombre}} </h3>
+                    <div class="col"></div>
+                    <h4> <p>{{ usr.pumapuntos }}</p> <fa-icon [icon]="faP" *ngIf="authService.hasRole('ROLE_USER')" ></fa-icon> </h4>
+                  </div>
+                  <hr>
+                  <button *ngIf="authService.isAuthenticated()" type="button" class="button1" routerLink="/historial"> Ver Historial </button>
+                  <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Actividades</button>
+                  <button type="button" class="button4" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/reportes', authService.usuario.id]">Ver Reportes</button>
+                  <button type="button" (click)="logout()" class="button3"> Cerrar Sesión </button>
+                </ul>
+              </li>
+            </div>
+          </div>
+        </div>
       </ul>
     </div>
   </div>
 </nav>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Registrar Actividades</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <form>
+      <div class="form-floating">
+        <input type="number" class="form-control" id="floatingCode" placeholder="Código" name="codigo" #codigo>
+        <label for="floatingPassword">Código</label>
+      </div>
+    </form>
+    <hr>
+    <button type="button" class="btn btn-primary" (click)="registraPuntos(authService.usuario, codigo.value)">Validar</button>
+  </div>
+</div>
