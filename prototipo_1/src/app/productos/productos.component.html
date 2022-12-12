@@ -31,6 +31,11 @@
             style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_USER')">
             <p class="text-white mb-0 small" [routerLink]="['/productos/form', producto.id]">Rentar</p>
           </div>
+          <!-- Para ver el producto individual -->
+          <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong"
+          style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_USER')">
+          <p class="text-white mb-0 small" [routerLink]="['/productos/id', producto]">Ver</p>
+         </div>
         </div>
         <img src={{producto.imagen}} class="card-img-top"
           alt="Laptop" />

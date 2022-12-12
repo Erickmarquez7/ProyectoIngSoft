@@ -56,4 +56,8 @@ export class UsuariosComponent implements OnInit {
     })
   }
 
+  registraPuntos(usuario:Usuario, code:string):void {
+    this.usuarioService.registraPuntos(usuario, code).subscribe()
+  }
+
 }

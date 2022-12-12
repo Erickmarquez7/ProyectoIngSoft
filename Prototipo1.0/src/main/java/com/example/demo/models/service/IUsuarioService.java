@@ -2,6 +2,7 @@ package com.example.demo.models.service;
 
 import java.util.List;
 
+import com.example.demo.models.entity.Producto;
 import com.example.demo.models.entity.Usuario;
 
 public interface IUsuarioService {
@@ -39,12 +40,44 @@ public interface IUsuarioService {
 	 * @param id el id del usuario a eliminar
 	 */
     public void delete(Long id);
-    
-    /**
-     * Elimina un usuario de acuerdo al ID quitando las llaves foráneas
-     */
 
-    public void deleteById(Long id);
-    
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Usuario> getUsuariosActivos();
+
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Producto> masBarato();
+
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Object[]> masRentasUsuario();
+
+	
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Object[]> masRentados();
+
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Object[]> porCarreraAct();
+
+	/**
+     * Metodo perteneciente al caso de uso : Ver Reportes 
+     * @return
+     */
+    public List<Object[]> noActivos();
+
+
 
 }
