@@ -26,8 +26,18 @@ import com.example.demo.models.service.IActividadService;
 import com.example.demo.models.service.IUsuarioService;
 
 import java.util.HashMap;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingFormatArgumentException;
+//Para validaciones de cadenas 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+
+
+
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -113,6 +123,36 @@ public class UsuarioRestController {
 		// return usuarioService.findById(id);
 	}
 
+	
+	/**
+	 * Metodo para validar el formato del username (numero de cuenta)
+	 * @param username
+	 * @return
+	 */
+	private boolean usernameValidation(String username) {
+		//Esta expresion va a reconocer todo lo que no sea un numero 
+		Pattern pattern = Pattern.compile("[0-9]"); 
+		Matcher matcher = pattern.matcher(username); 
+		boolean matchFound	= matcher.find();  
+		
+		//Si la cadena de username contiene algo distinto a un digito y tiene menos de 9 digitos 
+		if (!matchFound || username.length() != 9) {
+			return false; 
+		}
+		return true; 
+	}
+	
+	/**
+	 * Metodo para validar el formato del email 
+	 * @param email
+	 * @return
+	 */
+	private boolean emailValidation(String email) {
+		return Pattern.compile("^(.+)@(.+)$").matcher(email).matches();
+	}
+	
+
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/usuarios")
 	@ResponseStatus(HttpStatus.CREATED)
