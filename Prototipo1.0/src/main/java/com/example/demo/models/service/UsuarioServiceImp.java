@@ -117,11 +117,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 	}
 
 
-	@Override
-	public List<Usuario> getUsuariosActivos() {
-		// TODO Auto-generated method stub
-		return usuarioDao.getUsuariosActivos();
-	}
 	
 
 }
