@@ -91,7 +91,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     + " FROM productos, aux WHERE productos.id=aux.iden"
     + " GROUP BY productos.id, aux.iden;",  
     nativeQuery = true)
-    public List<Producto> masRentados();
+    public List<Object[]> masRentados();
 
 
     /**
