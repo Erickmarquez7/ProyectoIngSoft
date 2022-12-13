@@ -8,34 +8,6 @@
       <script type="typescript">
         console.log(usuarios)
       </script>
-      <div class="container-fluid py-5" >
-        <table class="table table-bordered table-striped" >
-          <thead >
-            <tr >
-              <th >ID</th>
-              <th>CATEGORIA</th>
-              <th>NOMBRE </th>
-              <th>DESCRIPCION</th>
-              <th>CANTIDAD</th>
-              <th>PRECIO</th>
-              <th>DIAS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let producto of productos">
-              <td><span>{{producto.id}} </span></td>
-              <td><span>{{categoria.id}} </span></td>
-              <td><span>{{nombre.id}} </span></td>
-              <td><span>{{descripcion.id}} </span></td>
-              <td><span>{{cantidad.id}} </span></td>
-              <td><span>{{precio.id}} </span></td>
-              <td><span>{{dias.id}} </span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
     <div class="container-fluid py-5">
       <h1>Usuarios Inactivos</h1>
       <table class="table table-bordered table-striped">
@@ -110,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of masRentadores">
+          <tr *ngFor="let usuario of ">
             <td><span>{{usuario.username}} </span></td>
             <td><span>{{usuario.nombre}} </span></td>
             <td><span>{{usuario.paterno}} </span></td>
@@ -123,4 +95,31 @@
         </tbody>
       </table>
     </div>
+    <div class="container-fluid py-5" >
+      <table class="table table-bordered table-striped" >
+        <thead >
+          <tr >
+            <th >ID</th>
+            <th>CATEGORIA</th>
+            <th>NOMBRE </th>
+            <th>DESCRIPCION</th>
+            <th>CANTIDAD</th>
+            <th>PRECIO</th>
+            <th>DIAS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let producto of productos">
+            <td><span>{{producto.id}} </span></td>
+            <td><span>{{categoria.id}} </span></td>
+            <td><span>{{nombre.id}} </span></td>
+            <td><span>{{descripcion.id}} </span></td>
+            <td><span>{{cantidad.id}} </span></td>
+            <td><span>{{precio.id}} </span></td>
+            <td><span>{{dias.id}} </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </section>
