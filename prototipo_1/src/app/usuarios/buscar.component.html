@@ -1,0 +1,73 @@
+<div *ngIf="usuario">
+    <section class="vh-100" style="background-color: #1d2b50;">
+        <div class="container py-5 h-110">
+            <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong"
+            style="width: 60px; height: 35px">
+            <p class="text-white mb-0 small"
+            [routerLink]="['/usuarios']">
+            Atras</p>
+
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-lg-6 mb-4 mb-lg-0">
+                    <div class="card mb-3" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-4 gradient-custom text-center text-white"
+                                style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <img src="{{ usuario.foto }}" alt="Avatar" class="img-fluid my-5"
+                                    style="width: 80px;" />
+                                <h5>{{ usuario.nombre }} {{ usuario.paterno }} {{ usuario.materno }}</h5>
+                                <p>{{ usuario.carrera }}</p>
+                                <i class="far fa-edit mb-5"></i>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h6>Información</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Email</h6>
+                                            <p class="text-muted">{{ usuario.email }}</p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Telefono</h6>
+                                            <p class="text-muted"> {{ usuario.celular }} </p>
+                                        </div>
+                                    </div>
+                                    <h6>Historial</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>Puma Puntos</h6>
+                                            <p class="text-muted"> {{ usuario.pumapuntos }} </p>
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Activo:</h6>
+                                            <p class="text-muted"> {{ usuario.enabled }} </p>
+                                        </div>
+                                    </div>
+                                    <div class="btn-toolbar">
+                                        <!-- Si tiene el rol de admin entonces aparece el boton de eliminar -->
+                                        <div class="bg-danger d-flex align-items-center justify-content-center shadow-1-strong"
+                                            style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                            <p class="text-white mb-0 small" (click)="delete(usuario)" >
+                                                Eliminar</p>
+                                        </div>
+                                        <p> </p>
+                                        <!-- Igualmente si tiene el rol de admin entonces aparece el boton de editar -->
+                                        <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong"
+                                            style="width: 60px; height: 35px" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                            <p class="text-white mb-0 small"
+                                                [routerLink]="['/usuarios/form', usuario.id]">
+                                                Editar</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

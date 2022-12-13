@@ -25,6 +25,13 @@ public interface IProductoService {
 	public Producto findById(Long id);
 	
 	/**
+	 * Regresa un solo usuario por el nombre de usuario
+	 * @param username el username del usuario
+	 * @return el usuario
+	 */
+    public Producto findByNombre(String nombre);
+
+	/**
 	 * Guarda un producto
 	 * @param producto el producto a guardar
 	 * @return el producto a guardar

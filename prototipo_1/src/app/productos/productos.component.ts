@@ -12,7 +12,8 @@ import { AuthService } from '../usuarios/auth.service';
 export class ProductosComponent implements OnInit {
 
   productos: Producto[];
-
+  name: string = '';
+  
   constructor(private productoService: ProductoService, public authService: AuthService ) { }
 
   ngOnInit(): void {

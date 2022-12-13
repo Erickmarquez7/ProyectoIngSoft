@@ -13,6 +13,7 @@ import { AuthService } from '../usuarios/auth.service';
 export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[];
+  username: string = '';
 
   constructor(private usuarioService: UsuarioService, public authService: AuthService) { }
 

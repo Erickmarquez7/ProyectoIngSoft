@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Producto } from './producto';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { catchError , throwError} from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
@@ -19,18 +19,18 @@ import { AuthService } from '../usuarios/auth.service';
 export class ProductoService {
 
   //de donde vamos a extraer los datos de nuestra bd local
-  private urlEndPoint:string = 'http://localhost:8090/api/productos';
+  private urlEndPoint: string = 'http://localhost:8090/api/productos';
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   /**
    * Si ya estamos autorizados
    */
-  private agregarAuthorizationHeader(){
+  private agregarAuthorizationHeader() {
     let token = this.authService.token;
-    if(token != null){
+    if (token != null) {
       return this.httpHeaders.append('Authorization', 'Bearer ' + token);
     }
     return this.httpHeaders;
@@ -39,16 +39,16 @@ export class ProductoService {
   /**
    * Si es que no estamos autorizados
    */
-  private isNoAutorizado(e): boolean{
-    if(e.status==401){
-      if(this.authService.isAuthenticated()){
+  private isNoAutorizado(e): boolean {
+    if (e.status == 401) {
+      if (this.authService.isAuthenticated()) {
         this.authService.logout();
       }
       this.router.navigate(['/login'])
       return true;
     }
 
-    if(e.status==403){
+    if (e.status == 403) {
       Swal.fire('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
       this.router.navigate(['/productos'])
       return true;
@@ -61,8 +61,29 @@ export class ProductoService {
    * Obtencion de los productos
    * @returns la lista de productos
    */
-  getProductos(): Observable<Producto[]>{
+  getProductos(): Observable<Producto[]> {
     return this.http.get<Producto[]>(this.urlEndPoint);
+  }
+ 
+  /**
+   * 
+   * @param name Obtencion de producto por su nombre
+   * @returns Producto 
+   */
+  getUsuarioByName(name: string): Observable<Producto> {
+    return this.http.get<Producto>(`${this.urlEndPoint}/name/${name}`, { headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+        // /productos/name/{nombre}
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
+        }
+
+
+        this.router.navigate(['/productos']);
+        Swal.fire('Error al encontrar al producto', e.error.mensaje, 'error');
+        return throwError(() => e);
+      })
+    )
   }
 
   /**
@@ -70,18 +91,18 @@ export class ProductoService {
    * @param producto el producto a crear
    * @returns un observable para que sea asincrono
    */
-  create(producto: Producto): Observable<any>{
-    return this.http.post<any>(this.urlEndPoint, producto, {headers: this.agregarAuthorizationHeader()} ).pipe(
-      
+  create(producto: Producto): Observable<any> {
+    return this.http.post<any>(this.urlEndPoint, producto, { headers: this.agregarAuthorizationHeader() }).pipe(
+
       catchError(e => {
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
         }
 
 
         Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError( () => e );
+        return throwError(() => e);
       })
     )
   }
@@ -91,18 +112,18 @@ export class ProductoService {
    * @param id el id del producto
    * @returns Un observable para permitir asincronia
    */
-  getProducto(id): Observable<Producto>{
-    return this.http.get<Producto>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader() }).pipe(
+  getProducto(id): Observable<Producto> {
+    return this.http.get<Producto>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
         }
 
 
         this.router.navigate(['/productos']);
         Swal.fire('Error al editar', e.error.mensaje, 'error');
-        return throwError( () => e );
+        return throwError(() => e);
       })
     )
   }
@@ -116,11 +137,11 @@ export class ProductoService {
     return this.http.put<any>(`${this.urlEndPoint}/${producto.id}`, producto, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
         }
         Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError( () => e );
+        return throwError(() => e);
       })
     )
   }
@@ -130,17 +151,17 @@ export class ProductoService {
    * @param id el id del producto a eliminar
    * @returns 
    */
-  delete(id: number): Observable<Producto>{
-    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`, {headers: this.agregarAuthorizationHeader()}).pipe(
+  delete(id: number): Observable<Producto> {
+    return this.http.delete<Producto>(`${this.urlEndPoint}/${id}`, { headers: this.agregarAuthorizationHeader() }).pipe(
       catchError(e => {
 
-        if(this.isNoAutorizado(e)){
-          return throwError( () => e );
+        if (this.isNoAutorizado(e)) {
+          return throwError(() => e);
         }
 
-        
+
         Swal.fire(e.error.mensaje, e.error.error, 'error');
-        return throwError( () => e );
+        return throwError(() => e);
       })
     )
   }
