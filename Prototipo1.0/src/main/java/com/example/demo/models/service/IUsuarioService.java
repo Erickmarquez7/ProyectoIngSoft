@@ -65,7 +65,6 @@ public interface IUsuarioService {
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> masRentas();
     public List<Usuario> masRentasUsuario();
 
 	
@@ -73,21 +72,18 @@ public interface IUsuarioService {
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> masRentados();
+    public List<Producto> masRentados();
 
 	/**
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> porCarrera();
     public List<Usuario> porCarreraAct();
 
 	/**
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> status();
-    
     public List<Usuario> noActivos();
 
 

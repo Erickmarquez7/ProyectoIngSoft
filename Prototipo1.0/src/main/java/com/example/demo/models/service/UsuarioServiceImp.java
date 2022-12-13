@@ -116,8 +116,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 		return usuarioDao.getUsuariosActivos();
 	}
 
-
-
 	@Override
 	public void deleteById(Long id) {
 		usuarioDao.deleteById(id);
@@ -132,30 +130,9 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
 
 	@Override
-	public List<Object[]> masRentas() {
+	public List<Producto> masRentados() {
 		// TODO Auto-generated method stub
-		return usuarioDao.masRentas();
-	}
-
-
-	@Override
-	public List<Object[]> masRentados() {
-		// TODO Auto-generated method stub
-		return (List<Object[]>) usuarioDao.masRentados();
-	}
-
-
-	@Override
-	public List<Object[]> porCarrera() {
-		// TODO Auto-generated method stub
-		return usuarioDao.porCarrera();
-	}
-
-
-	@Override
-	public List<Object[]> status() {
-		// TODO Auto-generated method stub
-		return usuarioDao.status();
+		return usuarioDao.masRentados();
 	}
 
 

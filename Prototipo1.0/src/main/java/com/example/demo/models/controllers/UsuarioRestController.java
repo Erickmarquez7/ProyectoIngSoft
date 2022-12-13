@@ -237,75 +237,6 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	
-	/**
-	 * @Secured("ROLE_ADMIN")
-	 * 
-	 * @RequestMapping(value="/cuenta/{id}/{codigo}", method = RequestMethod.PUT)
-	 * @ResponseStatus(HttpStatus.CREATED)
-	 *                                     public ResponseEntity<?>
-	 *                                     acumulaPuntos(@RequestBody Usuario
-	 *                                     usuario, @PathVariable Long
-	 *                                     id, @PathVariable Long codigo) {
-	 *                                     Usuario currentuser =
-	 *                                     this.usuarioService.findById(id);
-	 *                                     Actividad actividad =
-	 *                                     this.actividadService.findById(codigo);
-	 *                                     Usuario updateduser = null;
-	 *                                     Map<String,Object> response = new
-	 *                                     HashMap<>();
-	 *                                     //Error con el id ingresado
-	 *                                     if(currentuser == null) {
-	 *                                     response.put("mensaje", "Error : no se
-	 *                                     puede editar el
-	 *                                     usuario".concat(id.toString().concat(" no
-	 *                                     existe en la base de datos")));
-	 *                                     return new
-	 *                                     ResponseEntity<Map<String,Object>>(response,
-	 *                                     HttpStatus.NOT_FOUND);
-	 *                                     }
-	 *                                     try {
-	 *                                     int suma = actividad.getRecompensa();
-	 *                                     int totalPumaPuntos =
-	 *                                     usuario.getPumapuntos() + suma;
-	 *                                     if(totalPumaPuntos > 500) {
-	 *                                     throw new IllegalArgumentException();
-	 *                                     }
-	 *                                     currentuser.setPumapuntos(usuario.getPumapuntos()
-	 *                                     + suma);
-	 *                                     updateduser =
-	 *                                     this.usuarioService.save(currentuser);
-	 *                                     } catch (DataAccessException e) {
-	 *                                     response.put("mensaje", "Error al
-	 *                                     actualizar al usuario en la base de
-	 *                                     datos");
-	 *                                     response.put("eror",
-	 *                                     e.getMessage().concat(": "
-	 *                                     ).concat(e.getMostSpecificCause().getMessage()));
-	 *                                     return new
-	 *                                     ResponseEntity<Map<String,Object>>(response,
-	 *                                     HttpStatus.CREATED);
-	 *                                     } catch (IllegalArgumentException e) {
-	 *                                     response.put("mensaje", "Error al
-	 *                                     actualizar el saldo del usuario en la
-	 *                                     base de datos, El total excede el saldo
-	 *                                     maximo permitido ");
-	 *                                     //response.put("eror",
-	 *                                     e.getMessage().concat(": "
-	 *                                     ).concat(e.getMostSpecificCause().getMessage()));
-	 *                                     return new
-	 *                                     ResponseEntity<Map<String,Object>>(response,
-	 *                                     HttpStatus.CREATED);
-	 *                                     }
-	 * 
-	 *                                     response.put("mensaje", "Los puntos se
-	 *                                     han registrado con éxito");
-	 *                                     response.put("usuario", updateduser );
-	 *                                     return new ResponseEntity<Map<String,
-	 *                                     Object>>(response, HttpStatus.CREATED);
-	 *                                     }
-	 */
-
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/cuenta/{id}/{monto}/{operador}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -424,14 +355,14 @@ public class UsuarioRestController {
 
 	//Metodo para los Reportes
 	@GetMapping("/reportes/3")
-	public List<Object[]> verReportes3(){
+	public List<Producto> verReportes3(){
 		return usuarioService.masRentados();
 	}
 	
 
 	//Metodo para los Reportes
 	@Secured("ROLE_ADMIN")
-	@GetMapping("/reportes")
+	@GetMapping("/reportes/2")
 	public List<Producto> verReportes2(){
 		return usuarioService.masBarato();
 	}
