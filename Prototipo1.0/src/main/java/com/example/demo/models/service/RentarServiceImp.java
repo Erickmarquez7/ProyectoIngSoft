@@ -8,41 +8,37 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.models.dao.IRentarDao;
 import com.example.demo.models.entity.Rentar;
-import com.example.demo.models.entity.pk.RentarPK;
 
-@Service 
+@Service
 public class RentarServiceImp implements IRentarService {
 
-	@Autowired 
+	@Autowired
 	private IRentarDao rentarDao; 
-	
-	
 	
 	@Override
 	@Transactional(readOnly=true)
 	public List<Rentar> findAll() {
-		return (List<Rentar>) rentarDao.findAll();
-	}
+		// TODO Auto-generated method stub
+		return (List<Rentar>) rentarDao.findAll();	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public Rentar findById(Long key) {
+	public Rentar findById(Long id) {
 		// TODO Auto-generated method stub
-		return rentarDao.findById(key).orElse(null); 
+		return rentarDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional()
-	public Rentar save(Rentar renta) {
+	public Rentar save(Rentar producto) {
 		// TODO Auto-generated method stub
-		return rentarDao.save(renta); 
+		return rentarDao.save(producto);
 	}
 
 	@Override
 	@Transactional()
-	public void delete(Long key) {
-		// TODO Auto-generated method stub
-		rentarDao.deleteById(key);
+	public void delete(Long id) {
+		rentarDao.deleteById(id);
 
 	}
 

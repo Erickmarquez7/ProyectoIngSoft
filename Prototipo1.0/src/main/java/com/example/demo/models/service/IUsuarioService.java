@@ -6,12 +6,45 @@ import com.example.demo.models.entity.Usuario;
 
 public interface IUsuarioService {
 
+    /**
+	 * Encuentra todos los usuarios
+	 * @return Una lista de usuarios
+	 */
     public List<Usuario> findAll();
 
+    /**
+	 * Regresa un solo por usuario por id
+	 * @param id el id del usuario
+	 * @return el usuario
+	 */
     public Usuario findById(Long id);
 
+    /**
+	 * Regresa un solo usuario por el nombre de usuario
+	 * @param username el username del usuario
+	 * @return el usuario
+	 */
+    public Usuario findByUsername(String username);
+
+    /**
+	 * Guarda un usuario
+	 * @param usuario el usuario a guardar
+	 * @return el usuario a guardar
+	 */
     public Usuario save(Usuario usuario);
 
+
+    /**
+	 * Elimina un usuario de acuerdo al Id
+	 * @param id el id del usuario a eliminar
+	 */
     public void delete(Long id);
+    
+    /**
+     * Elimina un usuario de acuerdo al ID quitando las llaves foráneas
+     */
+
+    public void deleteById(Long id);
+    
 
 }
