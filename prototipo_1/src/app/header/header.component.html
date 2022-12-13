@@ -15,6 +15,10 @@
           <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
           <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/productos">Productos</a>
         </li>
+        <li class="nav-item">
+          <!-- En la barra de la cabezera estara esta palabra, y si la pulsas te llevará al link de routerLink -->
+          <a class="nav-link" routerLinkActive="active" aria-current="page" routerLink="/rentar">Rentas</a>
+        </li>
       </ul>
       <ul class="navbar-nav navbar-right">
         <li>
@@ -22,35 +26,20 @@
           Notemos que hay un if, si no inició sessión entonces el boton de inicar sessión aparecerá -->
           <a *ngIf="!authService.isAuthenticated()"  routerLink="/login" class="btn btn-outline-primary">Login</a>
         </li>
-        <div class="container">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
-              <li *ngIf="authService.isAuthenticated()" class="dropdown">
-                <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{authService.usuario.username}}
-                </a>
-              <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
-              del metodo logout que se definió en header.component.ts -->
-                <ul class="dropdown-menu">
-                  <div class = "user-info">
-                    <h3> {{authService.usuario.nombre}} </h3>
-                    <h4> <fa-icon [icon]="faP"></fa-icon>{{authService.usuario.username}} </h4>
-                  </div>
-                  <hr>
-                  <button type="button" (click)="logout()" class="button1"> Ver Historial </button>
-                  <span  onclick="openNav()">Registrar actividad</span>
-                  <button type="button" (click)="open(content)" class="button2"> Registrar actividad </button>
-                  <button type="button" (click)="verHistorial()" class="button3"> Cerrar Sesión </button>
-                </ul>
-              </li>
-            </div>
-            <div class="col"></div>
-          </div>
-          </div>
+        <!-- cuando inice sessión pondremos su nombre -->
+        <li *ngIf="authService.isAuthenticated()" class="dropdown">
+          <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{authService.usuario.username}}
+          </a>
+        <!-- cuando incie sesion aparecerá el boton de cerrar sesion, este tendra el comportamiento
+        del metodo logout que se definió en header.component.ts -->
+          <ul class="dropdown-menu">
+              <button (click)="logout()" class="dropdown-item">Cerrar Sesión</button>
+              <button (click)="logout()" class="dropdown-item">Registrar puntos</button>
+          </ul>
+        </li>
+
       </ul>
     </div>
   </div>
 </nav>
-

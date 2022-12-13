@@ -2,20 +2,20 @@
 <section style="background-color: #1d2b50">
 <div class="container-fluid py-5">
   <h1>
-    <FONT COLOR="white">Lista de Productos</FONT>
+    <FONT COLOR="white">Lista de Rentas</FONT>
   </h1>
 
   <div class="row">
     <div class="my-2 text-left">
-      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/productos/form']"
-        *ngIf="authService.hasRole('ROLE_ADMIN')">Añadir Producto</button>
+      <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/rentar/form']"
+        *ngIf="authService.hasRole('ROLE_ADMIN')">Realizar Renta</button>
     </div>
 
-    <div class="col-md-6 col-lg-4 mb-4 mb-md-0" *ngFor="let producto of productos">
+    <div class="col-md-6 col-lg-4 mb-4 mb-md-0" *ngFor="let renta of rentar">
 
       <div class="card">
         <div class="d-flex justify-content-between p-3">
-          <p class="lead mb-0">{{ producto.nombre }}</p>
+          <p class="lead mb-0">{{ renta.id }}</p>
           <!-- Si tiene el rol de admin entonces aparece el boton de eliminar -->
           <div class="bg-danger d-flex align-items-center justify-content-center shadow-1-strong"
             style="width: 60px; height: 35px" role="button" *ngIf="authService.hasRole('ROLE_ADMIN')">
@@ -29,7 +29,7 @@
           <!-- Si tiene el rol de usuario aparece el boton de rentar -->
           <div class="bg-primary d-flex align-items-center justify-content-center shadow-1-strong"
             style="width: 60px; height: 35px" role="button" *ngIf="authService.hasRole('ROLE_USER')">
-            <p class="text-white mb-0 small" [routerLink]="['/rentar/form', producto.id]">Rentar</p>
+            <p class="text-white mb-0 small" [routerLink]="['/rentar', producto.id]">Renta</p>
           </div>
         </div>
         <img src={{producto.imagen}} class="card-img-top"

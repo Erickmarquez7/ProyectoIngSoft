@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../usuarios/auth.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { faCoins } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -11,8 +10,6 @@ import { faCoins } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  faP = faCoins;
 
   constructor(public authService:AuthService, private router: Router ) { }
 
@@ -23,13 +20,6 @@ export class HeaderComponent implements OnInit {
    * 
    */
   logout():void {
-    let username = this.authService.usuario.username;
-    this.authService.logout();
-    Swal.fire('Logout', `Hola ${username}, ha cerrado sesión con éxito!`, 'success');
-    this.router.navigate(['/login']);
-  }
-
-  verHistorial():void {
     let username = this.authService.usuario.username;
     this.authService.logout();
     Swal.fire('Logout', `Hola ${username}, ha cerrado sesión con éxito!`, 'success');

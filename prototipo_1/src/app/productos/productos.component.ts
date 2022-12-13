@@ -32,7 +32,7 @@ export class ProductosComponent implements OnInit {
     
     swalWithBootstrapButtons.fire({
       title: 'Estas seguro?',
-      text: `¿Seguro que desea eliminaar el producto ${producto.nombre}?`,
+      text: `¿Seguro que desea eliminar el producto ${producto.nombre}?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'si, Eliminar!',

@@ -4,56 +4,56 @@
 
         <form>
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">username</label>
+                <label for="" class="col-form-label col-sm-2">Nombre de usuario</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">password</label>
+                <label for="" class="col-form-label col-sm-2">Contraseña</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.password" name="password">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">nombre</label>
+                <label for="" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">paterno</label>
+                <label for="" class="col-form-label col-sm-2">Apellido paterno</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.paterno" name="paterno">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">materno</label>
+                <label for="" class="col-form-label col-sm-2">Apellido materno</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.materno" name="materno">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">carrea</label>
+                <label for="" class="col-form-label col-sm-2">Carrera</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.carrera" name="carrera">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">celular</label>
+                <label for="" class="col-form-label col-sm-2">Celular</label>
                 <div class="col-sm-6">
                     <input type="number" class="form-control" [(ngModel)]="usuario.celular" name="celular">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label for="" class="col-form-label col-sm-2">email</label>
+                <label for="" class="col-form-label col-sm-2">Email</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="usuario.email" name="email">
                 </div>
@@ -73,6 +73,7 @@
                 </div>
             </div>
 
+
             <div class="form-group row">
                 <label for="" class="col-form-label col-sm-2">Rol</label>
                 <div class="col-sm-6">
@@ -84,9 +85,13 @@
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="2" [(ngModel)]="usuario.roles[1]">
                         <label class="form-check-label" for="inlineCheckbox2">Administrador</label>
                       </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="3" [(ngModel)]="usuario.roles[2]">
+                        <label class="form-check-label" for="inlineCheckbox2">Proveedor</label>
+                      </div>
                 </div>
             </div>
-
+            
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked value="true" [(ngModel)]="usuario.enabled">
                 <label class="form-check-label" for="flexRadioDefault1">
@@ -105,11 +110,15 @@
                     <button class="btn btn-primary" role="button" (click)="create()"
                         *ngIf="!usuario.id else elseBlock">Añadir usuario</button>
                     <ng-template #elseBlock>
-                        <label for="" class="col-form-label col-sm-2">Ingresa la cantidad de pumapuntos que se añadirán:</label>
-                        <div class="col-sm-6">
-                            <input type="number" class="form-control" [(ngModel)]="usuario.pumapuntos" name="pumapuntos">
-                        </div>
                         <button class="btn btn-secondary" role="button" (click)="update()">Actualizar usuario</button>
+                        <div class="col-form-label col-sm-2">
+                            <button class="btn btn-secondary" role="button" (click)="sumar()"> Sumar PumaPuntos </button>
+                            <input type="number" class="form-control" [(ngModel)]="montoS" name="monto">
+                        </div>
+                        <div class="col-form-label col-sm-2">
+                            <button class="btn btn-secondary" role="button" (click)="restar()"> Restar PumaPuntos </button>
+                            <input type="number" class="form-control" [(ngModel)]="montoR" name="monto">
+                        </div>
                     </ng-template>
                 </div>
             </div>
