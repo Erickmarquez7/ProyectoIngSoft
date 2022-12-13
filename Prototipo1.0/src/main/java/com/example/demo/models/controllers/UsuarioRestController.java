@@ -21,8 +21,10 @@ import org.springframework.security.access.annotation.Secured;
 
 import com.example.demo.models.entity.Actividad;
 import com.example.demo.models.entity.Producto;
+import com.example.demo.models.entity.Role;
 import com.example.demo.models.entity.Usuario;
 import com.example.demo.models.service.IActividadService;
+import com.example.demo.models.service.IRoleService;
 import com.example.demo.models.service.IUsuarioService;
 
 import java.util.HashMap;
@@ -49,6 +51,9 @@ public class UsuarioRestController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
+
+	@Autowired
+	private IRoleService rolService;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -171,6 +176,8 @@ public class UsuarioRestController {
 				throw new IllegalArgumentException();
 			}
 			usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+			Role normal = rolService.findByNombre("ROLE_USER");
+			usuario.addRole(normal);
 			usuarioNuevo = usuarioService.save(usuario);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
