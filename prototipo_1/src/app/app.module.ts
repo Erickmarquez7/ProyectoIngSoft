@@ -10,29 +10,31 @@ import { FooterComponent } from './footer/footer.component';
 import { ProductosComponent } from './productos/productos.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormComponent as ProductoFormComponent} from './productos/form.component';
+import { FormComponent as ProductoFormComponent } from './productos/form.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './usuarios/login.component';
-import { FormComponent as UsuarioFormComponent}  from './usuarios/form.component';
+import { FormComponent as UsuarioFormComponent } from './usuarios/form.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VistausuariosComponent } from './usuarios/vistausuarios.component';
 import { VistaproductoComponent } from './productos/vistaproducto.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { HistorialComponent } from './historial/historial.component';
+import { BuscarComponent } from './usuarios/buscar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'productos', component: ProductosComponent },
   { path: 'productos/form', component: ProductoFormComponent },
   { path: 'productos/form/:id', component: ProductoFormComponent },
-  { path: 'productos/:id', component: VistaproductoComponent},
-  
+  { path: 'productos/:id', component: VistaproductoComponent },
+
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: UsuarioFormComponent },
-  { path: 'usuarios/:id', component: VistausuariosComponent},
-  { path: 'historial', component: HistorialComponent}
+  { path: 'usuarios/:id', component: VistausuariosComponent },
+  { path: 'usuarios/sea/rch/:username', component: BuscarComponent },
+  { path: 'historial', component: HistorialComponent }
 ];
 /**
  * Para poner las rutas que vamos a utilizar
@@ -52,7 +54,8 @@ const routes: Routes = [
     VistausuariosComponent,
     VistaproductoComponent,
     ReportesComponent,
-    HistorialComponent
+    HistorialComponent,
+    BuscarComponent
   ],
   imports: [
     BrowserModule,

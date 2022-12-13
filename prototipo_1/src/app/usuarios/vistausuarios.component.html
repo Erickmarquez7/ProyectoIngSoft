@@ -1,45 +1,44 @@
 <section style="background-color: #1d2b50">
     <div class="container-fluid py-5">
-    <h1>
-        <FONT COLOR="white">Detalles del producto</FONT>
-    </h1>
-    
-    <div *ngIf="usuario">
-    
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card p-3 py-4">
-                    <div class="text-center mt-5">
-                        <h1><img src={{usuario.foto}} class="card-img-top"
-                            alt="Laptop" /></h1>
-                    </div>
-    
-                    <div class="text-center mt-2">
-                        <h2>Id: {{usuario.id}}</h2>
-                        <h3>Nombre: {{usuario.nombre}} {{usuario.paterno}} {{usuario.materno}}</h3>
-                    </div>
-    
-                    <div class="text-center mt-2">
-                        <div class="px-4 mt-1">
-                            {{usuario.carrera}}
-                        </div>
-                        
-                        <div class="px-4 mt-1">
-                            <span class="fw-bold">Email:</span> {{usuario.email}}
+        <h1>
+            <FONT COLOR="white">Detalles del Usuario</FONT>
+        </h1>
+
+        <div *ngIf="usuario">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7">
+                    <div class="card p-3 py-4">
+                        <div class="text-center mt-5">
+                            <h1><img src={{usuario.foto}} class="card-img-top" alt="Laptop" /></h1>
                         </div>
 
-                        <div class="px-4 mt-1">
-                            <span class="fw-bold">Celular:</span> {{usuario.celular}}
+                        <div class="text-center mt-2">
+                            <h2>Numero de Cuenta: {{ usuario.username }}</h2>
+                            <h3>Nombre: {{usuario.nombre}} {{usuario.paterno}} {{usuario.materno}}</h3>
                         </div>
-    
-                        <div class="px-4 mt-1">
-                            <span class="fw-bold">Activo:</span> {{usuario.enabled}}
-                        </div>
-    
-                        <div class="px-4 mb-2">
-                            <span class="fw-bold">Puma Puntos:</span> {{usuario.pumapuntos}}
+
+                        <div class="text-center mt-2">
+                            <div class="px-4 mt-1">
+                                {{usuario.carrera}}
+                            </div>
+
+                            <div class="px-4 mt-1">
+                                <span class="fw-bold">Email:</span> {{usuario.email}}
+                            </div>
+
+                            <div class="px-4 mt-1">
+                                <span class="fw-bold">Celular:</span> {{usuario.celular}}
+                            </div>
+
+                            <div class="px-4 mt-1">
+                                <span class="fw-bold">Activo:</span> {{usuario.enabled}}
+                            </div>
+
+                            <div class="px-4 mb-2">
+                                <span class="fw-bold">Puma Puntos:</span> {{usuario.pumapuntos}}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
