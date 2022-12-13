@@ -60,11 +60,15 @@ public class ProductoRestController {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (Exception e) {
+			response.put("mensaje", "Error al realizar la consulta");
+			response.put("error", e.getMessage().concat(": "));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
 		
 		if(producto == null) {
-			response.put("mensaje", "El cliente ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+			response.put("mensaje", "El producto con ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
@@ -86,11 +90,20 @@ public class ProductoRestController {
 		Producto productoNuevo= null;
 		Map<String,Object> response = new HashMap<>();
 		try {
+			if (producto.getCategoria() == "" || producto.getNombre() == "" || producto.getCantidad() < 0
+					|| producto.getDescripcion() == "" || producto.getDias() < 0 || producto.getPrecio() < 0) {
+			throw new IllegalArgumentException();
+		}
 			productoNuevo = productoService.save(producto);
 		}catch(DataAccessException e) {
 			response.put("mensaje", "Error al realizar el insert en la base de datos.");
 			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (IllegalArgumentException e) {
+			response.put("mensaje", "Error, los campos no fueron llenados correctamente");
+			// response.put("eror", e.getMessage().concat(": "
+			// ).concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		response.put("mensaje", "El producto ha sido creado con éxito :3");
 		response.put("producto", productoNuevo);
@@ -118,6 +131,11 @@ public class ProductoRestController {
 		}
 		
 		try {
+			if (producto.getCategoria() == "" || producto.getNombre() == "" || producto.getCantidad() < 0
+					|| producto.getDescripcion() == "" || producto.getDias() < 0 || producto.getPrecio() < 0) {
+			throw new IllegalArgumentException();
+			}
+
 			currentProducto.setCategoria(producto.getCategoria());
 			currentProducto.setNombre(producto.getNombre());
 			currentProducto.setDescripcion(producto.getDescripcion());
@@ -130,7 +148,13 @@ public class ProductoRestController {
 			response.put("mensaje", "Error al actualizar el producto en la base de datos.");
 			response.put("error",e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch (IllegalArgumentException e) {
+			response.put("mensaje", "Error, los campos no fueron llenados correctamente");
+			// response.put("eror", e.getMessage().concat(": "
+			// ).concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
+
 		response.put("mensaje", "El producto ha sido actualizado con éxito :3");
 		response.put("producto", productoUpdate);
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);

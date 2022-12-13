@@ -111,7 +111,7 @@ export class ProductoService {
    * Actualiza un producto
    * @param producto el producto a actualizar
    * @returns 
-   */
+   */ 
   update(producto: Producto): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${producto.id}`, producto, {headers: this.agregarAuthorizationHeader()}).pipe(
       catchError(e => {

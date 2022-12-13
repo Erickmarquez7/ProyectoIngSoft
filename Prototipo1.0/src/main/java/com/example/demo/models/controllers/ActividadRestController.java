@@ -97,6 +97,7 @@ public class ActividadRestController {
 		return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
 		//return actividadService.save(actividad);
 	}
+	
 
 	/**
 	 * Actualiza un actividad por otro
