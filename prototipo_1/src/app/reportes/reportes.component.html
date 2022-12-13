@@ -67,7 +67,7 @@
       </table>
     </div>
     <div class="container-fluid py-5">
-      <h1>Usuarios Con mayor número de rentas</h1>
+      <h1>Usuarios Con Mayor Número De Rentas</h1>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
@@ -82,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of ">
+          <tr *ngFor="let usuario of masRentadores">
             <td><span>{{usuario.username}} </span></td>
             <td><span>{{usuario.nombre}} </span></td>
             <td><span>{{usuario.paterno}} </span></td>
@@ -91,32 +91,6 @@
             <td><span>{{usuario.celular}} </span></td>
             <td><span>{{usuario.email}} </span></td>
             <td><span>{{usuario.pumapuntos}} </span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="container-fluid py-5" >
-      <table class="table table-bordered table-striped" >
-        <thead >
-          <tr >
-            <th >ID</th>
-            <th>CATEGORIA</th>
-            <th>NOMBRE </th>
-            <th>DESCRIPCION</th>
-            <th>CANTIDAD</th>
-            <th>PRECIO</th>
-            <th>DIAS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let producto of productos">
-            <td><span>{{producto.id}} </span></td>
-            <td><span>{{categoria.id}} </span></td>
-            <td><span>{{nombre.id}} </span></td>
-            <td><span>{{descripcion.id}} </span></td>
-            <td><span>{{cantidad.id}} </span></td>
-            <td><span>{{precio.id}} </span></td>
-            <td><span>{{dias.id}} </span></td>
           </tr>
         </tbody>
       </table>
