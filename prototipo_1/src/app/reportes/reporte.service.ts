@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Producto } from '../productos/producto';
+import { Usuario } from '../usuarios/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -50,15 +51,7 @@ export class ReporteService {
     }
     return false;
   }
-
-  /**
-    * Obtencion de las rentas
-     * @returns la lista de rentas
-     */
-  getBaratos(): Observable<Producto>{
-    return this.http.get<Producto>(this.urlEndPoint+"reportes/2");
-  }
-
+  
   /**
     * Obtencion de las rentas
      * @returns la lista de rentas
@@ -67,6 +60,38 @@ export class ReporteService {
     return this.http.get<Object[]>(this.urlEndPoint+"reportes/1");
   }
 
-  
+  /**  
+    * Obtencion de productos mas baratos 
+     * @returns la lista de rentas
+     */
+  getBaratos(): Observable<Producto[]>{
+    return this.http.get<Producto[]>(this.urlEndPoint+"reportes/2");
+  }
+
+  /**
+   * Obtencion de los productos mas rentados en el mes 
+   */
+  getMasRentados(): Observable<Object[]>{
+    return this.http.get<Object[]>(this.urlEndPoint+"reportes/3");
+  }
+
+  getUsuariosNoActivos() : Observable<Object[]> { 
+    return this.http.get<Object[]>(this.urlEndPoint+"reportes/4");
+  }
+
+  getUsuariosPorCarrera(): Observable<Object[]>{
+    return this.http.get<Object[]>(this.urlEndPoint+"reportes/5");
+  }
+
+
+  /**
+   * Obtiene todos los usuarios activos 
+   * @returns 
+   */
+  getUsuariosActivos(): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlEndPoint}reportes6/`,{ headers: this.agregarAuthorizationHeader() });
+  }
+
+
 
 }

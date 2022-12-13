@@ -1,9 +1,74 @@
-<section style="background-color: #1d2b50">
+<section style="background-color: #a3b5e8">
     <div class="container-fluid py-5">
       <h1>
         <FONT COLOR="white">Reportes mensuales</FONT>
       </h1> 
       <div class="row">
-      </div>             
+      </div>     
+      <script type="typescript">
+        console.log(usuarios)
+      </script>
+      <div class="container-fluid py-5" >
+        <table class="table table-bordered table-striped" >
+          <thead >
+            <tr >
+              <th >ID</th>
+              <th>CATEGORIA</th>
+              <th>NOMBRE </th>
+              <th>DESCRIPCION</th>
+              <th>CANTIDAD</th>
+              <th>PRECIO</th>
+              <th>DIAS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of getBaratos()">
+              <td><span>{{producto.id}} </span></td>
+              <td><span>{{categoria.id}} </span></td>
+              <td><span>{{nombre.id}} </span></td>
+              <td><span>{{descripcion.id}} </span></td>
+              <td><span>{{cantidad.id}} </span></td>
+              <td><span>{{precio.id}} </span></td>
+              <td><span>{{dias.id}} </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="container-fluid py-5">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>USERNAME</th>
+            <th>PASSWORD</th>
+            <th>NOMBRE </th>
+            <th>PATERNO</th>
+            <th>MATERNO</th>
+            <th>CARRERA</th>
+            <th>CELULAR</th>
+            <th>EMAIL</th>
+            <th>ACTIVO</th>
+            <th>ROLES</th>
+            <th>PUMAPUNTOS</th>
+            <th>FECHA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td><span>{{usuario.username}} </span></td>
+            <td><span>{{usuario.password}} </span></td>
+            <td><span>{{usuario.nombre}} </span></td>
+            <td><span>{{usuario.paterno}} </span></td>
+            <td><span>{{usuario.materno}} </span></td>
+            <td><span>{{usuario.carrera}} </span></td>
+            <td><span>{{usuario.celular}} </span></td>
+            <td><span>{{usuario.email}} </span></td>
+            <td><span>{{usuario.activo}} </span></td>
+            <td><span>{{usuario.pumaputos}} </span></td>
+            <td><span>{{usuario.fecha}} </span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 </section>
