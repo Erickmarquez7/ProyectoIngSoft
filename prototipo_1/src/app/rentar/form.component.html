@@ -1,0 +1,64 @@
+<div class="card bg-dark text-white container my-2">
+    <div class="card-header"> Rentas </div>
+    <div class="card-body">
+
+        <form>
+            <!-- Para rellenar el IDrentar -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">ID</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" [(ngModel)]="rentar.id" name="id">
+                </div>
+            </div>
+
+            <!-- Para rellenar la FechaInicio -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Fecha de inicio</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="rentar.fechaInicio" name="fechaInicio">
+                </div>
+            </div>
+
+            
+            <!-- Para rellenar la FechaFin -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Fecha de entrega</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" [(ngModel)]="rentar.fechaFin" name="descripcion">
+                </div>
+            </div>
+
+            <!-- Para rellenar la Producto ID -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Producto ID</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" [(ngModel)]="rentar.productoId" name="productoId">
+                </div>
+            </div>
+
+            <!-- Para rellenar el Usuario ID -->
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Usuario ID</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" [(ngModel)]="rentar.usuarioId" name="usuarioId">
+                </div>
+            </div>
+
+            <!-- Boton para crear -->
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <!-- *ngIf="!rentar.id else elseBlock" -->
+                    <!-- Al momento de dar click en el boton agregar mandamos a llamar
+                    el metodo create() de form.component.ts -->
+                    <button class="btn btn-primary" role="button" (click)="update()" *ngIf="!rentar.id else elseBlock">Actualizar</button>                   
+                    <ng-template #elseBlock>
+                        <button class="btn btn-secondary" role="button" (click)="create()">Rentar</button>                   
+                    </ng-template>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
