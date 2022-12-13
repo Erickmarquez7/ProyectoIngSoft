@@ -6,7 +6,6 @@
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.math.BigInteger;
 import java.util.List;
@@ -98,7 +97,6 @@ public class Usuario implements Serializable {
 	inverseJoinColumns=@JoinColumn(name="role_id"),
 	uniqueConstraints= {@UniqueConstraint(columnNames= {"usuario_id", "role_id"})})
 	private List<Role> roles;
- 
 
 	public Long getId() {
 		return id;
@@ -240,9 +238,6 @@ public class Usuario implements Serializable {
 		}
 	}
 	*/
-	
-	
-	
 
 	
 	public void testUsingSimpleRegex() {

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 /**
  * @author ATL
- * @author Dylan Emmanuel Radilla
+ * @author Radilla Maldonado Dylan Emmanuel
  */
 @Entity
 @Table(name="actividades")

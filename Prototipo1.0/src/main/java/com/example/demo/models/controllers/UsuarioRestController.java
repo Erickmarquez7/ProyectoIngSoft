@@ -188,34 +188,32 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	
 	@Secured("ROLE_ADMIN")
-	@PutMapping("/usuarios/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable Long id) {
-		Usuario currentuser = this.usuarioService.findById(id);
-		Usuario updateduser = null;
-		Map<String, Object> response = new HashMap<>();
-		// Error con el id ingresado
-		if (currentuser == null) {
-			response.put("mensaje", "Error : no se puede editar el usuario"
-					.concat(id.toString().concat(" no existe en la base de datos")));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+    @PutMapping("/usuarios/form/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable Long id) {
+    	Usuario currentuser = this.usuarioService.findById(id);
+    	Usuario updateduser = null; 
+    	Map<String,Object> response = new HashMap<>();
+    	//Error con el id ingresado
+    	if(currentuser == null) {
+    		response.put("mensaje", "Error : no se puede editar el usuario".concat(id.toString().concat(" no existe en la base de datos")));
+    		return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND); 
 
-		}
-		try {
-			if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0
-					|| usuario.getRoles() == null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0
-					|| usuario.getPumapuntos() > 500 || usuario.getEmail() == null) {
-				throw new IllegalArgumentException();
-			}
-			currentuser.setPassword(usuario.getPassword());
-			currentuser.setNombre(usuario.getNombre());
-			currentuser.setPaterno(usuario.getPaterno());
-			currentuser.setMaterno(usuario.getMaterno());
-			currentuser.setCarrera(usuario.getCarrera());
-			currentuser.setCelular(usuario.getCelular());
-			currentuser.setEmail(usuario.getEmail());
-			currentuser.setRoles(usuario.getRoles());
+    	}
+    	try {
+			if (usuario.getPassword() == "" || usuario.getNombre() == "" || usuario.getCelular().intValue() < 0 ||usuario.getRoles() ==  null || usuario.getEnabled() == null || usuario.getPumapuntos() < 0 || usuario.getPumapuntos() > 500 || usuario.getEmail() == null ) {
+    			throw new IllegalArgumentException();
+    		} 		
+    		currentuser.setPassword(usuario.getPassword());
+    		currentuser.setNombre(usuario.getNombre());
+    		currentuser.setPaterno(usuario.getPaterno());
+    		currentuser.setMaterno(usuario.getMaterno());
+    		currentuser.setCarrera(usuario.getCarrera());
+    		currentuser.setCelular(usuario.getCelular());
+    		currentuser.setEmail(usuario.getEmail());
+    		currentuser.setRoles(usuario.getRoles());
 			currentuser.setFoto(usuario.getFoto());
 			currentuser.setEnabled(usuario.getEnabled());
 			currentuser.setPumapuntos(usuario.getPumapuntos());
@@ -358,11 +356,6 @@ public class UsuarioRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	//Metodo perteneciente a Ver Reporte 
-	@GetMapping("/usuarios/activos")
-	public List<Usuario>  showActives(){
-		return usuarioService.getUsuariosActivos(); 
-	}
 	
 	@Secured("ROLE_ADMIN")
     @DeleteMapping("/usuarios/{id}")
@@ -420,11 +413,44 @@ public class UsuarioRestController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }
 	
+	
+
+	//Metodo para los Reportes
+	@GetMapping("/reportes/1")
+	public List<Usuario> verReportes1(){
+		return usuarioService.masRentasUsuario();
+	}
+
+
+	//Metodo para los Reportes
+	@GetMapping("/reportes/3")
+	public List<Object[]> verReportes3(){
+		return usuarioService.masRentados();
+	}
+	
 
 	//Metodo para los Reportes
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/reportes")
 	public List<Producto> verReportes2(){
 		return usuarioService.masBarato();
+	}
+
+	//Metodo para los Reportes
+	@GetMapping("/reportes/4")
+	public List<Usuario> verReportes4(){
+		return usuarioService.noActivos();
+	}
+	
+	//Metodo para los Reportes
+	@GetMapping("/reportes/5")
+	public List<Usuario> verReportes5(){
+		return usuarioService.porCarreraAct();
+	}
+
+	//Metodo perteneciente a Ver Reporte 
+	@GetMapping("/reportes/6")
+	public List<Usuario>  showActives(){
+		return usuarioService.getUsuariosActivos(); 
 	}
 }

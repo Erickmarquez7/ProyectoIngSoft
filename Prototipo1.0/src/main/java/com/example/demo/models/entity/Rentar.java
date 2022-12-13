@@ -25,8 +25,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author DozalMagnaniDiego
- * @author BernalMárquezErick
+ * @author Dozal Magnani Diego
+ * @author Berna lMárquez Erick
+ * @author Reyes Farfán Andrea Fernanda
  */
 
 

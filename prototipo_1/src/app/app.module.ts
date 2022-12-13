@@ -30,13 +30,15 @@ const routes: Routes = [
   { path: 'productos/:id', component: VistaproductoComponent },
   { path: 'productos/sea/rch/:name', component: ProductoBuscarComponent },
 
+  
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: UsuarioFormComponent },
-  { path: 'usuarios/:id', component: VistausuariosComponent },
+  { path: 'usuarios/:id', component: VistausuariosComponent},
   { path: 'usuarios/sea/rch/:username', component: UsuarioBuscarComponent },
-  { path: 'historial', component: HistorialComponent }
+  { path: 'historial', component: HistorialComponent},
+  { path: 'reportes', component: ReportesComponent}
 ];
 /**
  * Para poner las rutas que vamos a utilizar
@@ -52,13 +54,15 @@ const routes: Routes = [
     VistausuariosComponent,
     ProductoFormComponent,
     LoginComponent,
-    UsuariosComponent,
-    VistausuariosComponent,
+  
     VistaproductoComponent,
     ReportesComponent,
     HistorialComponent,
     UsuarioBuscarComponent,
-    ProductoBuscarComponent
+    ProductoBuscarComponent,
+    
+    
+    
   ],
   imports: [
     BrowserModule,

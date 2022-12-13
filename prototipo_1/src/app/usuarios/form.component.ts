@@ -16,9 +16,9 @@ export class FormComponent implements OnInit {
   titulo: string = "Añadir usuario";
   usuario: Usuario = new Usuario();
 
-  //Esto es para sumar PumaPuntos 
-  montoS : number = 0; 
-  montoR : number = 0; 
+   //Esto es para sumar PumaPuntos 
+   montoS : number = 0; 
+   montoR : number = 0; 
 
   constructor(private usuarioService: UsuarioService, private router:Router, private activatedRoute: ActivatedRoute) { }
 
@@ -39,7 +39,7 @@ export class FormComponent implements OnInit {
     this.usuarioService.create(this.usuario).subscribe(usuario => 
       {
         this.router.navigate(['/usuarios'])
-        Swal.fire('Nuevo Usuario', `${usuario.nombre} creado con éxito`, 'success')
+        Swal.fire('Nuevo Usuario', ` ${usuario.nombre} creado con éxito`, 'success')
       }
     )
   }
@@ -57,7 +57,6 @@ export class FormComponent implements OnInit {
       this.router.navigate(['/usuarios'])
        //Swal.fire('Se sumo correctamente los puntos', `${this.usuario.nombre} con éxito`, 'success')
     })
-
   }
 
 

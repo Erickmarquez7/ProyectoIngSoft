@@ -28,7 +28,6 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
     private IUsuarioDao usuarioDao;
 
 
-
     /**
 	 * Encuentra todos los usuarios
 	 * @return Una lista de usuarios
@@ -159,4 +158,25 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 		return usuarioDao.status();
 	}
 
+
+	@Override
+	public List<Usuario> masRentasUsuario() {
+		// TODO Auto-generated method stub
+		return usuarioDao.masRentasUsuario();
+	}
+
+
+	@Override
+	public List<Usuario> porCarreraAct() {
+		// TODO Auto-generated method stub
+		return usuarioDao.porCarreraAct();
+	}
+
+
+	@Override
+	public List<Usuario> noActivos() {
+		// TODO Auto-generated method stub
+		return usuarioDao.noActivos();
+	}
+ 
 }
