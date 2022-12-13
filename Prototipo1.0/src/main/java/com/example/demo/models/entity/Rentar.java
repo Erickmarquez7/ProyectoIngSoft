@@ -1,7 +1,12 @@
+/**
+ * Clase para definir los productos rentados por los usuarios
+ * Se hace a traves de del id del producto e id del usuario
+ * Para hacer el join debemos unir ambos id
+ */
 package com.example.demo.models.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,21 +15,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.example.demo.models.entity.pk.RentarPK;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author DozalMagnaniDiego
@@ -34,93 +28,90 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="rentar")
-//@IdClass(Rentar.class)
 public class Rentar implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id; 
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name="fechainicio")
-	private Date fechaInicio; 
+	@Column(columnDefinition = "DATE")
+	private LocalDate fechaInicio; 
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name="fechafin")
-	private Date fechaFin; 
+	@Column(columnDefinition = "DATE")
+	private LocalDate fechafin; 
 	
-	//@Id
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL )
-	@JoinColumn(name="id", insertable = false, updatable = false)
-	//@ManyToOne()
-	//@JoinColumn(name="id")
-	private Usuario usuario;
+	@JoinColumn(name="id",insertable = false, updatable = false)
+	private Usuario usuario; 
 	
-	//@Id
+	@Column(name = "usuario_id")
+	private Long usuario_id;
+	
+	
 	@ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	//crea una columna llamada id producto y guarda el id del producto
-	@JoinColumn(name="id", insertable = false, updatable = false)
-	//@ManyToOne()
-	//@JoinColumn(name="id")
+	@JoinColumn(name="id",insertable = false, updatable = false)
 	private Producto producto;
+	
+	@Column(name = "producto_id")
+	private Long producto_id;
 	
 	
 	private static final long serialVersionUID = 1L;
 
-	
-	
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public Date getFechaInicio() {
+	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
 
-	
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(LocalDate fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	
-	public Date getFechaFin() {
-		return fechaFin;
+	public LocalDate getFechafin() {
+		return fechafin;
 	}
 
-	
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
+	public void setFechafin(LocalDate fechafin) {
+		this.fechafin = fechafin;
 	}
-
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 
 	public Producto getProducto() {
 		return producto;
 	}
 
-
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+	public Long getUsuario_id() {
+		return usuario_id;
+	}
+
+	public void setUsuario_id(Long usuario_id) {
+		this.usuario_id = usuario_id;
+	}
+
+	public Long getProducto_id() {
+		return producto_id;
+	}
+
+	public void setProducto_id(Long producto_id) {
+		this.producto_id = producto_id;
 	}
 	
 	
