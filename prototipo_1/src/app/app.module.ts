@@ -19,7 +19,8 @@ import { VistausuariosComponent } from './usuarios/vistausuarios.component';
 import { VistaproductoComponent } from './productos/vistaproducto.component';
 import { ReportesComponent } from './reportes/reportes.component';
 import { HistorialComponent } from './historial/historial.component';
-import { BuscarComponent } from './usuarios/buscar.component';
+import { BuscarComponent as UsuarioBuscarComponent} from './usuarios/buscar.component';
+import { BuscarComponent as ProductoBuscarComponent } from './productos/buscar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
@@ -27,13 +28,14 @@ const routes: Routes = [
   { path: 'productos/form', component: ProductoFormComponent },
   { path: 'productos/form/:id', component: ProductoFormComponent },
   { path: 'productos/:id', component: VistaproductoComponent },
+  { path: 'productos/sea/rch/:name', component: ProductoBuscarComponent },
 
   { path: 'login', component: LoginComponent },
   { path: 'usuarios', component: UsuariosComponent },
   { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: UsuarioFormComponent },
   { path: 'usuarios/:id', component: VistausuariosComponent },
-  { path: 'usuarios/sea/rch/:username', component: BuscarComponent },
+  { path: 'usuarios/sea/rch/:username', component: UsuarioBuscarComponent },
   { path: 'historial', component: HistorialComponent }
 ];
 /**
@@ -55,7 +57,8 @@ const routes: Routes = [
     VistaproductoComponent,
     ReportesComponent,
     HistorialComponent,
-    BuscarComponent
+    UsuarioBuscarComponent,
+    ProductoBuscarComponent
   ],
   imports: [
     BrowserModule,
