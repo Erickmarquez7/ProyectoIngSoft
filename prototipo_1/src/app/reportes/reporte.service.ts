@@ -53,11 +53,11 @@ export class ReporteService {
   }
   
   /**
-    * Obtencion de las rentas
-     * @returns la lista de rentas
+    * Obtencion de los usuarios con más rentas
+     * @returns la lista de usuarios con más rentas
      */
-  getRentasSem(): Observable<Object[]>{
-    return this.http.get<Object[]>(`${this.urlEndPoint}/1`);
+  getRentasSem(): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlEndPoint}/1`);
   }
 
   /**  

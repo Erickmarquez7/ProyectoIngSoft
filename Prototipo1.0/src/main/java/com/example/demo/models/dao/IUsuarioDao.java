@@ -24,8 +24,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	* @return la lista del top 5 de los productos que requieren menor
 	* cantidad de puma puntos.
 	*/
-	@Query(
-    value= "SELECT * FROM productos ORDER BY precio ASC LIMIT 5;", nativeQuery = true)
+	@Query(value= "SELECT * FROM productos ORDER BY precio ASC LIMIT 5;", nativeQuery = true)
     public List<Producto> masBaratos();
 
     /**
@@ -33,34 +32,39 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     * @return los 5 usuarios con más rentas en una semana.
     */
     @Query(
-    value= "WITH aux AS ("
-        + "SELECT * FROM rentar WHERE "
-        + "fecha_inicio BETWEEN NOW() - INTERVAL '7 days' AND NOW()) "
-        + "SELECT count(id) AS rentas_Sem, usuario_id FROM aux "
-        + "GROUP BY usuario_id ORDER BY rentas_Sem DESC LIMIT 5;", 
+    value= "WITH aux(iden) AS "
+         + "(SELECT usuario_id FROM rentar "
+         + "WHERE fecha_inicio BETWEEN NOW()"
+         + " - INTERVAL '7 days' AND NOW()) "
+         + " SELECT id, carrera, celular, email, "
+         + " enabled, fecha, foto, materno, nombre, "
+         + " password, paterno, pumapuntos, username "
+         + " FROM usuarios, aux WHERE usuarios.id=aux.iden"
+         + " GROUP BY usuarios.id, aux.iden;", 
     nativeQuery = true)
-    public List<Object[]> masRentasUsuario();
+    public List<Usuario> masRentasUsuario();
 
     /**
     * Lista de productos más rentados en el mes.
     * @return Los 5 productos más rentados en el mes.
     */
     @Query(
-    value= "WITH aux AS ("
-        + "SELECT * FROM rentar WHERE "
-        + "fecha_inicio BETWEEN NOW() - INTERVAL '1 month' AND NOW()) "
-        + "SELECT count(id) AS rentas_Mes, producto_id FROM aux "
-        + "GROUP BY producto_id ORDER BY rentas_Mes DESC LIMIT 5;", 
+    value= "WITH aux(iden) AS "
+    + "(SELECT producto_id FROM rentar "
+    + "WHERE fecha_inicio BETWEEN NOW()"
+    + " - INTERVAL '1 Month' AND NOW()) "
+    + " SELECT id, categoria, nombre, descripcion, cantidad, precio, dias"
+    + " FROM productos, aux WHERE productos.id=aux.iden"
+    + " GROUP BY productos.id, aux.iden;",  
     nativeQuery = true)
-    public List<Object[]> masRentados();
+    public List<Producto> masRentados();
 
 
     /**
     * Lista de usuarios activos por carrera.
     * @return Los usuarios activos por cada carrera.
     */
-    @Query(
-    value= "SELECT * FROM usuarios WHERE enabled=true ORDER BY carrera;", nativeQuery = true)
+    @Query(value= "SELECT * FROM usuarios WHERE enabled=true ORDER BY carrera;", nativeQuery = true)
     public List<Usuario> porCarreraAct();
 
     /**

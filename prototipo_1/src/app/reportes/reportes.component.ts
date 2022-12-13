@@ -23,7 +23,7 @@ export class ReportesComponent implements OnInit {
   productos : Producto[];
   porCarrera : Usuario[];
   inactivos: Usuario[];
-  masRentadores: Object[];
+  masRentadores: Usuario[];
   masRentados: Object[];
 
   
@@ -37,6 +37,9 @@ export class ReportesComponent implements OnInit {
     )
     this.reporteService.getUsuariosNoActivos().subscribe(
       inactivos => this.inactivos = inactivos
+    )
+    this.reporteService.getRentasSem().subscribe(
+      masRentadores => this.masRentadores = masRentadores
     )
   }
 

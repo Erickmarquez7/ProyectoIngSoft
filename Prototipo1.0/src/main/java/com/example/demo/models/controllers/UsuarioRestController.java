@@ -251,7 +251,7 @@ public class UsuarioRestController {
 
 	//Metodo para los Reportes
 	@GetMapping("/reportes/1")
-	public List<Object[]> verReportes1(){
+	public List<Usuario> verReportes1(){
 		return usuarioService.masRentasUsuario();
 	}
 
@@ -263,7 +263,7 @@ public class UsuarioRestController {
 
 	//Metodo para los Reportes
 	@GetMapping("/reportes/3")
-	public List<Object[]> verReportes3(){
+	public List<Producto> verReportes3(){
 		return usuarioService.masRentados();
 	}
 	

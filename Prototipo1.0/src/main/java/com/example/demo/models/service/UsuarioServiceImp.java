@@ -124,14 +124,14 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
 
 	@Override
-	public List<Object[]> masRentasUsuario() {
+	public List<Usuario> masRentasUsuario() {
 		// TODO Auto-generated method stub
 		return usuarioDao.masRentasUsuario();
 	}
 
 
 	@Override
-	public List<Object[]> masRentados() {
+	public List<Producto> masRentados() {
 		// TODO Auto-generated method stub
 		return usuarioDao.masRentados();
 	}

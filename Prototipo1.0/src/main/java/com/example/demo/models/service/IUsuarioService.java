@@ -57,14 +57,14 @@ public interface IUsuarioService {
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> masRentasUsuario();
+    public List<Usuario> masRentasUsuario();
 
 	
 	/**
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> masRentados();
+    public List<Producto> masRentados();
 
 	/**
      * Metodo perteneciente al caso de uso : Ver Reportes 
