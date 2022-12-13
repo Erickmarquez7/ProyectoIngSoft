@@ -25,7 +25,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	* cantidad de puma puntos.
 	*/
 	@Query(
-    value= "SELECT * FROM productos ORDER BY precio asc LIMIT 5;", nativeQuery = true)
+    value= "SELECT * FROM productos ORDER BY precio ASC LIMIT 5;", nativeQuery = true)
     public List<Producto> masBaratos();
 
     /**
@@ -60,16 +60,13 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     * @return Los usuarios activos por cada carrera.
     */
     @Query(
-    value= "SELECT COUNT(id), carrera FROM usuarios WHERE enabled=true GROUP BY carrera;", 
-    nativeQuery = true)
-    public List<Object[]> porCarreraAct();
+    value= "SELECT * FROM usuarios WHERE enabled=true ORDER BY carrera;", nativeQuery = true)
+    public List<Usuario> porCarreraAct();
 
     /**
     * Lista de usuarios inactivos
     * @return Usuarios inactivos
     */
-    @Query( 
-    value= "SELECT COUNT(id), status FROM usuarios WHERE enabled=false GROUP BY enabled;", 
-    nativeQuery = true)
-    public List<Object[]> noActivos();
+    @Query(value = "SELECT * FROM usuarios WHERE usuarios.enabled = false;", nativeQuery = true)
+    public List<Usuario> noActivos();
 }

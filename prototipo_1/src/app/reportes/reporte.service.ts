@@ -15,7 +15,7 @@ import { Usuario } from '../usuarios/usuario';
 })
 export class ReporteService {
 
-  private urlEndPoint:string = 'http://localhost:8090/api/';
+  private urlEndPoint:string = 'http://localhost:8090/api/reportes';
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
@@ -57,7 +57,7 @@ export class ReporteService {
      * @returns la lista de rentas
      */
   getRentasSem(): Observable<Object[]>{
-    return this.http.get<Object[]>(this.urlEndPoint+"reportes/1");
+    return this.http.get<Object[]>(`${this.urlEndPoint}/1`);
   }
 
   /**  
@@ -65,33 +65,30 @@ export class ReporteService {
      * @returns la lista de rentas
      */
   getBaratos(): Observable<Producto[]>{
-    return this.http.get<Producto[]>(this.urlEndPoint+"reportes/2");
+    return this.http.get<Producto[]>(`${this.urlEndPoint}/2`);
   }
 
   /**
    * Obtencion de los productos mas rentados en el mes 
    */
   getMasRentados(): Observable<Object[]>{
-    return this.http.get<Object[]>(this.urlEndPoint+"reportes/3");
+    return this.http.get<Object[]>(`${this.urlEndPoint}/3`);
   }
 
-  getUsuariosNoActivos() : Observable<Object[]> { 
-    return this.http.get<Object[]>(this.urlEndPoint+"reportes/4");
+  getUsuariosNoActivos() : Observable<Usuario[]> { 
+    return this.http.get<Usuario[]>(`${this.urlEndPoint}/4`);
   }
 
-  getUsuariosPorCarrera(): Observable<Object[]>{
-    return this.http.get<Object[]>(this.urlEndPoint+"reportes/5");
+  getUsuariosPorCarrera(): Observable<Usuario[]>{
+    return this.http.get<Usuario[]>(`${this.urlEndPoint}/5`);
   }
-
 
   /**
    * Obtiene todos los usuarios activos 
    * @returns 
    */
   getUsuariosActivos(): Observable<Usuario[]>{
-    return this.http.get<Usuario[]>(`${this.urlEndPoint}reportes6/`,{ headers: this.agregarAuthorizationHeader() });
+    return this.http.get<Usuario[]>(`${this.urlEndPoint}/6`);
   }
-
-
 
 }

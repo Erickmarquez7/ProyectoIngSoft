@@ -19,25 +19,29 @@ export class ReportesComponent implements OnInit {
 
   constructor(private reporteService: ReporteService, private authService:AuthService, private router: Router) { }
 
-  usuarios : Usuario[]; 
+  usuariosAct : Usuario[];
+  productos : Producto[];
+  porCarrera : Usuario[];
+  inactivos: Usuario[];
+  masRentadores: Object[];
+  masRentados: Object[];
 
   
 
   ngOnInit(): void {
     this.reporteService.getUsuariosActivos().subscribe(
-      usuarios => this.usuarios = usuarios
-    ); 
+      usuariosAct => this.usuariosAct = usuariosAct
+    );
+    this.reporteService.getUsuariosPorCarrera().subscribe(
+      porCarrera => this.porCarrera = porCarrera
+    )
+    this.reporteService.getUsuariosNoActivos().subscribe(
+      inactivos => this.inactivos = inactivos
+    )
   }
 
   public getBaratos():Observable<Producto[]>{
     return this.reporteService.getBaratos(); 
   }
-
-  public getUsuariosActivos(){
-    this.reporteService.getUsuariosActivos().subscribe(
-      usuarios => this.usuarios = usuarios
-    ); 
-  }
-
 
 }

@@ -3,7 +3,7 @@
       <h1>
         <FONT COLOR="white">Reportes mensuales</FONT>
       </h1> 
-      <div class="row">
+     <div class="row">
       </div>     
       <script type="typescript">
         console.log(usuarios)
@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let producto of getBaratos()">
+            <tr *ngFor="let producto of productos">
               <td><span>{{producto.id}} </span></td>
               <td><span>{{categoria.id}} </span></td>
               <td><span>{{nombre.id}} </span></td>
@@ -37,36 +37,59 @@
     </div>
 
     <div class="container-fluid py-5">
+      <h1>Usuarios Inactivos</h1>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>USERNAME</th>
-            <th>PASSWORD</th>
             <th>NOMBRE </th>
             <th>PATERNO</th>
             <th>MATERNO</th>
             <th>CARRERA</th>
             <th>CELULAR</th>
             <th>EMAIL</th>
-            <th>ACTIVO</th>
-            <th>ROLES</th>
             <th>PUMAPUNTOS</th>
-            <th>FECHA</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let usuario of usuarios">
+          <tr *ngFor="let usuario of inactivos">
             <td><span>{{usuario.username}} </span></td>
-            <td><span>{{usuario.password}} </span></td>
             <td><span>{{usuario.nombre}} </span></td>
             <td><span>{{usuario.paterno}} </span></td>
             <td><span>{{usuario.materno}} </span></td>
             <td><span>{{usuario.carrera}} </span></td>
             <td><span>{{usuario.celular}} </span></td>
             <td><span>{{usuario.email}} </span></td>
-            <td><span>{{usuario.activo}} </span></td>
-            <td><span>{{usuario.pumaputos}} </span></td>
-            <td><span>{{usuario.fecha}} </span></td>
+            <td><span>{{usuario.pumapuntos}} </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container-fluid py-5">
+      <h1>Usuarios Activos Por Carrera</h1>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>USERNAME</th>
+            <th>NOMBRE </th>
+            <th>PATERNO</th>
+            <th>MATERNO</th>
+            <th>CARRERA</th>
+            <th>CELULAR</th>
+            <th>EMAIL</th>
+            <th>PUMAPUNTOS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of porCarrera">
+            <td><span>{{usuario.username}} </span></td>
+            <td><span>{{usuario.nombre}} </span></td>
+            <td><span>{{usuario.paterno}} </span></td>
+            <td><span>{{usuario.materno}} </span></td>
+            <td><span>{{usuario.carrera}} </span></td>
+            <td><span>{{usuario.celular}} </span></td>
+            <td><span>{{usuario.email}} </span></td>
+            <td><span>{{usuario.pumapuntos}} </span></td>
           </tr>
         </tbody>
       </table>

@@ -70,13 +70,13 @@ public interface IUsuarioService {
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> porCarreraAct();
+    public List<Usuario> porCarreraAct();
 
 	/**
      * Metodo perteneciente al caso de uso : Ver Reportes 
      * @return
      */
-    public List<Object[]> noActivos();
+    public List<Usuario> noActivos();
 
 
 

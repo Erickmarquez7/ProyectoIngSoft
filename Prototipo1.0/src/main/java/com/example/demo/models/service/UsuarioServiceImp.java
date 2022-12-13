@@ -138,14 +138,14 @@ public class UsuarioServiceImp implements IUsuarioService, UserDetailsService {
 
 
 	@Override
-	public List<Object[]> porCarreraAct() {
+	public List<Usuario> porCarreraAct() {
 		// TODO Auto-generated method stub
 		return usuarioDao.porCarreraAct();
 	}
 
 
 	@Override
-	public List<Object[]> noActivos() {
+	public List<Usuario> noActivos() {
 		// TODO Auto-generated method stub
 		return usuarioDao.noActivos();
 	}
