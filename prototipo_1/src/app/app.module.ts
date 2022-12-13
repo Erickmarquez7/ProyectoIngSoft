@@ -32,7 +32,8 @@ const routes: Routes = [
   { path: 'usuarios/form', component: UsuarioFormComponent },
   { path: 'usuarios/form/:id', component: UsuarioFormComponent },
   { path: 'usuarios/:id', component: VistausuariosComponent},
-  { path: 'historial', component: HistorialComponent}
+  { path: 'historial', component: HistorialComponent},
+  { path: 'reportes', component: ReportesComponent}
 ];
 /**
  * Para poner las rutas que vamos a utilizar
@@ -51,7 +52,8 @@ const routes: Routes = [
     UsuariosComponent,
     VistaproductoComponent,
     ReportesComponent,
-    HistorialComponent
+    HistorialComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

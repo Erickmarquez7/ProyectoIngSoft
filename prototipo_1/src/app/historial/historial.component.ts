@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Historial } from './historial';
 import { HistorialService } from './historial.service';
 import Swal from 'sweetalert2';
-import { AuthService } from '../usuarios/auth.service';;
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-historial',

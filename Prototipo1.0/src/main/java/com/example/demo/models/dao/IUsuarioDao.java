@@ -25,7 +25,7 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	* cantidad de puma puntos.
 	*/
 	@Query(
-    value= "SELECT * FROM productos ORDER BY precio asc LIMIT 3;", nativeQuery = true)
+    value= "SELECT * FROM productos ORDER BY precio asc LIMIT 5;", nativeQuery = true)
     public List<Producto> masBaratos();
 
     /**
@@ -36,8 +36,8 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     value= "WITH aux AS ("
         + "SELECT * FROM rentar WHERE "
         + "fecha_inicio BETWEEN NOW() - INTERVAL '7 days' AND NOW()) "
-        + "SELECT count(id) AS rentar, usuario_id FROM aux "
-        + "GROUP BY usuario_id ORDER BY rentas DESC LIMIT 5;", 
+        + "SELECT count(id) AS rentas_Sem, usuario_id FROM aux "
+        + "GROUP BY usuario_id ORDER BY rentas_Sem DESC LIMIT 5;", 
     nativeQuery = true)
     public List<Object[]> masRentasUsuario();
 
@@ -48,9 +48,9 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
     @Query(
     value= "WITH aux AS ("
         + "SELECT * FROM rentar WHERE "
-        + "fecha_renta BETWEEN NOW() - INTERVAL '1 month' AND NOW()) "
-        + "SELECT count(id) AS rentas, producto_id FROM aux "
-        + "GROUP BY producto_id ORDER BY rentar DESC LIMIT 5;", 
+        + "fecha_inicio BETWEEN NOW() - INTERVAL '1 month' AND NOW()) "
+        + "SELECT count(id) AS rentas_Mes, producto_id FROM aux "
+        + "GROUP BY producto_id ORDER BY rentas_Mes DESC LIMIT 5;", 
     nativeQuery = true)
     public List<Object[]> masRentados();
 

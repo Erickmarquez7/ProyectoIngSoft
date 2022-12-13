@@ -251,14 +251,42 @@ public class UsuarioRestController {
 
 	//Metodo para los Reportes
 	@Secured("ROLE_ADMIN")
-	@GetMapping("/reportes")
+	@GetMapping("/reportes/1")
+	public List<Object[]> verReportes1(){
+		return usuarioService.masRentasUsuario();
+	}
+
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes/2")
 	public List<Producto> verReportes2(){
 		return usuarioService.masBarato();
 	}
 
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes/3")
+	public List<Object[]> verReportes3(){
+		return usuarioService.masRentados();
+	}
+	
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes/4")
+	public List<Object[]> verReportes4(){
+		return usuarioService.noActivos();
+	}
+	
+	//Metodo para los Reportes
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/reportes/5")
+	public List<Object[]> verReportes5(){
+		return usuarioService.porCarreraAct();
+	}
+
 	//Metodo perteneciente a Ver Reporte 
 	@Secured("ROLE_ADMIN")
-	@GetMapping("/usuarios/activos")
+	@GetMapping("/reportes/6")
 	public List<Usuario>  showActives(){
 		return usuarioService.getUsuariosActivos(); 
 	}
